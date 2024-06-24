@@ -1,5 +1,5 @@
 import { Image, StyleSheet, View } from "react-native";
-import Icon from "../assets/praneelcrawling.png"
+import Icon from "./assets/praneelcrawling.png"
 
 export default function SplashScreen(){
     return (

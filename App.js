@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import SplashScreen from "./views/SplashScreen";
+import SplashScreen from "./splashScreen";
 import { useEffect, useState } from "react";
 
 export default function App() {
@@ -11,7 +11,7 @@ export default function App() {
   });
   return (
     <View style={styles.container}>
-      {isShowSplashScreen ? <SplashScreen /> : <Text> Home Screen </Text>}
+      {isShowSplashScreen ? <SplashScreen/> : <Text> Home Screen </Text>}
     </View>
   );
 }
