@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function SIGNUPFORM() {
+export default function signupform() {
   const [globalState, setGlobalState] = useState("state default value");
 
   const {
@@ -29,7 +29,7 @@ export default function SIGNUPFORM() {
     defaultValues: {
       firstName: "First Name",
       lastName: "Last Name",
-      
+
     },
   })
 
