@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form"
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
+    position: "flex",
     top: 320,
     left: 8,
     letterSpacing: -0.6,
@@ -13,12 +13,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: 310,
-    height: 94,
+    height: 80,
     alignContent: "center",
   },
 });
 
-export default function signupform() {
+export default function Signupform() {
   const [globalState, setGlobalState] = useState("state default value");
 
   const {
