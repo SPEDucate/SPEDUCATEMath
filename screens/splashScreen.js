@@ -1,5 +1,5 @@
 import { Image, StyleSheet, View } from "react-native";
-import Icon from "./assets/praneelcrawling.png"
+import Icon from "../assets/speducatelogo1.png"
 
 export default function SplashScreen(){
     return (
@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: '#83AAF5',
+        backgroundColor: '#1B0F18',
     },
     image: {
-        width: 100, 
-        height: 100, 
+        width: 370, 
+        height: 1000, 
         resizeMode: "cover",
     }
 })
