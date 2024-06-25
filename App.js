@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import SplashScreen from "./splashScreen";
-import TESTFORM from "./FORM";
+import TESTFORM from "./preference-form";
 import { useEffect, useState } from "react";
 
 export default function App() {
