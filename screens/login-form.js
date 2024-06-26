@@ -56,13 +56,13 @@ export default function LoginForm() {
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             style={styles.input}
-            placeholder="First Name"
+            placeholder='First Name'
             onBlur={onBlur}
             onChangeText={value => onChange(value)}
             value={value}
           />
         )}
-        name="firstName"
+        name='firstName'
       />
 
       <Controller
@@ -73,20 +73,20 @@ export default function LoginForm() {
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             style={styles.input}
-            placeholder="Last Name"
+            placeholder='Last Name'
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
           />
         )}
-        name="lastName"
+        name='lastName'
       />
 
       {/* HAVE to use handleSubmit() wrapping around Submit */}
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      <Button title='Submit' onPress={handleSubmit(onSubmit)} />
 
       <Text>
-        The globalState variable is set to {"\n"}
+        The globalState variable is set to {'\n'}
         {globalState}
       </Text>
     </View>
