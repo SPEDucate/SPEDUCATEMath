@@ -4,17 +4,19 @@ import { useForm, Controller } from "react-hook-form";
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    top: 320,
-    left: 8,
+    position: 'center',
     letterSpacing: -0.6,
-    textAlign: "center",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    marginLeft:'auto',
+    marginRight:'auto',
+    marginTop:'auto',
+    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 310,
-    height: 94,
-    alignContent: "center",
+    height: 80,
+    alignContent: 'center',
+    flex: 2,
   },
 });
 
@@ -23,8 +25,10 @@ export default function TESTFORM() {
 
   const { control, handleSubmit, formState } = useForm({
     defaultValues: {
+      /*
       firstName: "default value 1",
       lastName: "default value 2",
+      */
     },
   });
 
@@ -43,13 +47,13 @@ export default function TESTFORM() {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            placeholder="First name"
+            placeholder="Preference-1"
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChangeText={value => onChange(value)}
             value={value}
           />
         )}
-        name="firstName"
+        name="preferenceOne"
       />
 
       <Controller
@@ -59,13 +63,13 @@ export default function TESTFORM() {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            placeholder="Last name"
+            placeholder="Preference-2"
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChangeText={value => onChange(value)}
             value={value}
           />
         )}
-        name="lastName"
+        name="preferenceTwo"
       />
 
       {/* HAVE to use handleSubmit() wrapping around Submit */}
