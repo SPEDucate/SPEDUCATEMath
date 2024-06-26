@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import SplashScreen from "./screens/splashScreen";
-import Signupform from "./screens/signup";
+import SplashScreen from "./screens/splash-screen";
+import Signupform from "./signup";
 import { useEffect, useState } from "react";
 
 export default function App() {
