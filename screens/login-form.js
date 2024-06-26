@@ -4,10 +4,11 @@ import { useForm, Controller } from "react-hook-form";
 
 const styles = StyleSheet.create({
   container: {
-    position: "flex",
-    top: 320,
-    left: 8,
+    position: "center",
     letterSpacing: -0.6,
+    marginLeft:"auto",
+    marginRight:"auto",
+    marginTop:"auto",
     textAlign: "center",
     display: "flex",
     alignItems: "center",
@@ -15,17 +16,26 @@ const styles = StyleSheet.create({
     width: 310,
     height: 80,
     alignContent: "center",
+    flex: 2,
   },
+
+  input: {
+    position:"flex",
+
+  }
 });
 
 export default function LoginForm() {
   const [globalState, setGlobalState] = useState("state default value");
 
   const { control, handleSubmit, formState } = useForm({
+    /*
     defaultValues: {
+
       firstName: "First Name",
       lastName: "Last Name",
     },
+    */
   });
 
   /* Controls what happens when form is submitted by submit button */
@@ -40,12 +50,15 @@ export default function LoginForm() {
         control={control}
         rules={{
           maxLength: 100,
+          required: true,
+
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            placeholder="First name"
+            style={styles.input}
+            placeholder="First Name"
             onBlur={onBlur}
-            onChangeText={onChange}
+            onChangeText={value => onChange(value)}
             value={value}
           />
         )}
@@ -59,7 +72,8 @@ export default function LoginForm() {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            placeholder="Last name"
+            style={styles.input}
+            placeholder="Last Name"
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
