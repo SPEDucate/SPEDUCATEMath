@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import SplashScreen from "./screens/splashScreen";
-import Signupform from "./screens/signup";
+import SplashScreen from "./screens/splash-screen";
+import LoginForm from "./screens/login-form";
 import { useEffect, useState } from "react";
 
 export default function App() {
@@ -13,7 +13,7 @@ export default function App() {
   
   return (
     <View style={styles.container}>
-      {isShowSplashScreen ? <SplashScreen/> : <Signupform></Signupform>}      
+      {isShowSplashScreen ? <SplashScreen/> : <LoginForm></LoginForm>}      
     </View>
   );
 }
