@@ -13,10 +13,7 @@ export default function App() {
   
   return (
     <View style={styles.container}>
-      {isShowSplashScreen ? <SplashScreen/> : <Signupform></Signupform>}
-      
-      {/* Use the stuff in FORM.js to put into a login */}
-      
+      {isShowSplashScreen ? <SplashScreen/> : <Signupform></Signupform>}      
     </View>
   );
 }
