@@ -42,6 +42,8 @@ Pull Requests are requests to merge two branches together. Someone will need to 
 
 Once everything is resolved, the code reviewer can accept the pull request and the main branch will be updated accordingly. **After a successfull pull request, _DELETE_ the old branch and create a new one for any edits afterward.**
 
+It's worth noting BEFORE a pull request has been accepted, any additional commits will be reflected on the pull request after syncing.
+
 #### Local Backups
 
 Before merging with the main branch, it's a good idea to copy and back up the files locally. Worst comes to worst, just start copy-pasting into the branch.
