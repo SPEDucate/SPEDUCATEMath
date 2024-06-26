@@ -1,39 +1,39 @@
-import React, { useState } from "react";
-import { Text, View, TextInput, Button, StyleSheet } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import React, { useState } from 'react';
+import { Text, View, TextInput, Button, StyleSheet } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
 
 const styles = StyleSheet.create({
   container: {
-    position: "center",
+    position: 'center',
     letterSpacing: -0.6,
-    marginLeft:"auto",
-    marginRight:"auto",
-    marginTop:"auto",
-    textAlign: "center",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    marginLeft:'auto',
+    marginRight:'auto',
+    marginTop:'auto',
+    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 310,
     height: 80,
-    alignContent: "center",
+    alignContent: 'center',
     flex: 2,
   },
 
   input: {
-    position:"flex",
+    position:'flex',
 
   }
 });
 
 export default function LoginForm() {
-  const [globalState, setGlobalState] = useState("state default value");
+  const [globalState, setGlobalState] = useState('state default value');
 
   const { control, handleSubmit, formState } = useForm({
     /*
     defaultValues: {
 
-      firstName: "First Name",
-      lastName: "Last Name",
+      firstName: 'First Name',
+      lastName: 'Last Name',
     },
     */
   });
