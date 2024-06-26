@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Text, View, TextInput, Button, StyleSheet } from "react-native"
-import { useForm, Controller } from "react-hook-form"
+import { Text, View, TextInput, Button, StyleSheet } from "react-native";
+import { useForm, Controller } from "react-hook-form";
 
 const styles = StyleSheet.create({
   container: {
@@ -21,22 +21,18 @@ const styles = StyleSheet.create({
 export default function TESTFORM() {
   const [globalState, setGlobalState] = useState("state default value");
 
-  const {
-    control,
-    handleSubmit,
-    formState,
-  } = useForm({
+  const { control, handleSubmit, formState } = useForm({
     defaultValues: {
       firstName: "default value 1",
       lastName: "default value 2",
     },
-  })
+  });
 
   /* Controls what happens when form is submitted by submit button */
   const onSubmit = (data) => {
     console.log(data);
     setGlobalState(data.firstName);
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -75,7 +71,10 @@ export default function TESTFORM() {
       {/* HAVE to use handleSubmit() wrapping around Submit */}
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
 
-      <Text>The globalState variable is set to {"\n"}{globalState}</Text>
+      <Text>
+        The globalState variable is set to {"\n"}
+        {globalState}
+      </Text>
     </View>
-  )
+  );
 }
