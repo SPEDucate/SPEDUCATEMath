@@ -54,4 +54,4 @@ Use single quotes `' '` when possible. If you don't, Rithul will strangle you.
 
 ### Handling Catastrophies 💀
 
-- If you do end up editing the main branch, use `Git: Stash` to retrieve the changes that you made, save them, and undo them from the current branch. Use `Git: Checkout to...` to move to a new branch. Then, in the new branch, use `Git: Apply Stash` to apply the saved changes. Then cross your fingers and hope it worked.
+- If you do end up editing the main branch, use `Git: Stash` to retrieve the changes that you made, save them, and undo them from the current branch. Use `Git: Checkout to...` to move to a new branch. Then, in the new branch, use `Git: Apply Stash` to apply the saved changes. Now cross your fingers and hope it worked.
