@@ -1,25 +1,30 @@
 import React, { useState, useRef } from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import Question from "./question";
 
 const PreferenceFormUI = () => {
   const formData = require("../data/preference-form-data.json");
 
-  console.log(formData);
-
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-
+  // console.log(formData);
   // const handleLogin = () => {};
 
   return (
-    <View>
-      <Text>hello</Text>
-      {formData.map((data, index) => {
-        <Question key={index} {...data}></Question>;
-      })}
+    <View style={styles.container}>
+      <Text>sample text</Text>
+      <Question>{formData[0]}</Question>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+    marginRight: "auto",
+    marginLeft: "auto",
+    marginTop: "auto",
+    justifyContent: "center",
+    paddingHorizontal: 20,
+  },
+});
 
 export default PreferenceFormUI;
