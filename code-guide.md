@@ -25,7 +25,9 @@ Use the _Prettier_ extension for general formatting. **Set _Prettier: Tab Width_
 
 ### Quotations
 
+<s>
 Use single quotes `' '` when possible. If you don't, Rithul will strangle you.
+</s>
 
 ## Using Git
 
