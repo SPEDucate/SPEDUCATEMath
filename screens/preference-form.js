@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Alert } from "react-native";
 
 const PreferenceFormUI = () => {
+  // Get the JSON file with all the questions info
   const formData = require("../data/preference-form-data.json");
+  // console.log(formData);
 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [currQuestionData, setCurrQuestionData] = useState(formData[0]);
-  
-  // Get the JSON file with all the questions info
-  console.log(formData);
 
   function incrementQuestion() {
     var nextQuestionIndex = questionIndex + 1;
