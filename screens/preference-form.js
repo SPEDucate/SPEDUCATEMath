@@ -15,6 +15,8 @@ const PreferenceFormUI = () => {
     // If the index is out of bounds
     if (nextQuestionIndex >= formData.length || nextQuestionIndex < 0) {
       Alert.alert("OUT OF BOUNDS INDEX");
+      // Do something here
+      // probably go to the curriculum or smth
       return;
     }
 
@@ -31,7 +33,7 @@ const PreferenceFormUI = () => {
       {/* Answer Choices */}
       {currQuestionData.options.map((item, index) => (
         <Text 
-          key={index} onPress = {incrementQuestion}>{item}</Text>
+          key={index} onPress={incrementQuestion}>{item}</Text>
       ))}
     </View>
   );
