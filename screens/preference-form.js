@@ -1,17 +1,40 @@
 import React, { useState, useRef } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, Alert } from "react-native";
 import Question from "./question";
 
 const PreferenceFormUI = () => {
   const formData = require("../data/preference-form-data.json");
 
-  // console.log(formData);
-  // const handleLogin = () => {};
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [currQuestionData, setCurrQuestionData] = useState(formData[0]);
+  
+  // Get the JSON file with all the questions info
+  console.log(formData);
+
+  function incrementQuestion() {
+    var nextQuestionIndex = questionIndex + 1;
+
+    // If the index is out of bounds
+    if (nextQuestionIndex >= formData.length || nextQuestionIndex < 0) {
+      Alert.alert("NO");
+      return;
+    }
+
+    // Set states (which updates display)
+    setQuestionIndex(questionIndex => nextQuestionIndex);
+    setCurrQuestionData(currQuestionData => formData[nextQuestionIndex]);
+  }
 
   return (
     <View style={styles.container}>
-      <Text>sample text</Text>
-      <Question>{formData[0]}</Question>
+      {/* Question Number and Question*/}
+      <Text>{questionIndex + 1}. {currQuestionData.questionText}</Text>
+
+      {/* Answer Choices */}
+      {currQuestionData.options.map((item, index) => (
+        <Text 
+          key={index} onPress = {incrementQuestion}>{item}</Text>
+      ))}
     </View>
   );
 };
