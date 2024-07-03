@@ -1,19 +1,27 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Animated, Image } from 'react-native';
+import React, { useState, useRef } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Animated,
+  Image,
+} from "react-native";
 import Logo from "../assets/SPEDUCATE-Transparent.png";
 
-
 const LoginFormUI = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const buttonAnim = useRef(new Animated.Value(1)).current;
 
   const handleLogin = () => {
-    if (username === '' || password === '') {
-      Alert.alert('Error', 'Please enter both username and password');
+    if (username === "" || password === "") {
+      Alert.alert("Error", "Please enter both username and password");
     } else {
       // Perform login logic here
-      Alert.alert('Login Successful', `Welcome, ${username}!`);
+      Alert.alert("Login Successful", `Welcome, ${username}!`);
     }
   };
 
@@ -39,14 +47,14 @@ const LoginFormUI = () => {
         style={styles.input}
         value={username}
         onChangeText={setUsername}
-        placeholder="Enter your username"
+        placeholder='Enter your username'
       />
       <Text style={styles.label}>Password</Text>
       <TextInput
         style={styles.input}
         value={password}
         onChangeText={setPassword}
-        placeholder="Enter your password"
+        placeholder='Enter your password'
         secureTextEntry
       />
       <Animated.View style={{ transform: [{ scale: buttonAnim }] }}>
@@ -61,35 +69,35 @@ const LoginFormUI = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     paddingHorizontal: 20,
-    backgroundColor: '#1B0F18', 
+    backgroundColor: "#1B0F18",
   },
   label: {
     fontSize: 16,
     marginBottom: 8,
-    color: '#333', 
+    color: "#333",
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     marginBottom: 12,
     paddingHorizontal: 10,
-    borderRadius: 20, 
-    backgroundColor: '#fff', 
+    borderRadius: 20,
+    backgroundColor: "#fff",
   },
   button: {
-    backgroundColor: '#007bff', 
+    backgroundColor: "#007bff",
     paddingVertical: 12,
     paddingHorizontal: 20,
-    borderRadius: 25, 
-    alignItems: 'center',
+    borderRadius: 25,
+    alignItems: "center",
   },
   buttonText: {
-    color: '#fff', 
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   image: {
     width: 30,
