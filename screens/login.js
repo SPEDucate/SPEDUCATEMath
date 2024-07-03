@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Animated, I
 import Logo from "../assets/SPEDUCATE-Transparent.png";
 
 
-const LoginForm = () => {
+const LoginFormUI = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const buttonAnim = useRef(new Animated.Value(1)).current;
@@ -34,7 +34,6 @@ const LoginForm = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={Logo} style={styles.image} />
       <Text style={styles.label}>Username</Text>
       <TextInput
         style={styles.input}
@@ -99,12 +98,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const styleImage = StyleSheet.create({
+/*const styleImage = StyleSheet.create({
   image: {
     width: 370,
     height: 1000,
     resizeMode: "cover",
   },
-});
+});*/
 
-export default LoginForm;
+export default LoginFormUI;
