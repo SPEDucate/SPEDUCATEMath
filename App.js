@@ -23,3 +23,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+// src/App.js
+import React from 'react';
+import './App.css';
+import Users from './Users';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Welcome to the React App</h1>
+        <Users />
+      </header>
+    </div>
+  );
+}
+
+
