@@ -12,10 +12,14 @@ export default function App() {
     }, 3000);
   });
 
+  // return (
+  //   <View style={styles.container}>
+  //     {isShowSplashScreen ? <SplashScreen /> : <LoginFormUI></LoginFormUI>}
+  //   </View>
+  // );
+
   return (
     <View style={styles.container}>
-      {isShowSplashScreen ? <SplashScreen /> : <LoginFormUI></LoginFormUI>}
-
       <PreferenceFormUI></PreferenceFormUI>
     </View>
   );
