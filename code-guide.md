@@ -17,8 +17,9 @@ Use the _Prettier_ extension for general formatting. **Set _Prettier: Tab Width_
 - React Native Elements: PascalCase
   - `<HomeScreen>`
   - `export default function HomeScreen()`
-- Variable Names: camelCase
+- Variables and Functions: camelCase
   - `myVar`
+  - `funcYes()`
 
 **MAKE NAMES DESCRIPTIVE.** Everything from branch names to image files. Do it.
 
