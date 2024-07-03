@@ -1,0 +1,17 @@
+[
+  {
+    "questionText": "A",
+    "options": [
+      "Yes",
+      "No"
+    ]
+  },
+  
+  {
+    "questionText": "B",
+    "options": [
+      "Op3",
+      "Op4"
+    ]
+  }
+]
