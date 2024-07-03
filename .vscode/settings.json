@@ -1,0 +1,27 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.vscode": true,
+        ".vscode": true,
+        "**/.gitignore": true,
+        ".gitignore": true,
+        "**/package.json": true,
+        "*.json": false,
+        "package.json": true,
+        "**/*.json": false,
+        "**/babel.config.js": true,
+        "babel.config.js": true,
+        "**/%ProgramData%": true,
+        "%ProgramData%": true,
+        "**/.expo": true,
+        ".expo": true,
+        "**/node_modules": true,
+        "node_modules": true
+    },
+    "explorerExclude.backup": {}
+}

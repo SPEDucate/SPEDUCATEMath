@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import SplashScreen from "./screens/splash-screen";
 import { useEffect, useState } from "react";
 import LoginFormUI from "./screens/login";
+import PreferenceFormUI from "./screens/preference-form";
 
 export default function App() {
   const [isShowSplashScreen, setIsShowSplashScreen] = useState(true);
@@ -10,10 +11,12 @@ export default function App() {
       setIsShowSplashScreen(false);
     }, 3000);
   });
-  
+
   return (
     <View style={styles.container}>
-      {isShowSplashScreen ? <SplashScreen/> : <LoginFormUI></LoginFormUI>}      
+      {isShowSplashScreen ? <SplashScreen /> : <LoginFormUI></LoginFormUI>}
+
+      <PreferenceFormUI></PreferenceFormUI>
     </View>
   );
 }
