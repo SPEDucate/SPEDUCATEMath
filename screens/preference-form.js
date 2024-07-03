@@ -1,6 +1,5 @@
-import React, { useState, useRef } from "react";
-import { View, Text, Button, StyleSheet, Alert } from "react-native";
-import Question from "./question";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Alert } from "react-native";
 
 const PreferenceFormUI = () => {
   const formData = require("../data/preference-form-data.json");
@@ -16,18 +15,18 @@ const PreferenceFormUI = () => {
 
     // If the index is out of bounds
     if (nextQuestionIndex >= formData.length || nextQuestionIndex < 0) {
-      Alert.alert("NO");
+      Alert.alert("OUT OF BOUNDS INDEX");
       return;
     }
 
-    // Set states (which updates display)
-    setQuestionIndex(questionIndex => nextQuestionIndex);
-    setCurrQuestionData(currQuestionData => formData[nextQuestionIndex]);
+    // Update states (which then updates display)
+    setQuestionIndex(nextQuestionIndex);
+    setCurrQuestionData(formData[nextQuestionIndex]);
   }
 
   return (
     <View style={styles.container}>
-      {/* Question Number and Question*/}
+      {/* Question Number and Question Text*/}
       <Text>{questionIndex + 1}. {currQuestionData.questionText}</Text>
 
       {/* Answer Choices */}
@@ -42,9 +41,7 @@ const PreferenceFormUI = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 2,
-    marginRight: "auto",
-    marginLeft: "auto",
-    marginTop: "auto",
+    margin: "auto",
     justifyContent: "center",
     paddingHorizontal: 20,
   },
