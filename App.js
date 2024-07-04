@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import SplashScreen from "./screens/splash-screen";
+import LoginForm from "./screens/login-form";
 import { useEffect, useState } from "react";
-import LoginFormUI from "./screens/login";
 
 export default function App() {
   const [isShowSplashScreen, setIsShowSplashScreen] = useState(true);
@@ -13,7 +13,7 @@ export default function App() {
   
   return (
     <View style={styles.container}>
-      {isShowSplashScreen ? <SplashScreen/> : <LoginFormUI></LoginFormUI>}      
+      {isShowSplashScreen ? <SplashScreen/> : <LoginForm></LoginForm>}      
     </View>
   );
 }
