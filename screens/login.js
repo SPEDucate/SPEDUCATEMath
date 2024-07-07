@@ -1,67 +1,90 @@
-import React, { useState, useRef } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-  Animated,
-  Image,
-} from "react-native";
-import Logo from "../assets/SPEDUCATE-Transparent.png";
+/*import React, { useState, useEffect } from 'react';
 
-const LoginFormUI = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const buttonAnim = useRef(new Animated.Value(1)).current;
 
-  const handleLogin = () => {
-    if (username === "" || password === "") {
-      Alert.alert("Error", "Please enter both username and password");
-    } else {
-      // Perform login logic here
-      Alert.alert("Login Successful", `Welcome, ${username}!`);
+import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { openDatabase, createTable, insertUser, getUser } from './database';
+import SQLite from 'react-native-sqlite-storage';
+
+
+const Login = () => {
+  //const [db, setDb] = useState(null);
+  const db = SQLite.openDatabase({ name: 'userDatabase.db', location: 'default' });
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Initialize the database when the component mounts
+  useEffect(() => {
+    const initDatabase = async () => {
+      try {
+        const database = await openDatabase();
+        setDb(database);
+        if (database) {
+          await createTable(database);
+        }
+      } catch (error) {
+        console.error("Database initialization failed:", error);
+        Alert.alert('Database Error', 'Failed to initialize the database');
+      }
+    };
+    initDatabase();
+  }, []);
+
+  const handleLogin = async () => {
+    if (!db) {
+      Alert.alert('Database Error', 'Database not initialized');
+      return;
+    }
+
+    try {
+      const users = await getUser(db, username);
+      if (users.length > 0) {
+        if (users[0].password === password) {
+          Alert.alert('Login Successful', `Welcome, ${username}!`);
+        } else {
+          Alert.alert('Error', 'Incorrect password');
+        }
+      } else {
+        Alert.alert('Error', 'User not found');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      Alert.alert('Login Error', 'An error occurred during login');
     }
   };
 
-  const animateButton = () => {
-    Animated.sequence([
-      Animated.timing(buttonAnim, {
-        toValue: 0.8,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-      Animated.timing(buttonAnim, {
-        toValue: 1,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-    ]).start(handleLogin);
+  const handleRegister = async () => {
+    if (!db) {
+      Alert.alert('Database Error', 'Database not initialized');
+      return;
+    }
+
+    try {
+      await insertUser(db, username, password);
+      Alert.alert('Success', 'User registered successfully');
+    } catch (error) {
+      console.error('Error during registration:', error);
+      Alert.alert('Registration Error', 'An error occurred during registration');
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Username</Text>
+      <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
+        placeholder="Username"
         value={username}
         onChangeText={setUsername}
-        placeholder='Enter your username'
       />
-      <Text style={styles.label}>Password</Text>
       <TextInput
         style={styles.input}
+        placeholder="Password"
+        secureTextEntry
         value={password}
         onChangeText={setPassword}
-        placeholder='Enter your password'
-        secureTextEntry
       />
-      <Animated.View style={{ transform: [{ scale: buttonAnim }] }}>
-        <TouchableOpacity style={styles.button} onPress={animateButton}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-      </Animated.View>
+      <Button title="Login" onPress={handleLogin} />
+      <Button title="Register" onPress={handleRegister} />
     </View>
   );
 };
@@ -69,49 +92,128 @@ const LoginFormUI = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    paddingHorizontal: 20,
-    backgroundColor: "#1B0F18",
+    justifyContent: 'center',
+    padding: 16,
   },
-  label: {
-    fontSize: 16,
-    marginBottom: 8,
-    color: "#333",
+  title: {
+    fontSize: 24,
+    marginBottom: 16,
+    textAlign: 'center',
   },
   input: {
     height: 40,
-    borderColor: "gray",
+    borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 12,
-    paddingHorizontal: 10,
-    borderRadius: 20,
-    backgroundColor: "#fff",
-  },
-  button: {
-    backgroundColor: "#007bff",
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 25,
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  image: {
-    width: 30,
-    height: 1000,
-    resizeMode: "cover",
+    paddingHorizontal: 8,
   },
 });
 
-/*const styleImage = StyleSheet.create({
-  image: {
-    width: 370,
-    height: 1000,
-    resizeMode: "cover",
-  },
-});*/
+export default Login;*/
 
-export default LoginFormUI;
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { openDatabase, createTable, insertUser, getUser } from './database';
+
+const Login = () => {
+  const [db, setDb] = useState(null);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    const initDatabase = async () => {
+      try {
+        const database = await openDatabase();
+        setDb(database);
+        if (database) {
+          await createTable(database);
+        }
+      } catch (error) {
+        console.error("Database initialization failed:", error);
+        Alert.alert('Database Error', 'Failed to initialize the database');
+      }
+    };
+    initDatabase();
+  }, []);
+
+  const handleLogin = async () => {
+    if (!db) {
+      Alert.alert('Database Error', 'Database not initialized');
+      return;
+    }
+
+    try {
+      const users = await getUser(db, username);
+      if (users.length > 0) {
+        if (users[0].password === password) {
+          Alert.alert('Login Successful', `Welcome, ${username}!`);
+        } else {
+          Alert.alert('Error', 'Incorrect password');
+        }
+      } else {
+        Alert.alert('Error', 'User not found');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      Alert.alert('Login Error', 'An error occurred during login');
+    }
+  };
+
+  const handleRegister = async () => {
+    if (!db) {
+      Alert.alert('Database Error', 'Database not initialized');
+      return;
+    }
+
+    try {
+      await insertUser(db, username, password);
+      Alert.alert('Success', 'User registered successfully');
+    } catch (error) {
+      console.error('Error during registration:', error);
+      Alert.alert('Registration Error', 'An error occurred during registration');
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Login</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        value={username}
+        onChangeText={setUsername}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+      <Button title="Login" onPress={handleLogin} />
+      <Button title="Register" onPress={handleRegister} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingHorizontal: 8,
+  },
+});
+
+export default Login;
