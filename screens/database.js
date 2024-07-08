@@ -75,10 +75,16 @@ SQLite.enablePromise(true);
 // Function to open or create the database
 const openDatabase = async () => {
   try {
-    const db = await SQLite.openDatabase({ name: 'userDatabase.db', location: 'default' });
+    //const db = await SQLite.openDatabase({ name: 'userDatabase.db', location: 'default' });
+    //const db = SQLite.openDatabase('userDatabase.db');
+    const db=SQLite.openDatabase({ name: 'ShanthaTest.db', location: 'default' });
+    console.log("db is " +db);
     console.log("Database opened");
-    return db;
+    /*const testing = "CREATE TABLE test (id INTEGER ,username TEXT);";
+    SQLite.executeSql(testing);*/
+    //return db;
   } catch (error) {
+    //db.close();
     console.error("Error opening database:", error);
     return null;
   }
@@ -86,7 +92,9 @@ const openDatabase = async () => {
 
 // Function to create the users table
 const createTable = async (db) => {
-  if (!db) return;
+  console.log("in table creation");
+  console.log("db" +db);
+  //if (!db) return;
 
   try {
     await db.executeSql(
@@ -96,11 +104,36 @@ const createTable = async (db) => {
         password TEXT
       );`
     );
+    /*await db.executeSql(
+      `CREATE TABLE test (
+        id INTEGER ,
+        username TEXT
+      );`
+    );*/
     console.log('Table created successfully');
   } catch (error) {
     console.error('Error creating table:', error);
   }
 };
+
+/*const createTable = () => {
+  db.transaction(tx => {
+    tx.executeSql(
+      `CREATE TABLE IF NOT EXISTS Users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        age INTEGER
+      )`,
+      [],
+      () => {
+        console.log('Table created successfully');
+      },
+      error => {
+        console.log('Error: ', error);
+      }
+    );
+  });
+};*/
 
 // Function to insert a new user
 const insertUser = async (db, username, password) => {

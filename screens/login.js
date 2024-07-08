@@ -137,10 +137,13 @@ const Login = () => {
   }, []);
 
   const handleLogin = async () => {
-    if (!db) {
-      Alert.alert('Database Error', 'Database not initialized');
-      return;
+    console.log("in login");
+    try {
+      setDb("userDatabase.db");
+    } catch (error) {
+      console.log(error);
     }
+
 
     try {
       const users = await getUser(db, username);
@@ -160,6 +163,7 @@ const Login = () => {
   };
 
   const handleRegister = async () => {
+    console.log("in register");
     if (!db) {
       Alert.alert('Database Error', 'Database not initialized');
       return;
