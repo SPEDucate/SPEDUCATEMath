@@ -18,7 +18,10 @@
     "react-native-select-dropdown": "^4.0.1",
     "react-native-sqlite-storage": "^6.0.1",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "react-dom": "18.2.0",
+    "react-native-web": "~0.19.10",
+    "@expo/metro-runtime": "~3.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0"
