@@ -11,9 +11,9 @@ const App = () => {
     // Open or create the database
     const openDB = async () => {
       try {
-        const db = await SQLite.openDatabase(
+        const db = await SQLite.openDatabse(
           {
-            name: 'test.db',
+            name: 'userDatabase.db',
             location: 'default',
           },
           () => {
@@ -34,6 +34,7 @@ const App = () => {
 
     openDB();
   }, []);
+
 
   return (
     <View>

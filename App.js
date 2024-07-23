@@ -17,7 +17,6 @@ const App = () => {
         //const database = openDatabase();
         console.log("db created");
         setDb(database);
-        createTable(database);
         /*if (database) {
           await createTable(database);
         }*/

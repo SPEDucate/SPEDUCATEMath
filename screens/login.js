@@ -114,11 +114,14 @@ export default Login;*/
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { openDatabase, createTable, insertUser, getUser } from './database';
+import * as FileSystem from "expo-file-system";
+import { Asset } from "expo-asset";
 
 const Login = () => {
   const [db, setDb] = useState(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
 
   useEffect(() => {
     const initDatabase = async () => {
