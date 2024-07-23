@@ -9,5 +9,13 @@
         "**/CVS": false,
         "**/Thumbs.db": false
     },
-    "explorerExclude.backup": {}
+    "explorerExclude.backup": {},
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "userDatabse",
+            "database": "${workspaceFolder:SPEDUCATEMath-1}/userDatabase.db"
+        }
+    ]
 }
