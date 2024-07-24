@@ -128,9 +128,9 @@ const Login = () => {
       try {
         const database = await openDatabase();
         setDb(database);
-        if (database) {
+        /*if (database) {
           await createTable(database);
-        }
+        }*/
       } catch (error) {
         console.error("Database initialization failed:", error);
         Alert.alert('Database Error', 'Failed to initialize the database');

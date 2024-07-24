@@ -5,12 +5,13 @@ import LoginFormUI from "./screens/login";
 import PreferenceFormUI from "./screens/preference-form";
 import Login from "./screens/login";
 import { openDatabase, createTable } from './screens/database';
+import LoginNew from "./screens/loginNew";
 
 const App = () => {
   const [isShowSplashScreen, setIsShowSplashScreen] = useState(true);
   const [db, setDb] = useState(null);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const initDatabase = async () => {
       try {
         const database = await openDatabase();
@@ -19,13 +20,13 @@ const App = () => {
         setDb(database);
         /*if (database) {
           await createTable(database);
-        }*/
+        }
       } catch (error) {
         console.error("Database initialization failed:", error);
       }
     }
     initDatabase();
-  });
+  });*/
 
     /*const logDatabaseContents = async () => {
       try {
@@ -56,7 +57,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      {isShowSplashScreen ? <SplashScreen /> : <Login />}
+      {isShowSplashScreen ? <SplashScreen /> : <LoginNew />}
     </View>
     
   );

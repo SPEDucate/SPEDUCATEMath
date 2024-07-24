@@ -51,10 +51,10 @@ const createTable = async () => {
 // Function to insert a new user
 const insertUser = async (username, password) => {
   const db = await openDatabase();
-  if (!db) {
+  /*if (!db) {
     console.error("Database object is null");
     return;
-  }
+  }*/
 
   try {
     await db.transaction(tx => {
@@ -74,7 +74,7 @@ const insertUser = async (username, password) => {
     console.error('Error adding user:', error);
   }
 };
-
+/*
 // Function to retrieve a user by username
 const getUser = async (username) => {
   const db = await openDatabase();
@@ -110,7 +110,7 @@ const getUser = async (username) => {
 const initializeDatabase = async () => {
   await createTable();
 };
-
+*/
 // Test the database operations
 const testDatabaseOperations = async () => {
   await initializeDatabase();
@@ -121,7 +121,7 @@ const testDatabaseOperations = async () => {
 };
 
 // Exporting the functions
-export { openDatabase, createTable, insertUser, getUser, initializeDatabase, testDatabaseOperations };
+export { openDatabase, createTable, insertUser,testDatabaseOperations };
 
 // Run the test to ensure everything works
 testDatabaseOperations();
