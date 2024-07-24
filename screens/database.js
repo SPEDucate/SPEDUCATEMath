@@ -27,10 +27,12 @@ const createTable = async () => {
     await db.transaction(tx => {
       tx.executeSql(
           `CREATE TABLE IF NOT EXISTS users (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          username TEXT UNIQUE,
-          password TEXT
-        );`,
+                                id       INTEGER         PRIMARY KEY AUTOINCREMENT,
+                                username VARCHAR         UNIQUE
+                                  NOT NULL,
+                                password VARCHAR (8, 20) NOT NULL
+           );
+          `,
           [],
           () => {
             console.log('Table created successfully');
