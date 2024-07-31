@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
-import SQLite from 'react-native-sqlite-storage';
+import * as SQLite from 'expo-sqlite';
+
 
 // Enable SQLite debugging (optional)
-SQLite.DEBUG(true);
-SQLite.enablePromise(true);
+//SQLite.DEBUG(true);
+//SQLite.enablePromise(true);
 
 const App = () => {
   useEffect(() => {

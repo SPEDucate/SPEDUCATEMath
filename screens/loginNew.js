@@ -1,86 +1,91 @@
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
-import React, { useState, useEffect } from 'react';
-//import AsyncStorage from '@react-native-async-storage/async-storage';
-import SQLite from 'react-native-sqlite-storage';
+import * as React from 'react';
+import { SQLiteProvider, useSQLiteContext } from 'expo-sqlite';
+import { useState } from 'react';
 
-const db = SQLite.openDatabase(
-    {
-        name: 'userDatabase',
-        location:'default',
-    },
-    ()=>{ },
-    error => {console.log(error)}
-);
+// Initialize the database
+const initializeDatabase = async (db) => {
+    try {
+        await db.execAsync(`
+           CREATE TABLE IF NOT EXISTS users (
+                id       INTEGER         PRIMARY KEY AUTOINCREMENT,
+                username VARCHAR         UNIQUE
+                  NOT NULL,
+                password VARCHAR (8, 20) NOT NULL
+            );
+        `);
+        console.log('Database initialized!');
+    } catch (error) {
+        console.log('Error while initializing the database:', error);
+    }
+};
 
-export default function LoginNew() {
+// Main app component
+export default function App() {
+    return (
+        <SQLiteProvider databaseName="userDatabase.db" onInit={initializeDatabase}>
+            <LoginNew />
+        </SQLiteProvider>
+    );
+}
 
-    const [username, setUsername] = useState('');
+// LoginNew component
+function LoginNew() {
+    const db = useSQLiteContext();
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
-    useEffect(() => {
-        createTable();
-    });
-
-    const createTable = () => {
-        db.transaction((tx) => {
-            tx.executeSql(
-                "CREATE TABLE IF NOT EXISTS"
-                + "users "
-                + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, Username TEXT, Password TEXT;"
-            )
-        })
-    }
-
-    const setData = async () => {
-        if (username.length == 0){
-                Alert.alert('Enter data please.')
-        } else {
-            try{
-                /*await AsyncStorage.setItem('username', username);
-                await AsyncStorage.setItem('password', password);*/
-                await db.transaction(async (tx)=>{
-                    await tx.executeSql(
-                        "INSERT INTO users (Username, Password) VALUES (?, ?)",
-                        [username, password]
-                    );
-                })
-                Alert.alert('Data saved successfully.')
-            } catch (error) {
-                console.log(error);
+    const handleLogin = async () => {
+        if (userName.length === 0 || password.length === 0) {
+            Alert.alert('Attention', 'Please enter both username and password');
+            return;
+        }
+        try {
+            const user = await db.getFirstAsync('SELECT * FROM users WHERE username = ?', [userName]);
+            if (!user) {
+                Alert.alert('Error', 'Username does not exist!');
+                return;
             }
+            const validUser = await db.getFirstAsync('SELECT * FROM users WHERE username = ? AND password = ?', [userName, password]);
+            if (validUser) {
+                Alert.alert('Success', 'Login successful');
+                setUserName('');
+                setPassword('');
+            } else {
+                Alert.alert('Error', 'Incorrect password');
+            }
+        } catch (error) {
+            console.log('Error during login:', error);
         }
     }
 
-    const getData = (usernameX, passwordX) => {
-        try{
-            db.transaction((tx) =>{
-                tx.executeSql(
-                    "SELECT * from users WHERE Username = ? AND Password  = ?",
-                    [usernameX, passwordX],
-                    (tx, results) => {
-                        var len = results.rows.length;
-                        if(len > 0) {
-                            console.log('Login success');
-                            Alert.alert('Login Success bro finally');
-                        } else {
-                            console.log('Login failed');
-                        }
-                    }
-                )
-            })
-        } catch (error){
-            console.log(error);
+    const handleRegister = async () => {
+        if (userName.length === 0 || password.length === 0) {
+            Alert.alert('Attention!', 'Please enter both username and password.');
+            return;
+        }
+        try {
+            const existingUser = await db.getFirstAsync('SELECT * FROM users WHERE username = ?', [userName]);
+            if (existingUser) {
+                Alert.alert('Error', 'Username already exists.');
+                return;
+            }
+
+            await db.runAsync('INSERT INTO users (username, password) VALUES (?, ?)', [userName, password]);
+            Alert.alert('Success', 'Registration successful!');
+        } catch (error) {
+            console.log('Error during registration:', error);
         }
     }
 
-    return(
+    return (
         <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
+            <Text style={styles.title}>Login/Register</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Username"
-                value={username}
-                onChangeText={(value) => setUsername(value)}
+                value={userName}
+                onChangeText={(value) => setUserName(value)}
             />
             <TextInput
                 style={styles.input}
@@ -89,11 +94,10 @@ export default function LoginNew() {
                 value={password}
                 onChangeText={(value) => setPassword(value)}
             />
-            <Button title="Login" onPress={setData} />
-            <Button title="Register" onPress={getData(username, password)} />
+            <Button title="Login" onPress={handleLogin} />
+            <Button title="Register" onPress={handleRegister} />
         </View>
     )
-    
 }
 
 const styles = StyleSheet.create({
@@ -101,17 +105,17 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         padding: 16,
-      },
-      title: {
+    },
+    title: {
         fontSize: 24,
         marginBottom: 16,
         textAlign: 'center',
-      },
-      input: {
+    },
+    input: {
         height: 40,
         borderColor: 'gray',
         borderWidth: 1,
         marginBottom: 12,
         paddingHorizontal: 8,
-      },
-    });
+    },
+});

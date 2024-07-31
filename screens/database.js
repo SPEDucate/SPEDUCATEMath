@@ -1,7 +1,8 @@
-import SQLite from 'react-native-sqlite-storage';
 
-SQLite.DEBUG(true);
-SQLite.enablePromise(true);
+import * as SQLite from 'expo-sqlite';
+
+//SQLite.DEBUG(true);
+//SQLite.enablePromise(true);
 
 // Function to open or create the database
 const openDatabase = async () => {
