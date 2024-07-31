@@ -1,81 +1,49 @@
-import { StyleSheet, Text, View } from "react-native";
-import SplashScreen from "./screens/splash-screen";
-import { useEffect, useState } from "react";
-import LoginFormUI from "./screens/login";
-import PreferenceFormUI from "./screens/preference-form";
-import Login from "./screens/login";
-import { openDatabase, createTable } from './screens/database';
-import LoginNew from "./screens/loginNew";
+// App.js
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import SplashScreen from './screens/splash-screen';
+import AppNavigator from './screens/appNavigator';
+import { SQLiteProvider } from 'expo-sqlite';
+
+// Initialize the database
+const initializeDatabase = async (db) => {
+    try {
+        await db.execAsync(`
+           CREATE TABLE IF NOT EXISTS users (
+                id       INTEGER         PRIMARY KEY AUTOINCREMENT,
+                username VARCHAR         UNIQUE
+                  NOT NULL,
+                password VARCHAR (8, 20) NOT NULL
+            );
+        `);
+        console.log('Database initialized!');
+    } catch (error) {
+        console.log('Error while initializing the database:', error);
+    }
+};
 
 const App = () => {
-  const [isShowSplashScreen, setIsShowSplashScreen] = useState(true);
-  const [db, setDb] = useState(null);
+    const [isShowSplashScreen, setIsShowSplashScreen] = useState(true);
 
-  /*useEffect(() => {
-    const initDatabase = async () => {
-      try {
-        const database = await openDatabase();
-        //const database = openDatabase();
-        console.log("db created");
-        setDb(database);
-        /*if (database) {
-          await createTable(database);
-        }
-      } catch (error) {
-        console.error("Database initialization failed:", error);
-      }
-    }
-    initDatabase();
-  });*/
+    useEffect(() => {
+        setTimeout(() => {
+            setIsShowSplashScreen(false);
+        }, 3000);
+    }, []);
 
-    /*const logDatabaseContents = async () => {
-      try {
-        if (!db) return;
-        const [results] = await db.executeSql('SELECT * FROM users;');
-        const users = results.rows.raw();
-        console.log('Database contents:', users);
-      } catch (error) {
-        console.error('Error fetching database contents:', error);
-      }
-    };*/
-
-    // Initialize the database
-  //initDatabase();
-
-    // Log the database contents every 10 seconds
-    //const intervalId = setInterval(logDatabaseContents, 10000);
-
-    // Clean up the interval on component unmount
-    /*return () => clearInterval(intervalId);
-  }, [db]);*/
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsShowSplashScreen(false);
-    }, 3000);
-  }, []);
-
-  return (
-    <View style={styles.container}>
-      {isShowSplashScreen ? <SplashScreen /> : <LoginNew />}
-    </View>
-    
-  );
-
-  /*return (
-    <View style={styles.container}>
-      <SplashScreen></SplashScreen>
-    </View>
-  );*/
-  }
-
+    return (
+        <SQLiteProvider databaseName="userDatabase.db" onInit={initializeDatabase}>
+            <View style={styles.container}>
+                {isShowSplashScreen ? <SplashScreen /> : <AppNavigator />}
+            </View>
+        </SQLiteProvider>
+    );
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+    container: {
+        flex: 1,
+    },
 });
 
 export default App;
-
-

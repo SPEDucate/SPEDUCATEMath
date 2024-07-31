@@ -1,39 +1,14 @@
+// screens/LoginNew.js
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
-import * as React from 'react';
-import { SQLiteProvider, useSQLiteContext } from 'expo-sqlite';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useSQLiteContext } from 'expo-sqlite';
+import { useNavigation } from '@react-navigation/native';
 
-// Initialize the database
-const initializeDatabase = async (db) => {
-    try {
-        await db.execAsync(`
-           CREATE TABLE IF NOT EXISTS users (
-                id       INTEGER         PRIMARY KEY AUTOINCREMENT,
-                username VARCHAR         UNIQUE
-                  NOT NULL,
-                password VARCHAR (8, 20) NOT NULL
-            );
-        `);
-        console.log('Database initialized!');
-    } catch (error) {
-        console.log('Error while initializing the database:', error);
-    }
-};
-
-// Main app component
-export default function App() {
-    return (
-        <SQLiteProvider databaseName="userDatabase.db" onInit={initializeDatabase}>
-            <LoginNew />
-        </SQLiteProvider>
-    );
-}
-
-// LoginNew component
 function LoginNew() {
     const db = useSQLiteContext();
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const navigation = useNavigation();
 
     const handleLogin = async () => {
         if (userName.length === 0 || password.length === 0) {
@@ -51,6 +26,7 @@ function LoginNew() {
                 Alert.alert('Success', 'Login successful');
                 setUserName('');
                 setPassword('');
+                navigation.navigate('Home');
             } else {
                 Alert.alert('Error', 'Incorrect password');
             }
@@ -119,3 +95,5 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8,
     },
 });
+
+export default LoginNew;
