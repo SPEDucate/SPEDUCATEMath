@@ -1,8 +1,8 @@
 // App.js
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import SplashScreen from './screens/splash-screen';
-import AppNavigator from './screens/appNavigator';
+import SplashScreen from './screens/splash-screen'; // Adjust path if needed
+import AppNavigator from './screens/appNavigator'; // Adjust path if needed
 import { SQLiteProvider } from 'expo-sqlite';
 
 // Initialize the database
@@ -28,7 +28,7 @@ const App = () => {
     useEffect(() => {
         setTimeout(() => {
             setIsShowSplashScreen(false);
-        }, 3000);
+        }, 3000); // Show splash screen for 3 seconds
     }, []);
 
     return (

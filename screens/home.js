@@ -1,3 +1,4 @@
+// screens/home.js
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'; // Assuming you're using Expo
@@ -11,7 +12,7 @@ const courses = [
   { id: '6', name: '5th grade math' },
 ];
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({ item }) => (
@@ -25,8 +26,8 @@ export default function Home() {
 
   const handleContinue = () => {
     if (selectedId) {
-      Alert.alert('Selected Course', `You selected: ${courses.find(course => course.id === selectedId).name}`);
-      // Handle the continue action, e.g., navigate to the next screen
+      const selectedCourse = courses.find(course => course.id === selectedId);
+      navigation.navigate(selectedCourse.name); // Navigate to the page with the same name as the course
     } else {
       Alert.alert('No Selection', 'Please select a course before continuing.');
     }
@@ -71,19 +72,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 20,
-    marginVertical: 12,
-    borderRadius: 20,
+    borderRadius: 12,
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 2,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    marginBottom: 4, // Slight margin to make it look like a table row
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd', // Light border color for separation
   },
   courseName: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#003087',
+    flex: 1, // Fill the container's width
   },
   continueButton: {
     paddingVertical: 15,
