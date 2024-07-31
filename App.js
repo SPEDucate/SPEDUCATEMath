@@ -38,7 +38,7 @@ const App = () => {
             </View>
         </SQLiteProvider>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {

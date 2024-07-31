@@ -1,226 +1,147 @@
-/*import React, { useState, useEffect } from 'react';
+// screens/LoginNew.js
+import { View, Text, TextInput, Button, Alert, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { useSQLiteContext } from 'expo-sqlite';
+import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
+function Login() {
+    const db = useSQLiteContext();
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const navigation = useNavigation();
 
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
-import { openDatabase, createTable, insertUser, getUser } from './database';
-import SQLite from 'react-native-sqlite-storage';
-
-
-const Login = () => {
-  //const [db, setDb] = useState(null);
-  const db = SQLite.openDatabase({ name: 'userDatabase.db', location: 'default' });
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  // Initialize the database when the component mounts
-  useEffect(() => {
-    const initDatabase = async () => {
-      try {
-        const database = await openDatabase();
-        setDb(database);
-        if (database) {
-          await createTable(database);
+    const handleLogin = async () => {
+        if (userName.length === 0 || password.length === 0) {
+            Alert.alert('Attention', 'Please enter both username and password');
+            return;
         }
-      } catch (error) {
-        console.error("Database initialization failed:", error);
-        Alert.alert('Database Error', 'Failed to initialize the database');
-      }
-    };
-    initDatabase();
-  }, []);
-
-  const handleLogin = async () => {
-    if (!db) {
-      Alert.alert('Database Error', 'Database not initialized');
-      return;
-    }
-
-    try {
-      const users = await getUser(db, username);
-      if (users.length > 0) {
-        if (users[0].password === password) {
-          Alert.alert('Login Successful', `Welcome, ${username}!`);
-        } else {
-          Alert.alert('Error', 'Incorrect password');
+        try {
+            const user = await db.getFirstAsync('SELECT * FROM users WHERE username = ?', [userName]);
+            if (!user) {
+                Alert.alert('Error', 'Username does not exist!');
+                return;
+            }
+            const validUser = await db.getFirstAsync('SELECT * FROM users WHERE username = ? AND password = ?', [userName, password]);
+            if (validUser) {
+                //Alert.alert('Success', 'Login successful');
+                setUserName('');
+                setPassword('');
+                navigation.navigate('Home');
+            } else {
+                Alert.alert('Error', 'Incorrect password');
+            }
+        } catch (error) {
+            console.log('Error during login:', error);
         }
-      } else {
-        Alert.alert('Error', 'User not found');
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-      Alert.alert('Login Error', 'An error occurred during login');
-    }
-  };
-
-  const handleRegister = async () => {
-    if (!db) {
-      Alert.alert('Database Error', 'Database not initialized');
-      return;
     }
 
-    try {
-      await insertUser(db, username, password);
-      Alert.alert('Success', 'User registered successfully');
-    } catch (error) {
-      console.error('Error during registration:', error);
-      Alert.alert('Registration Error', 'An error occurred during registration');
-    }
-  };
+    const handleRegister = async () => {
+        if (userName.length === 0 || password.length === 0) {
+            Alert.alert('Attention!', 'Please enter both username and password.');
+            return;
+        }
+        try {
+            const existingUser = await db.getFirstAsync('SELECT * FROM users WHERE username = ?', [userName]);
+            if (existingUser) {
+                Alert.alert('Error', 'Username already exists.');
+                return;
+            }
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <Button title="Login" onPress={handleLogin} />
-      <Button title="Register" onPress={handleRegister} />
-    </View>
-  );
-};
+            await db.runAsync('INSERT INTO users (username, password) VALUES (?, ?)', [userName, password]);
+            Alert.alert('Success', 'Registration successful!');
+        } catch (error) {
+            console.log('Error during registration:', error);
+        }
+    }
+
+    return (
+        <LinearGradient
+          colors={['#9FCAF5', '#3399FF']} // Light blue to dark blue with slight gradient
+          style={styles.container}
+        >
+        <View style={styles.container}>
+        <Image
+                source={require('../assets/SPEDUCATE-Transparent.png')}
+                style={styles.logo}
+            />
+            <Text style={styles.title}>Welcome</Text>
+            <Text style={styles.subtitle}>Log in or Register to your account</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Username"
+                placeholderTextColor="black"
+                value={userName}
+                onChangeText={(value) => setUserName(value)}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="black"
+                secureTextEntry
+                value={password}
+                onChangeText={(value) => setPassword(value)}
+            />
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={handleRegister}>
+                <Text style={styles.buttonText}>Register</Text>
+            </TouchableOpacity>
+        </View>
+        </LinearGradient>
+    )
+}
+
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-  },
-});
-
-export default Login;*/
-
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
-import { openDatabase, createTable, insertUser, getUser } from './database';
-import * as FileSystem from "expo-file-system";
-import { Asset } from "expo-asset";
-
-const Login = () => {
-  const [db, setDb] = useState(null);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-
-  useEffect(() => {
-    const initDatabase = async () => {
-      try {
-        const database = await openDatabase();
-        setDb(database);
-        /*if (database) {
-          await createTable(database);
-        }*/
-      } catch (error) {
-        console.error("Database initialization failed:", error);
-        Alert.alert('Database Error', 'Failed to initialize the database');
-      }
-    };
-    initDatabase();
-  }, []);
-
-  const handleLogin = async () => {
-    console.log("in login");
-    try {
-      setDb("userDatabase.db");
-    } catch (error) {
-      console.log(error);
-    }
-
-
-    try {
-      const users = await getUser(db, username);
-      if (users.length > 0) {
-        if (users[0].password === password) {
-          Alert.alert('Login Successful', `Welcome, ${username}!`);
-        } else {
-          Alert.alert('Error', 'Incorrect password');
-        }
-      } else {
-        Alert.alert('Error', 'User not found');
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-      Alert.alert('Login Error', 'An error occurred during login');
-    }
-  };
-
-  const handleRegister = async () => {
-    console.log("in register");
-    if (!db) {
-      Alert.alert('Database Error', 'Database not initialized');
-      return;
-    }
-
-    try {
-      await insertUser(db, username, password);
-      Alert.alert('Success', 'User registered successfully');
-    } catch (error) {
-      console.error('Error during registration:', error);
-      Alert.alert('Registration Error', 'An error occurred during registration');
-    }
-  };
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <Button title="Login" onPress={handleLogin} />
-      <Button title="Register" onPress={handleRegister} />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-  },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 16,
+    },
+    title: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#003087',
+        marginBottom: 10,
+    },
+    subtitle: {
+        fontSize: 18,
+        color: '#003087',
+        marginBottom: 20,
+    },
+    input: {
+        width: 300,
+        height: 50,
+        borderColor: 'black',
+        borderWidth: 1,
+        marginBottom: 20,
+        paddingHorizontal: 10,
+        borderRadius: 5,
+        fontSize: 16,
+        color: 'black',
+    },
+    button: {
+        width: '100%',
+        padding: 15,
+        backgroundColor: '#003087',
+        borderRadius: 50,
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    logo: {
+        width: 250,
+        height: 250,
+        marginBottom: 10,
+        marginTop: 10,
+    },
 });
 
 export default Login;
