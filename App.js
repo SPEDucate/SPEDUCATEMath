@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import SplashScreen from './screens/splash-screen'; // Adjust path if needed
-import AppNavigator from './screens/appNavigator'; // Adjust path if needed
+import AppNavigator from './screens/app-navigator'; // Adjust path if needed
 import { SQLiteProvider } from 'expo-sqlite';
 
 // Initialize the database
