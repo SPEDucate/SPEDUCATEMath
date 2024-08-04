@@ -1,84 +1,51 @@
 import React, { useState } from "react";
-import { Text, View, TextInput, Button, StyleSheet } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import { View, Text, StyleSheet, Alert } from "react-native";
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'center',
-    letterSpacing: -0.6,
-    marginLeft:'auto',
-    marginRight:'auto',
-    marginTop:'auto',
-    textAlign: 'center',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 310,
-    height: 80,
-    alignContent: 'center',
-    flex: 2,
-  },
-});
+const PreferenceFormUI = () => {
+  // Get the JSON file with all the questions info
+  const formData = require("../data/preference-form-data.json");
+  // console.log(formData);
 
-export default function TESTFORM() {
-  const [globalState, setGlobalState] = useState("state default value");
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [currQuestionData, setCurrQuestionData] = useState(formData[0]);
 
-  const { control, handleSubmit, formState } = useForm({
-    defaultValues: {
-      /*
-      firstName: "default value 1",
-      lastName: "default value 2",
-      */
-    },
-  });
+  function incrementQuestion() {
+    var nextQuestionIndex = questionIndex + 1;
 
-  /* Controls what happens when form is submitted by submit button */
-  const onSubmit = (data) => {
-    console.log(data);
-    setGlobalState(data.firstName);
-  };
+    // If the index is out of bounds
+    if (nextQuestionIndex >= formData.length || nextQuestionIndex < 0) {
+      Alert.alert("OUT OF BOUNDS INDEX");
+      // Do something here
+      // probably go to the curriculum or smth
+      return;
+    }
+
+    // Update states (which then updates display)
+    setQuestionIndex(nextQuestionIndex);
+    setCurrQuestionData(formData[nextQuestionIndex]);
+  }
 
   return (
     <View style={styles.container}>
-      <Controller
-        control={control}
-        rules={{
-          maxLength: 100,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Preference-1"
-            onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-            value={value}
-          />
-        )}
-        name="preferenceOne"
-      />
+      {/* Question Number and Question Text*/}
+      <Text>{questionIndex + 1}. {currQuestionData.questionText}</Text>
 
-      <Controller
-        control={control}
-        rules={{
-          maxLength: 100,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            placeholder="Preference-2"
-            onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-            value={value}
-          />
-        )}
-        name="preferenceTwo"
-      />
-
-      {/* HAVE to use handleSubmit() wrapping around Submit */}
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-
-      <Text>
-        The globalState variable is set to {"\n"}
-        {globalState}
-      </Text>
+      {/* Answer Choices */}
+      {currQuestionData.options.map((item, index) => (
+        <Text 
+          key={index} onPress={incrementQuestion}>{item}</Text>
+      ))}
     </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+    margin: "auto",
+    justifyContent: "center",
+    paddingHorizontal: 20,
+  },
+});
+
+export default PreferenceFormUI;

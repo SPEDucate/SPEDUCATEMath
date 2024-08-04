@@ -1,109 +1,147 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Animated, Image } from 'react-native';
-import Logo from "../assets/SPEDUCATE-Transparent.png";
+// screens/LoginNew.js
+import { View, Text, TextInput, Button, Alert, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { useSQLiteContext } from 'expo-sqlite';
+import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
-
-const LoginFormUI = () => {
-  const [username, setUsername] = useState('');
+function Login() {
+  const db = useSQLiteContext();
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const buttonAnim = useRef(new Animated.Value(1)).current;
+  const navigation = useNavigation();
 
-  const handleLogin = () => {
-    if (username === '' || password === '') {
-      Alert.alert('Error', 'Please enter both username and password');
-    } else {
-      // Perform login logic here
-      Alert.alert('Login Successful', `Welcome, ${username}!`);
+  const handleLogin = async () => {
+    if (userName.length === 0 || password.length === 0) {
+      Alert.alert('Attention', 'Please enter both username and password');
+      return;
     }
-  };
+    try {
+      const user = await db.getFirstAsync('SELECT * FROM users WHERE username = ?', [userName]);
+      if (!user) {
+        Alert.alert('Error', 'Username does not exist!');
+        return;
+      }
+      const validUser = await db.getFirstAsync('SELECT * FROM users WHERE username = ? AND password = ?', [userName, password]);
+      if (validUser) {
+        //Alert.alert('Success', 'Login successful');
+        setUserName('');
+        setPassword('');
+        navigation.navigate('Home');
+      } else {
+        Alert.alert('Error', 'Incorrect password');
+      }
+    } catch (error) {
+      console.log('Error during login:', error);
+    }
+  }
 
-  const animateButton = () => {
-    Animated.sequence([
-      Animated.timing(buttonAnim, {
-        toValue: 0.8,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-      Animated.timing(buttonAnim, {
-        toValue: 1,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-    ]).start(handleLogin);
-  };
+  const handleRegister = async () => {
+    if (userName.length === 0 || password.length === 0) {
+      Alert.alert('Attention!', 'Please enter both username and password.');
+      return;
+    }
+    try {
+      const existingUser = await db.getFirstAsync('SELECT * FROM users WHERE username = ?', [userName]);
+      if (existingUser) {
+        Alert.alert('Error', 'Username already exists.');
+        return;
+      }
+
+      await db.runAsync('INSERT INTO users (username, password) VALUES (?, ?)', [userName, password]);
+      Alert.alert('Success', 'Registration successful!');
+    } catch (error) {
+      console.log('Error during registration:', error);
+    }
+  }
 
   return (
+    <LinearGradient
+      colors={['#9FCAF5', '#3399FF']} // Light blue to dark blue with slight gradient
+      style={styles.container}
+    >
     <View style={styles.container}>
-      <Text style={styles.label}>Username</Text>
-      <TextInput
-        style={styles.input}
-        value={username}
-        onChangeText={setUsername}
-        placeholder="Enter your username"
+    <Image
+        source={require('../assets/SPEDUCATE-Transparent.png')}
+        style={styles.logo}
       />
-      <Text style={styles.label}>Password</Text>
+      <Text style={styles.title}>Welcome</Text>
+      <Text style={styles.subtitle}>Log in or Register to your account</Text>
       <TextInput
         style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Enter your password"
+        placeholder="Username"
+        placeholderTextColor="black"
+        value={userName}
+        onChangeText={(value) => setUserName(value)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        placeholderTextColor="black"
         secureTextEntry
+        value={password}
+        onChangeText={(value) => setPassword(value)}
       />
-      <Animated.View style={{ transform: [{ scale: buttonAnim }] }}>
-        <TouchableOpacity style={styles.button} onPress={animateButton}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-      </Animated.View>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.buttonText}>Register</Text>
+      </TouchableOpacity>
     </View>
-  );
-};
+    </LinearGradient>
+  )
+}
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: '#1B0F18', 
+    alignItems: 'center',
+    padding: 16,
   },
-  label: {
-    fontSize: 16,
-    marginBottom: 8,
-    color: '#333', 
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#003087',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 18,
+    color: '#003087',
+    marginBottom: 20,
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
+    width: 300,
+    height: 50,
+    borderColor: 'black',
     borderWidth: 1,
-    marginBottom: 12,
+    marginBottom: 20,
     paddingHorizontal: 10,
-    borderRadius: 20, 
-    backgroundColor: '#fff', 
+    borderRadius: 5,
+    fontSize: 16,
+    color: 'black',
   },
   button: {
-    backgroundColor: '#007bff', 
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 25, 
+    width: '100%',
+    padding: 15,
+    backgroundColor: '#003087',
+    borderRadius: 50,
     alignItems: 'center',
+    marginTop: 20,
   },
   buttonText: {
-    color: '#fff', 
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
-  image: {
-    width: 30,
-    height: 1000,
-    resizeMode: "cover",
+  logo: {
+    width: 250,
+    height: 250,
+    marginBottom: 10,
+    marginTop: 10,
   },
 });
 
-/*const styleImage = StyleSheet.create({
-  image: {
-    width: 370,
-    height: 1000,
-    resizeMode: "cover",
-  },
-});*/
-
-export default LoginFormUI;
+export default Login;
