@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Login from '../screens/login'; // Adjust path if needed
-import Home from '../screens/home'; // Adjust path if needed
-import KMath from '../screens/kMath'; // Adjust path if needed
-import OneMath from '../screens/1Math'; // Adjust path if needed
-import TwoMath from '../screens/2Math'; // Adjust path if needed
-import ThreeMath from '../screens/3Math'; // Adjust path if needed
-import FourMath from '../screens/4Math'; // Adjust path if needed
-import FiveMath from '../screens/5Math'; // Adjust path if needed
+import Login from '../screens/login';
+import Home from '../screens/home';
+import KMath from '../screens/courses/kMath';
+import OneMath from '../screens/courses/1Math';
+import TwoMath from '../screens/courses/2Math';
+import ThreeMath from '../screens/courses/3Math';
+import FourMath from '../screens/courses/4Math';
+import FiveMath from '../screens/courses/5Math';
 
 const Stack = createStackNavigator();
 
