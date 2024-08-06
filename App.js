@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import SplashScreen from './screens/splash-screen'; // Adjust path if needed
 import AppNavigator from './screens/appNavigator'; // Adjust path if needed
 import { SQLiteProvider } from 'expo-sqlite';
+import PreferenceFormUI from './screens/preference-form';
 
 // Initialize the database
 const initializeDatabase = async (db) => {
@@ -34,7 +35,7 @@ const App = () => {
     return (
         <SQLiteProvider databaseName="userDatabase.db" onInit={initializeDatabase}>
             <View style={styles.container}>
-                {isShowSplashScreen ? <SplashScreen /> : <AppNavigator />}
+                {isShowSplashScreen ? <SplashScreen /> : <PreferenceFormUI />}
             </View>
         </SQLiteProvider>
     );
