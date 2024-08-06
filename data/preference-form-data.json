@@ -1,17 +1,21 @@
 [
   {
-    "questionText": "Question A",
+    "questionText": "Are you sigma?",
     "options": [
       "Yes",
-      "No"
+      "No",
+      "Maybe",
+      "Skibidi"
     ]
   },
   
   {
-    "questionText": "Question B",
+    "questionText": "Choose one",
     "options": [
-      "Op3",
-      "Op4"
+      "sigma",
+      "alpha",
+      "beta",
+      "ratuly"
     ]
   }
 ]
