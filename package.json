@@ -21,6 +21,8 @@
     "expo-linear-gradient": "~13.0.2",
     "expo-sqlite": "~14.0.5",
     "expo-status-bar": "~1.12.1",
+    "express": "^4.19.2",
+    "mysql": "^2.18.1",
     "papaparse": "^5.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
