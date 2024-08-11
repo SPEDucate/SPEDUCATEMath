@@ -1,6 +1,6 @@
 {
   "files.exclude": {
-    "**/.git": true,
+    "**/.git": false,
     "**/.svn": false,
     "**/.hg": false,
     "**/CVS": false,
@@ -10,7 +10,7 @@
     "**/*.json": false,
     "**/.expo": true,
     ".expo": true,
-    ".git": true,
+    ".git": false,
     "**/.idea": true,
     ".idea": true,
     "**/node_modules": true,
