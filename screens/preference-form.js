@@ -27,7 +27,7 @@ const PreferenceFormUI = () => {
 
   return (
     <ImageBackground 
-      source={require('/Users/rithul/SPEDUCATEMath-10/screens/background.jpg')} // Replace with your background image path
+      source={require('../assets/background.jpg')} // Replace with your background image path
       style={styles.backgroundImage}
     >
         <View style={styles.container}>
