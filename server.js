@@ -1,8 +1,9 @@
 const express = require("express");
+const serverless = require("serverless-http");
 const mysql = require("mysql2");
 
 const app = express();
-const port = 5000;
+// const port = 5000;
 
 // Create a MySQL connection
 const pool = mysql.createPool({
@@ -16,7 +17,7 @@ const pool = mysql.createPool({
 });
 
 // Example route
-app.get("/data", (req, res) => {
+app.get("/hello", (req, res) => {
   console.log(req);
   pool.query("SELECT * FROM PrefQuestions", (error, results) => {
     if (error) {
@@ -26,6 +27,8 @@ app.get("/data", (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server running on port ${port}`);
+// });
+
+module.exports.handler = serverless(app);

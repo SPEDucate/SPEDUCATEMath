@@ -27,7 +27,9 @@ const initializeDatabase = async (db) => {
 
 function doDatabase() {
   axios
-    .get("http://localhost:5000/data", "he")
+    .get(
+      "https://836n1f8ff5.execute-api.us-east-2.amazonaws.com/default/express-server-speducate"
+    )
     .then((response) => {
       console.log(response.data);
     })
@@ -50,7 +52,7 @@ const App = () => {
   }, []);
 
   return (
-    <SQLiteProvider databaseName="userDatabase.db" onInit={initializeDatabase}>
+    <SQLiteProvider databaseName='userDatabase.db' onInit={initializeDatabase}>
       <View style={styles.container}>
         {isShowSplashScreen ? <SplashScreen /> : <AppNavigator />}
       </View>
