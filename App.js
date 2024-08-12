@@ -5,6 +5,13 @@ import SplashScreen from './screens/splash-screen'; // Adjust path if needed
 import AppNavigator from './screens/app-navigator'; // Adjust path if needed
 import { SQLiteProvider } from 'expo-sqlite';
 import PreferenceFormUI from './screens/preference-form';
+import KinderWorld from './screens/kinderWorld';
+import OneWorld from './screens/oneWorld';
+import TwoWorld from './screens/twoWorld';
+import ThreeWorld from './screens/threeWorld';
+import FourWorld from './screens/fourWorld';
+import FiveWorld from './screens/fiveWorld';
+import Login from './screens/login';
 
 // Initialize the database
 const initializeDatabase = async (db) => {
@@ -35,7 +42,7 @@ const App = () => {
     return (
         <SQLiteProvider databaseName="userDatabase.db" onInit={initializeDatabase}>
             <View style={styles.container}>
-                {isShowSplashScreen ? <SplashScreen /> : <PreferenceFormUI />}
+                {isShowSplashScreen ? <SplashScreen /> : <AppNavigator />}
             </View>
         </SQLiteProvider>
     );
