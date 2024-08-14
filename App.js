@@ -42,7 +42,7 @@ const App = () => {
     return (
         <SQLiteProvider databaseName="userDatabase.db" onInit={initializeDatabase}>
             <View style={styles.container}>
-                {isShowSplashScreen ? <SplashScreen /> : <AppNavigator />}
+                {isShowSplashScreen ? <SplashScreen /> : <FourWorld />}
             </View>
         </SQLiteProvider>
     );

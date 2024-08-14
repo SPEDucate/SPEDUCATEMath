@@ -8,21 +8,20 @@ export default function FourWorld() {
       <ImageBackground 
       source={require('../assets/FourVillage.png')} style={styles.map}>
         <TouchableOpacity style={[styles.button, styles.location1]}>
-          <Text style={styles.buttonText}>1. Boat Dock</Text>
+          <Text style={styles.buttonText}>1. Waterslide World</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location2]}>
-          <Text style={styles.buttonText}>2. Bush Path</Text>
+          <Text style={styles.buttonText}>2. Carnival Crusade</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location3]}>
-          <Text style={styles.buttonText}>3. Lakeside Lounge</Text>
+          <Text style={styles.buttonText}>3. Playground Park</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location4]}>
-          <Text style={styles.buttonText}>4. Plain Plaza</Text>
+          <Text style={styles.buttonText}>4. Love Lake</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location5]}>
-          <Text style={styles.buttonText}>5. Jolly Jungle</Text>
+          <Text style={styles.buttonText}>5. Circus Tent</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>First Fantasy Lake</Text>
       </ImageBackground>
     </View>
   );
@@ -67,26 +66,26 @@ const styles = StyleSheet.create({
   },
   location1: {
     position: 'absolute',
-    top: '67%',
-    left: '50%',
+    top: '90%',
+    left: '20%',
     backgroundColor: 'green'
   },
   location2: {
     position: 'absolute',
-    top: '55%',
-    left: '10%',
+    top: '65%',
+    left: '30%',
     backgroundColor: 'grey'
   },
   location3: {
     position: 'absolute',
-    top: '38%',
-    left: '10%',
+    top: '40%',
+    left: '50%',
     backgroundColor: 'grey'
   },
   location4: {
     position: 'absolute',
-    top: '25%',
-    left: '55%',
+    top: '18%',
+    left: '5%',
     backgroundColor: 'grey'
   },
   location5: {

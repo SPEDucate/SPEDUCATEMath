@@ -8,21 +8,20 @@ export default function TwoWorld() {
       <ImageBackground 
       source={require('../assets/TwoVillage.png')} style={styles.map}>
         <TouchableOpacity style={[styles.button, styles.location1]}>
-          <Text style={styles.buttonText}>1. Boat Dock</Text>
+          <Text style={styles.buttonText}>1. Sandy Shores</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location2]}>
-          <Text style={styles.buttonText}>2. Bush Path</Text>
+          <Text style={styles.buttonText}>2. Raging River</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location3]}>
-          <Text style={styles.buttonText}>3. Lakeside Lounge</Text>
+          <Text style={styles.buttonText}>3. Crew Cabin</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location4]}>
-          <Text style={styles.buttonText}>4. Plain Plaza</Text>
+          <Text style={styles.buttonText}>4. Sequoia Marsh</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location5]}>
-          <Text style={styles.buttonText}>5. Jolly Jungle</Text>
+          <Text style={styles.buttonText}>5. Cruise Coast</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>First Fantasy Lake</Text>
       </ImageBackground>
     </View>
   );
@@ -67,32 +66,32 @@ const styles = StyleSheet.create({
   },
   location1: {
     position: 'absolute',
-    top: '67%',
-    left: '50%',
+    top: '88%',
+    left: '20%',
     backgroundColor: 'green'
   },
   location2: {
     position: 'absolute',
-    top: '55%',
+    top: '58%',
     left: '10%',
     backgroundColor: 'grey'
   },
   location3: {
     position: 'absolute',
-    top: '38%',
-    left: '10%',
+    top: '43%',
+    left: '50%',
     backgroundColor: 'grey'
   },
   location4: {
     position: 'absolute',
     top: '25%',
-    left: '55%',
+    left: '10%',
     backgroundColor: 'grey'
   },
   location5: {
     position: 'absolute',
     top: '5%',
-    left: '38%',
+    left: '50%',
     backgroundColor: 'grey'
   },
 });

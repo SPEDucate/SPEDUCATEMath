@@ -8,21 +8,20 @@ export default function ThreeWorld() {
       <ImageBackground 
       source={require('../assets/ThreeVillage.png')} style={styles.map}>
         <TouchableOpacity style={[styles.button, styles.location1]}>
-          <Text style={styles.buttonText}>1. Boat Dock</Text>
+          <Text style={styles.buttonText}>1. Blossom Bed </Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location2]}>
-          <Text style={styles.buttonText}>2. Bush Path</Text>
+          <Text style={styles.buttonText}>2. Sunset Sea</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location3]}>
-          <Text style={styles.buttonText}>3. Lakeside Lounge</Text>
+          <Text style={styles.buttonText}>3. Horizon View</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location4]}>
-          <Text style={styles.buttonText}>4. Plain Plaza</Text>
+          <Text style={styles.buttonText}>4. Starry Sky</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location5]}>
-          <Text style={styles.buttonText}>5. Jolly Jungle</Text>
+          <Text style={styles.buttonText}>5. Infinity & Beyond</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>First Fantasy Lake</Text>
       </ImageBackground>
     </View>
   );
@@ -67,14 +66,14 @@ const styles = StyleSheet.create({
   },
   location1: {
     position: 'absolute',
-    top: '67%',
+    top: '80%',
     left: '50%',
     backgroundColor: 'green'
   },
   location2: {
     position: 'absolute',
-    top: '55%',
-    left: '10%',
+    top: '65%',
+    left: '20%',
     backgroundColor: 'grey'
   },
   location3: {
