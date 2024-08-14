@@ -1,21 +1,39 @@
 [
   {
-    "questionText": "Are you sigma?",
+    "questionText": "How many hours do you want your child to spend a day learning?",
+    "options": ["<30 minutes", "30 minutes to an hour", "1 hour to 2 hours", "2+ Hours"]
+  },
+  {
+    "questionText": "Which colors do you like the best?",
+    "options": ["Insert color", "Insert color", "Insert color", "Insert color"]
+  },
+  {
+    "questionText": "Does your child have any of the following sensory sensitivities?",
+    "options": ["Light", "Color", "Sound", "None"]
+  },
+  {
+    "questionText": "How does your child learn best?",
+    "options": ["Visual aids", "Hands-on activities", "Repetition", "Auditory Instruction"]
+  },
+  {
+    "questionText": "How does your child respond to feedback on their work in the app?",
     "options": [
-      "Yes",
-      "No",
-      "Maybe",
-      "Skibidi"
+      "Positively to instant visual feedback (e.g., checkmarks, stars)",
+      "Prefers detailed written feedback",
+      "Needs constructive criticism with examples",
+      "Responds best to auditory feedback (e.g., voice messages)"
     ]
   },
-  
   {
-    "questionText": "Choose one",
-    "options": [
-      "sigma",
-      "alpha",
-      "beta",
-      "ratuly"
-    ]
+    "questionText": "What type of interface is most conducive to your child’s learning?",
+    "options": ["Simple and clutter-free", "Interactive and colorful", "Structured and organized", "Dynamic and engaging"]
+  },
+  {
+    "questionText": "What type of rewards or positive reinforcements would be best for your child?",
+    "options": ["Virtual praise and badges", "Earning points or coins for achievements", "Unlocking content or levels", "Receiving visual rewards such as stickers"]
+  },
+  {
+    "questionText": "What strategies help your child maintain focus?",
+    "options": ["Short interactive sessions", "Quiet background music or sounds", "Built-in movement breaks such as minigames", "Use of on-screen fidget tools or interactive elements"]
   }
 ]
