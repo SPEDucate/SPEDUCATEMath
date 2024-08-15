@@ -12,6 +12,7 @@ import ThreeWorld from './screens/threeWorld';
 import FourWorld from './screens/fourWorld';
 import FiveWorld from './screens/fiveWorld';
 import Login from './screens/login';
+import Home from './screens/home';
 
 // Initialize the database
 const initializeDatabase = async (db) => {
@@ -42,7 +43,7 @@ const App = () => {
     return (
         <SQLiteProvider databaseName="userDatabase.db" onInit={initializeDatabase}>
             <View style={styles.container}>
-                {isShowSplashScreen ? <SplashScreen /> : <PreferenceFormUI />}
+                {isShowSplashScreen ? <SplashScreen /> : <Home />}
             </View>
         </SQLiteProvider>
     );

@@ -14,6 +14,7 @@ const courses = [
 
 export default function Home({ navigation }) {
   const [selectedId, setSelectedId] = useState(null);
+  const [gradientColors, setGradientColors] = useState(['#66CCFF', '#3399FF']); // Default gradient colors
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -33,11 +34,22 @@ export default function Home({ navigation }) {
     }
   };
 
+  const switchColor = () => {
+    setGradientColors(prevColors =>
+      prevColors[0] === '#66CCFF' ? ['#D8BFD8', '#6A0D91'] : ['#66CCFF', '#3399FF']
+    );
+  };
+
   return (
     <LinearGradient
-      colors={['#66CCFF', '#3399FF']} // Light blue to dark blue with slight gradient
+      colors={gradientColors}
       style={styles.container}
     >
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.switchButton} onPress={switchColor}>
+          <Text style={styles.switchButtonText}>Switch Color</Text>
+        </TouchableOpacity>
+      </View>
       <Text style={styles.title}>SPEDucate Course Selection</Text>
       <FlatList
         data={courses}
@@ -57,6 +69,27 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     paddingTop: 60, // Increased padding at the top
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end', // Align the button to the right
+    marginBottom: 20, // Space between header and the rest of the content
+  },
+  switchButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    backgroundColor: '#6A0D91', // Purple color for the button
+    borderRadius: 50,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  switchButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   title: {
     fontSize: 36, // Made the title bigger
