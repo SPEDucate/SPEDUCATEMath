@@ -1,9 +1,9 @@
-// screens/LoginNew.js
 import { View, Text, TextInput, Button, Alert, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import PreferenceFormUI from '../screens/preference-form';
 
 function Login() {
   const db = useSQLiteContext();
@@ -24,7 +24,6 @@ function Login() {
       }
       const validUser = await db.getFirstAsync('SELECT * FROM users WHERE username = ? AND password = ?', [userName, password]);
       if (validUser) {
-        //Alert.alert('Success', 'Login successful');
         setUserName('');
         setPassword('');
         navigation.navigate('Home');
@@ -34,7 +33,7 @@ function Login() {
     } catch (error) {
       console.log('Error during login:', error);
     }
-  }
+  };
 
   const handleRegister = async () => {
     if (userName.length === 0 || password.length === 0) {
@@ -50,49 +49,52 @@ function Login() {
 
       await db.runAsync('INSERT INTO users (username, password) VALUES (?, ?)', [userName, password]);
       Alert.alert('Success', 'Registration successful!');
+      
+      // Redirect to PreferenceFormUI after successful registration
+      navigation.navigate('PreferenceFormUI');
+      
     } catch (error) {
       console.log('Error during registration:', error);
     }
-  }
+  };
 
   return (
     <LinearGradient
-      colors={['#9FCAF5', '#3399FF']} // Light blue to dark blue with slight gradient
+      colors={['#9FCAF5', '#3399FF']}
       style={styles.container}
     >
-    <View style={styles.container}>
-    <Image
-        source={require('../assets/SPEDUCATE-Transparent.png')}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>Welcome</Text>
-      <Text style={styles.subtitle}>Log in or Register to your account</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        placeholderTextColor="black"
-        value={userName}
-        onChangeText={(value) => setUserName(value)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        placeholderTextColor="black"
-        secureTextEntry
-        value={password}
-        onChangeText={(value) => setPassword(value)}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Register</Text>
-      </TouchableOpacity>
-    </View>
+      <View style={styles.container}>
+        <Image
+          source={require('../assets/SPEDUCATE-Transparent.png')}
+          style={styles.logo}
+        />
+        <Text style={styles.title}>Welcome</Text>
+        <Text style={styles.subtitle}>Log in or Register to your account</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          placeholderTextColor="black"
+          value={userName}
+          onChangeText={(value) => setUserName(value)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          placeholderTextColor="black"
+          secureTextEntry
+          value={password}
+          onChangeText={(value) => setPassword(value)}
+        />
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleRegister}>
+          <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
+      </View>
     </LinearGradient>
-  )
+  );
 }
-
 
 const styles = StyleSheet.create({
   container: {

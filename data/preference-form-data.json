@@ -5,7 +5,7 @@
   },
   {
     "questionText": "Which colors do you like the best?",
-    "options": ["Insert color", "Insert color", "Insert color", "Insert color"]
+    "options": ["Blue", "Red", "Green", "Purple"]
   },
   {
     "questionText": "Does your child have any of the following sensory sensitivities?",
