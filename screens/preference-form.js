@@ -34,6 +34,7 @@ function PreferenceFormUI() {
     const nextQuestionIndex = questionIndex + 1;
 
     if (nextQuestionIndex >= formData.length) {
+      console.log(questionIndex);
       navigation.navigate('Home', { gradientColors });
     } else {
       setQuestionIndex(nextQuestionIndex);
