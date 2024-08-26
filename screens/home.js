@@ -1,141 +1,110 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Alert, TouchableOpacity, ImageBackground } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
+// screens/home.js
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient'; // Assuming you're using Expo
 
-const PreferenceFormUI = ({ navigation }) => {
-  const formData = require("../data/preference-form-data.json");
+const courses = [
+  { id: '1', name: 'Kindergarten math' },
+  { id: '2', name: '1st grade math' },
+  { id: '3', name: '2nd grade math' },
+  { id: '4', name: '3rd grade math' },
+  { id: '5', name: '4th grade math' },
+  { id: '6', name: '5th grade math' },
+];
 
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [currQuestionData, setCurrQuestionData] = useState(formData[0]);
-  const [gradientColors, setGradientColors] = useState(['#66CCFF', '#3399FF']); // Default gradient colors
+export default function Home({ navigation }) {
+  const [selectedId, setSelectedId] = useState(null);
 
-  function incrementQuestion(selectedOption) {
-    // Check if the current question is the color preference question
-    if (questionIndex === 1) { // Assuming it's the second question
-      switch (selectedOption) {
-        case 'Blue':
-          setGradientColors(['#66CCFF', '#3399FF']);
-          break;
-        case 'Red':
-          setGradientColors(['#FF6347', '#FF4500']);
-          break;
-        case 'Green':
-          setGradientColors(['#66FF66', '#32CD32']);
-          break;
-        case 'Purple':
-          setGradientColors(['#D8BFD8', '#6A0D91']);
-          break;
-        default:
-          setGradientColors(['#66CCFF', '#3399FF']);
-          break;
-      }
-    }
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+      style={[styles.courseContainer, { backgroundColor: selectedId === item.id ? '#e0f7fa' : '#fff' }]}
+      onPress={() => setSelectedId(item.id)}
+    >
+      <Text style={styles.courseName}>{item.name}</Text>
+    </TouchableOpacity>
+  );
 
-    const nextQuestionIndex = questionIndex + 1;
-
-    if (nextQuestionIndex >= formData.length) {
-      // Navigate to home screen when all questions are answered
-      navigation.navigate('Home', { gradientColors });
+  const handleContinue = () => {
+    if (selectedId) {
+      const selectedCourse = courses.find(course => course.id === selectedId);
+      navigation.navigate(selectedCourse.name); // Navigate to the page with the same name as the course
     } else {
-      setQuestionIndex(nextQuestionIndex);
-      setCurrQuestionData(formData[nextQuestionIndex]);
+      Alert.alert('No Selection', 'Please select a course before continuing.');
     }
-  }
-
-  function goBack() {
-    const prevQuestionIndex = questionIndex - 1;
-
-    if (prevQuestionIndex >= 0) {
-      setQuestionIndex(prevQuestionIndex);
-      setCurrQuestionData(formData[prevQuestionIndex]);
-    }
-  }
+  };
 
   return (
     <LinearGradient
-      colors={gradientColors}
-      style={styles.backgroundImage}
+      colors={['#66CCFF', '#3399FF']} // Light blue to dark blue with slight gradient
+      style={styles.container}
     >
-      <View style={styles.container}>
-        <TouchableOpacity onPress={goBack} style={styles.backButton}>
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
-
-        <Text style={styles.question}>{questionIndex + 1}. {currQuestionData.questionText}</Text>
-
-        {currQuestionData.options.map((item, index) => (
-          <TouchableOpacity key={index} onPress={() => incrementQuestion(item)} style={styles.answerContainer}>
-            <Text style={styles.answerText}>{item}</Text>
-          </TouchableOpacity>
-        ))}
-
-        {questionIndex === formData.length - 1 && (
-          <TouchableOpacity onPress={() => navigation.navigate('Home', { gradientColors })} style={styles.finishButton}>
-            <Text style={styles.buttonText}>Finish</Text>
-          </TouchableOpacity>
-        )}
-      </View>
+      <Text style={styles.title}>SPEDucate Course Selection</Text>
+      <FlatList
+        data={courses}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        contentContainerStyle={styles.list}
+      />
+      <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
+        <Text style={styles.continueButtonText}>Continue</Text>
+      </TouchableOpacity>
     </LinearGradient>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-  },
   container: {
     flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 16,
+    paddingTop: 60, // Increased padding at the top
   },
-  question: {
-    fontSize: 24,
+  title: {
+    fontSize: 36, // Made the title bigger
     fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 20,
     textAlign: 'center',
+    marginVertical: 24, // Increased vertical margin
+    color: '#FFFFFF', // White color for title
   },
-  answerContainer: {
-    width: 350,
-    marginVertical: 10,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: 'lightblue',
-    backgroundColor: 'white',
+  list: {
+    flexGrow: 1,
+  },
+  courseContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 3,
     elevation: 2,
-    alignSelf: 'center',
+    justifyContent: 'flex-start',
+    marginBottom: 4, // Slight margin to make it look like a table row
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd', // Light border color for separation
   },
-  answerText: {
+  courseName: {
     fontSize: 18,
-    color: '#00384b',
-    textAlign: 'center',
-    padding: 15,
+    fontWeight: 'bold',
+    color: '#003087',
+    flex: 1, // Fill the container's width
   },
-  backButton: {
-    position: 'absolute',
-    top: 40,
-    left: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: '#003087',
-    borderRadius: 50,
-    elevation: 2,
-  },
-  finishButton: {
-    marginTop: 20,
+  continueButton: {
     paddingVertical: 15,
     paddingHorizontal: 30,
     backgroundColor: '#003087',
     borderRadius: 50,
     alignSelf: 'center',
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 3,
     elevation: 2,
   },
-  buttonText: {
+  continueButtonText: {
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 18,
   },
 });
-
-export default Home;

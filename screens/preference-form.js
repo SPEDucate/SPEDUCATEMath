@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, Alert, TouchableOpacity, ImageBackground } from
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const PreferenceFormUI = ({ navigation }) => {
+function PreferenceFormUI() {
   const formData = require("../data/preference-form-data.json");
-
+  const navigation = useNavigation();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [currQuestionData, setCurrQuestionData] = useState(formData[0]);
   const [gradientColors, setGradientColors] = useState(['#66CCFF', '#3399FF']); // Default gradient colors

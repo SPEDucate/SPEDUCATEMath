@@ -26,7 +26,7 @@ function Login() {
       if (validUser) {
         setUserName('');
         setPassword('');
-        navigation.navigate('Home');
+        navigation.navigate('PreferenceForm');
       } else {
         Alert.alert('Error', 'Incorrect password');
       }

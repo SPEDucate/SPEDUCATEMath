@@ -9,7 +9,7 @@ import TwoMath from '../screens/courses/2Math';
 import ThreeMath from '../screens/courses/3Math';
 import FourMath from '../screens/courses/4Math';
 import FiveMath from '../screens/courses/5Math';
-import PreferenceForm from '../screens/preference-form';  // Import the new form
+import PreferenceFormUI from '../screens/preference-form';  // Import the new form
 
 const Stack = createStackNavigator();
 
@@ -59,7 +59,7 @@ export default function AppNavigator() {
         />
         <Stack.Screen
           name="PreferenceForm" // Add the Preference Form screen
-          component={PreferenceForm}
+          component={PreferenceFormUI}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
