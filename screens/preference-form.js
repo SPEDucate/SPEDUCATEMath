@@ -69,7 +69,7 @@ const PreferenceFormUI = ({ navigation }) => {
         ))}
 
         {questionIndex === formData.length - 1 && (
-          <TouchableOpacity onPress={() => navigation.navigate('Home', { gradientColors })} style={styles.finishButton}>
+          <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.finishButton}>
             <Text style={styles.buttonText}>Finish</Text>
           </TouchableOpacity>
         )}
