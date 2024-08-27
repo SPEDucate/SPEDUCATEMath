@@ -22,7 +22,6 @@ export default function OneWorld() {
         <TouchableOpacity style={[styles.button, styles.location5]}>
           <Text style={styles.buttonText}>5. Jolly Jungle</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>First Fantasy Lake</Text>
       </ImageBackground>
     </View>
   );

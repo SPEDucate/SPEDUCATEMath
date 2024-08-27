@@ -22,7 +22,6 @@ export default function KinderWorld() {
         <TouchableOpacity style={[styles.button, styles.location5]}>
           <Text style={styles.buttonText}>5. Magic Mansion</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>Kinder Village</Text>
       </ImageBackground>
     </View>
   );
