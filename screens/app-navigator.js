@@ -3,12 +3,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Login from '../screens/login';
 import Home from '../screens/home';
-import KMath from '../screens/courses/kMath';
-import OneMath from '../screens/courses/1Math';
-import TwoMath from '../screens/courses/2Math';
-import ThreeMath from '../screens/courses/3Math';
-import FourMath from '../screens/courses/4Math';
-import FiveMath from '../screens/courses/5Math';
+import KinderWorld from '../screens/kinderWorld';
+import OneWorld from '../screens/oneWorld';
+import TwoWorld from '../screens/twoWorld';
+import ThreeWorld from '../screens/threeWorld';
+import FourWorld from '../screens/fourWorld';
+import FiveWorld from '../screens/fiveWorld';
+import QuestionUI from '../screens/question'; // Import the QuestionUI component
 
 const Stack = createStackNavigator();
 
@@ -27,34 +28,39 @@ export default function AppNavigator() {
           options={{ headerShown: false }} // Hide header for Home screen
         />
         <Stack.Screen
-          name="Kindergarten math"
-          component={KMath}
-          options={{ headerShown: false }} // Hide header for Kindergarten math screen
+          name="KinderWorld"
+          component={KinderWorld}
+          options={{ headerShown: false }} // Hide header for KinderWorld screen
         />
         <Stack.Screen
-          name="1st grade math"
-          component={OneMath}
-          options={{ headerShown: false }} // Hide header for 1st grade math screen
+          name="OneWorld"
+          component={OneWorld}
+          options={{ headerShown: false }} // Hide header for OneWorld screen
         />
         <Stack.Screen
-          name="2nd grade math"
-          component={TwoMath}
-          options={{ headerShown: false }} // Hide header for 2nd grade math screen
+          name="TwoWorld"
+          component={TwoWorld}
+          options={{ headerShown: false }} // Hide header for TwoWorld screen
         />
         <Stack.Screen
-          name="3rd grade math"
-          component={ThreeMath}
-          options={{ headerShown: false }} // Hide header for 3rd grade math screen
+          name="ThreeWorld"
+          component={ThreeWorld}
+          options={{ headerShown: false }} // Hide header for ThreeWorld screen
         />
         <Stack.Screen
-          name="4th grade math"
-          component={FourMath}
-          options={{ headerShown: false }} // Hide header for 4th grade math screen
+          name="FourWorld"
+          component={FourWorld}
+          options={{ headerShown: false }} // Hide header for FourWorld screen
         />
         <Stack.Screen
-          name="5th grade math"
-          component={FiveMath}
-          options={{ headerShown: false }} // Hide header for 5th grade math screen
+          name="FiveWorld"
+          component={FiveWorld}
+          options={{ headerShown: false }} // Hide header for FiveWorld screen
+        />
+        <Stack.Screen
+          name="QuestionUI"
+          component={QuestionUI} // Add QuestionUI component
+          options={{ headerShown: false }} // Hide header for QuestionUI screen
         />
       </Stack.Navigator>
     </NavigationContainer>

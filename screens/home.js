@@ -1,15 +1,14 @@
-// screens/home.js
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient'; // Assuming you're using Expo
 
 const courses = [
-  { id: '1', name: 'Kindergarten math' },
-  { id: '2', name: '1st grade math' },
-  { id: '3', name: '2nd grade math' },
-  { id: '4', name: '3rd grade math' },
-  { id: '5', name: '4th grade math' },
-  { id: '6', name: '5th grade math' },
+  { id: '1', name: 'KinderWorld' },
+  { id: '2', name: 'OneWorld' },
+  { id: '3', name: 'TwoWorld' },
+  { id: '4', name: 'ThreeWorld' },
+  { id: '5', name: 'FourWorld' },
+  { id: '6', name: 'FiveWorld' },
 ];
 
 export default function Home({ navigation }) {
@@ -27,7 +26,7 @@ export default function Home({ navigation }) {
   const handleContinue = () => {
     if (selectedId) {
       const selectedCourse = courses.find(course => course.id === selectedId);
-      navigation.navigate(selectedCourse.name); // Navigate to the page with the same name as the course
+      navigation.navigate(selectedCourse.name); // Navigate to the correct screen
     } else {
       Alert.alert('No Selection', 'Please select a course before continuing.');
     }

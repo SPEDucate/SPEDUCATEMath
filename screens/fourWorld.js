@@ -1,31 +1,54 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function FourWorld() {
+  const navigation = useNavigation();
+
+  function navigateToQuestion() {
+    navigation.navigate('QuestionUI');
+  }
+
   return (
     <View style={styles.container}>
-      
       <ImageBackground 
-      source={require('../assets/FourVillage.png')} style={styles.map}>
-        <TouchableOpacity style={[styles.button, styles.location1]}>
+        source={require('../assets/FourVillage.png')} 
+        style={styles.map}
+      >
+        <TouchableOpacity 
+          style={[styles.button, styles.location1]} 
+          onPress={navigateToQuestion}
+        >
           <Text style={styles.buttonText}>1. Waterslide World</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.location2]}>
+        <TouchableOpacity 
+          style={[styles.button, styles.location2]} 
+          onPress={navigateToQuestion}
+        >
           <Text style={styles.buttonText}>2. Carnival Crusade</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.location3]}>
+        <TouchableOpacity 
+          style={[styles.button, styles.location3]} 
+          onPress={navigateToQuestion}
+        >
           <Text style={styles.buttonText}>3. Playground Park</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.location4]}>
+        <TouchableOpacity 
+          style={[styles.button, styles.location4]} 
+          onPress={navigateToQuestion}
+        >
           <Text style={styles.buttonText}>4. Love Lake</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.location5]}>
+        <TouchableOpacity 
+          style={[styles.button, styles.location5]} 
+          onPress={navigateToQuestion}
+        >
           <Text style={styles.buttonText}>5. Circus Tent</Text>
         </TouchableOpacity>
       </ImageBackground>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -62,7 +85,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff',
     fontWeight: 'bold',
-    
   },
   location1: {
     position: 'absolute',
@@ -95,4 +117,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey'
   },
 });
-
