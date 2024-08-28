@@ -13,7 +13,12 @@ const QuestionUI = () => {
     const correctAnswer = answerData.answers[questionIndex];
 
     if (selectedOption === correctAnswer) {
-      incrementQuestion();
+      Alert.alert("Good Job! That's correct!", "", [
+        {
+          text: "Next Question",
+          onPress: incrementQuestion,
+        },
+      ]);
     } else {
       Alert.alert("Uh oh! That appears to be incorrect!");
     }
