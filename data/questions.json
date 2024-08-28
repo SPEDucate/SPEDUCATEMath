@@ -1,30 +1,227 @@
 [
-    {
-      "questionText": "What is the value of 2 + 2?",
-      "options": [
-        "3",
-        "4",
-        "5",
-        "6"
-      ]
-    },
-    {
-      "questionText": "Which of the following is a prime number?",
-      "options": [
-        "4",
-        "6",
-        "9",
-        "11"
-      ]
-    },
-    {
-      "questionText": "What is the square root of 16?",
-      "options": [
-        "2",
-        "4",
-        "6",
-        "8"
-      ]
-    }
-  ]
-  
+  {
+    "questionText": "What number comes after 1?",
+    "options": [
+      "0",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "questionText": "Count to 5. What is the last number?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "3"
+    ]
+  },
+  {
+    "questionText": "What number comes before 7?",
+    "options": [
+      "5",
+      "6",
+      "8",
+      "9"
+    ]
+  },
+  {
+    "questionText": "Which is more: 9 or 4?",
+    "options": [
+      "9",
+      "4",
+      "They are the same",
+      "None of these"
+    ]
+  },
+  {
+    "questionText": "What is 2 + 1?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "questionText": "What is 4 - 2?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "questionText": "If you have 5 apples and eat 2, how many are left?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "questionText": "What is the sum of 3 + 2?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ]
+  },
+  {
+    "questionText": "What is 10 - 7?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "questionText": "Which number is greater: 15 or 20?",
+    "options": [
+      "15",
+      "20",
+      "They are equal",
+      "None of these"
+    ]
+  },
+  {
+    "questionText": "What number comes after 12?",
+    "options": [
+      "11",
+      "13",
+      "14",
+      "15"
+    ]
+  },
+  {
+    "questionText": "What is 5 + 5?",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "11"
+    ]
+  },
+  {
+    "questionText": "Subtract 3 from 10. What do you get?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "questionText": "Which number is smaller: 8 or 12?",
+    "options": [
+      "8",
+      "12",
+      "They are equal",
+      "None of these"
+    ]
+  },
+  {
+    "questionText": "How many tens are in 20?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "questionText": "What is 7 + 3?",
+    "options": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  {
+    "questionText": "What is 14 - 5?",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "11"
+    ]
+  },
+  {
+    "questionText": "Which number is greater: 30 or 25?",
+    "options": [
+      "30",
+      "25",
+      "They are equal",
+      "None of these"
+    ]
+  },
+  {
+    "questionText": "What number comes before 50?",
+    "options": [
+      "48",
+      "49",
+      "51",
+      "52"
+    ]
+  },
+  {
+    "questionText": "What is the sum of 15 + 10?",
+    "options": [
+      "20",
+      "25",
+      "30",
+      "35"
+    ]
+  },
+  {
+    "questionText": "Subtract 12 from 20. What do you get?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ]
+  },
+  {
+    "questionText": "Which number is smaller: 45 or 60?",
+    "options": [
+      "45",
+      "60",
+      "They are equal",
+      "None of these"
+    ]
+  },
+  {
+    "questionText": "How many tens are in 70?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ]
+  },
+  {
+    "questionText": "What is 25 + 25?",
+    "options": [
+      "45",
+      "50",
+      "55",
+      "60"
+    ]
+  },
+  {
+    "questionText": "Subtract 20 from 100. What do you get?",
+    "options": [
+      "70",
+      "75",
+      "80",
+      "85"
+    ]
+  }
+]

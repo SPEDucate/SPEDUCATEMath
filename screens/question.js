@@ -2,11 +2,22 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Alert, TouchableOpacity, ImageBackground } from "react-native";
 
 const QuestionUI = () => {
-  // Get the JSON file with all the questions info
+  // Get the JSON files with all the questions and answers info
   const formData = require("../data/questions.json");
+  const answerData = require("../data/answers.json");
 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [currQuestionData, setCurrQuestionData] = useState(formData[0]);
+
+  function handleAnswerPress(selectedOption) {
+    const correctAnswer = answerData.answers[questionIndex];
+
+    if (selectedOption === correctAnswer) {
+      incrementQuestion();
+    } else {
+      Alert.alert("Uh oh! That appears to be incorrect!");
+    }
+  }
 
   function incrementQuestion() {
     var nextQuestionIndex = questionIndex + 1;
@@ -14,8 +25,7 @@ const QuestionUI = () => {
     // If the index is out of bounds
     if (nextQuestionIndex >= formData.length || nextQuestionIndex < 0) {
       Alert.alert("OUT OF BOUNDS INDEX");
-      // Do something here
-      // probably go to the curriculum or something
+      // Do something here, like going to the curriculum or home screen
       return;
     }
 
@@ -30,12 +40,12 @@ const QuestionUI = () => {
       style={styles.backgroundImage}
     >
         <View style={styles.container}>
-          {/* Question Number and Question Text*/}
+          {/* Question Number and Question Text */}
           <Text style={styles.question}>{questionIndex + 1}. {currQuestionData.questionText}</Text>
 
           {/* Answer Choices */}
           {currQuestionData.options.map((item, index) => (
-            <TouchableOpacity key={index} onPress={incrementQuestion} style={styles.answerContainer}>
+            <TouchableOpacity key={index} onPress={() => handleAnswerPress(item)} style={styles.answerContainer}>
                 <Text style={styles.answerText}>{item}</Text>
             </TouchableOpacity>
           ))}
