@@ -4,13 +4,9 @@ import Icon from "../assets/splash-screen.png";
 export default function SplashScreen() {
   return (
     <View style={styles.container}>
-      <Image source={Icon} style={styles.image} />
-      <Image
-        source={{
-          uri: "../assets/splash-screen.png",
-        }}
-        style={{ resizeMode: "cover", width: "100%", height: "100%" }}
-      />
+      <View>
+        <Image source={Icon} style={styles.image} />
+      </View>
     </View>
   );
 }
