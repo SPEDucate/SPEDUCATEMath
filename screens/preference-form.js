@@ -1,60 +1,74 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Alert } from "react-native";
-import Papa from "papaparse";
-import * as FileSystem from 'expo-file-system';
-
-async function getQuestionData() {
-  const relative_path = "data/".concat("preference form questions - Sheet1.csv");
-
-  const fileUrl = FileSystem.documentDirectory + relative_path;
-  console.log(fileUrl)
-  const fileContent = await FileSystem.readAsStringAsync(fileUrl);
-  console.log(fileContent);
-
-  // let res = Papa.parse(fileContent, {
-  //   header: true,
-  //   skipEmptyLines: true,
-  //   complete: (results) => {
-  //     console.log(results);
-  //   }
-  // });
-
-  // return res;
-}
+import { executeQuery } from "../scripts/database";
 
 const PreferenceFormUI = () => {
-  // Get the JSON file with all the questions info
-  const formData = getQuestionData();
-  // console.log(formData);
+  const [prompts, setPrompts] = useState([]);
+  const [choices, setChoices] = useState([["Loading Data..."]]);
+
+  // fetch the data from database
+  useEffect(() => {
+    const getQuestionData = async () => {
+      let questionTexts = await executeQuery(
+        "SELECT * FROM PrefQuestions ORDER BY question_id"
+      );
+      // console.log("GOT TEXTS: " + JSON.stringify(questionTexts));
+      let choicesRaw = await executeQuery(
+        "SELECT * FROM PrefChoices ORDER BY question_id"
+      );
+      // console.log("CHOICES: " + JSON.stringify(choicesRaw));
+
+      cleanedTexts = [];
+      for (let i = 0; i < questionTexts.length; i++) {
+        cleanedTexts.push(questionTexts[i].question_text);
+      }
+
+      cleanedChoices = [];
+      cleanedChoices.push([choicesRaw[0].choice_text]);
+      for (let i = 1; i < choicesRaw.length; i++) {
+        let currChoice = choicesRaw[i];
+        if (currChoice.question_id == choicesRaw[i - 1].question_id) {
+          cleanedChoices[cleanedChoices.length - 1].push(
+            currChoice.choice_text
+          );
+        } else {
+          cleanedChoices.push([currChoice.choice_text]);
+        }
+      }
+
+      setPrompts(cleanedTexts);
+      setChoices(cleanedChoices);
+    };
+
+    getQuestionData().catch(console.error);
+  }, []);
 
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [currQuestionData, setCurrQuestionData] = useState(formData[0]);
 
   function incrementQuestion() {
     var nextQuestionIndex = questionIndex + 1;
 
     // If the index is out of bounds
-    if (nextQuestionIndex >= formData.length || nextQuestionIndex < 0) {
-      Alert.alert("OUT OF BOUNDS INDEX");
-      // Do something here
-      // probably go to the curriculum or smth
+    if (nextQuestionIndex >= prompts.length || nextQuestionIndex < 0) {
+      Alert.alert("REACHED LAST ANSWER CHOICE");
+      // Do something here, probably go to the curriculum or smth
       return;
     }
 
     // Update states (which then updates display)
     setQuestionIndex(nextQuestionIndex);
-    setCurrQuestionData(formData[nextQuestionIndex]);
   }
 
   return (
     <View style={styles.container}>
-      {/* Question Number and Question Text*/}
-      <Text>{questionIndex + 1}. {currQuestionData.questionText}</Text>
+      <Text>
+        {questionIndex + 1}. {prompts[questionIndex]}
+      </Text>
 
-      {/* Answer Choices */}
-      {currQuestionData.options.map((item, index) => (
-        <Text
-          key={index} onPress={incrementQuestion}>{item}</Text>
+      {choices[questionIndex].map((item, index) => (
+        <Text key={index} onPress={incrementQuestion}>
+          {item}
+        </Text>
       ))}
     </View>
   );
