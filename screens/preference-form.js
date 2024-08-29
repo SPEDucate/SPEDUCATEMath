@@ -1,32 +1,40 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Alert, TouchableOpacity, ImageBackground } from "react-native";
-import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 function PreferenceFormUI() {
   const formData = require("../data/preference-form-data.json");
   const navigation = useNavigation();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [currQuestionData, setCurrQuestionData] = useState(formData[0]);
-  const [gradientColors, setGradientColors] = useState(['#66CCFF', '#3399FF']); // Default gradient colors
+  const [gradientColors, setGradientColors] = useState(["#66CCFF", "#3399FF"]); // Default gradient colors
 
   function incrementQuestion(selectedOption) {
-    if (questionIndex === 1) { // Assuming the second question is the color preference
+    if (questionIndex === 1) {
+      // Assuming the second question is the color preference
       switch (selectedOption) {
-        case 'Blue':
-          setGradientColors(['#66CCFF', '#3399FF']);
+        case "Blue":
+          setGradientColors(["#66CCFF", "#3399FF"]);
           break;
-        case 'Red':
-          setGradientColors(['#FF6347', '#FF4500']);
+        case "Red":
+          setGradientColors(["#FF6347", "#FF4500"]);
           break;
-        case 'Green':
-          setGradientColors(['#66FF66', '#32CD32']);
+        case "Green":
+          setGradientColors(["#66FF66", "#32CD32"]);
           break;
-        case 'Purple':
-          setGradientColors(['#D8BFD8', '#6A0D91']);
+        case "Purple":
+          setGradientColors(["#D8BFD8", "#6A0D91"]);
           break;
         default:
-          setGradientColors(['#66CCFF', '#3399FF']);
+          setGradientColors(["#66CCFF", "#3399FF"]);
           break;
       }
     }
@@ -35,7 +43,7 @@ function PreferenceFormUI() {
 
     if (nextQuestionIndex >= formData.length) {
       console.log(questionIndex);
-      navigation.navigate('Home', { gradientColors });
+      navigation.navigate("Home", { gradientColors });
     } else {
       setQuestionIndex(nextQuestionIndex);
       setCurrQuestionData(formData[nextQuestionIndex]);
@@ -52,27 +60,29 @@ function PreferenceFormUI() {
   }
 
   return (
-    <LinearGradient
-      colors={gradientColors}
-      style={styles.backgroundImage}
-    >
+    <LinearGradient colors={gradientColors} style={styles.backgroundImage}>
       <View style={styles.container}>
         <TouchableOpacity onPress={goBack} style={styles.backButton}>
           <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
 
-        <Text style={styles.question}>{questionIndex + 1}. {currQuestionData.questionText}</Text>
+        <Text style={styles.question}>
+          {questionIndex + 1}. {currQuestionData.questionText}
+        </Text>
 
         {currQuestionData.options.map((item, index) => (
-          <TouchableOpacity key={index} onPress={() => incrementQuestion(item)} style={styles.answerContainer}>
+          <TouchableOpacity
+            key={index}
+            onPress={() => incrementQuestion(item)}
+            style={styles.answerContainer}
+          >
             <Text style={styles.answerText}>{item}</Text>
           </TouchableOpacity>
         ))}
-
       </View>
     </LinearGradient>
   );
-};
+}
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -81,39 +91,39 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   question: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   answerContainer: {
     width: 350,
     marginVertical: 10,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: 'lightblue',
-    backgroundColor: 'white',
+    borderColor: "lightblue",
+    backgroundColor: "white",
     elevation: 2,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   answerText: {
     fontSize: 18,
-    color: '#00384b',
-    textAlign: 'center',
+    color: "#00384b",
+    textAlign: "center",
     padding: 15,
   },
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 40,
     left: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    backgroundColor: '#003087',
+    backgroundColor: "#003087",
     borderRadius: 50,
     elevation: 2,
   },
@@ -121,14 +131,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingVertical: 15,
     paddingHorizontal: 30,
-    backgroundColor: '#003087',
+    backgroundColor: "#003087",
     borderRadius: 50,
-    alignSelf: 'center',
+    alignSelf: "center",
     elevation: 2,
   },
   buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
     fontSize: 18,
   },
 });
