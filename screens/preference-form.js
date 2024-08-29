@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import { executeQuery } from "../scripts/database";
 
 const PreferenceFormUI = () => {
@@ -60,26 +67,63 @@ const PreferenceFormUI = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>
-        {questionIndex + 1}. {prompts[questionIndex]}
-      </Text>
-
-      {choices[questionIndex].map((item, index) => (
-        <Text key={index} onPress={incrementQuestion}>
-          {item}
+    <ImageBackground
+      source={require("../assets/background.jpg")} // Replace with your background image path
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        <Text style={styles.question}>
+          {questionIndex + 1}. {prompts[questionIndex]}
         </Text>
-      ))}
-    </View>
+
+        {choices[questionIndex].map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={incrementQuestion}
+            style={styles.answerContainer}
+          >
+            <Text style={styles.answerText}>{item}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+  },
+
   container: {
-    flex: 2,
-    margin: "auto",
+    flex: 1,
+    padding: 20,
     justifyContent: "center",
-    paddingHorizontal: 20,
+    alignItems: "center",
+  },
+  question: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  answerContainer: {
+    width: 350,
+    marginVertical: 10,
+    borderRadius: 20,
+    borderWidth: 2, // Add border width
+    borderColor: "lightblue", // Add light blue border color
+    backgroundColor: "white", // Add white background color
+    elevation: 2,
+    alignSelf: "center",
+  },
+  answerText: {
+    fontSize: 18,
+    color: "#00384b", // Add light blue text color
+    textAlign: "center",
+    padding: 15,
   },
 });
 
