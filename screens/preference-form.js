@@ -1,46 +1,91 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Alert, TouchableOpacity, ImageBackground } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
+import { executeQuery } from "../scripts/database";
 
 const PreferenceFormUI = () => {
-  // Get the JSON file with all the questions info
-  const formData = require("../data/preference-form-data.json");
+  const [prompts, setPrompts] = useState([]);
+  const [choices, setChoices] = useState([["Loading Data..."]]);
+
+  // fetch the data from database
+  useEffect(() => {
+    const getQuestionData = async () => {
+      let questionTexts = await executeQuery(
+        "SELECT * FROM PrefQuestions ORDER BY question_id"
+      );
+      // console.log("GOT TEXTS: " + JSON.stringify(questionTexts));
+      let choicesRaw = await executeQuery(
+        "SELECT * FROM PrefChoices ORDER BY question_id"
+      );
+      // console.log("CHOICES: " + JSON.stringify(choicesRaw));
+
+      cleanedTexts = [];
+      for (let i = 0; i < questionTexts.length; i++) {
+        cleanedTexts.push(questionTexts[i].question_text);
+      }
+
+      cleanedChoices = [];
+      cleanedChoices.push([choicesRaw[0].choice_text]);
+      for (let i = 1; i < choicesRaw.length; i++) {
+        let currChoice = choicesRaw[i];
+        if (currChoice.question_id == choicesRaw[i - 1].question_id) {
+          cleanedChoices[cleanedChoices.length - 1].push(
+            currChoice.choice_text
+          );
+        } else {
+          cleanedChoices.push([currChoice.choice_text]);
+        }
+      }
+
+      setPrompts(cleanedTexts);
+      setChoices(cleanedChoices);
+    };
+
+    getQuestionData().catch(console.error);
+  }, []);
 
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [currQuestionData, setCurrQuestionData] = useState(formData[0]);
 
   function incrementQuestion() {
     var nextQuestionIndex = questionIndex + 1;
 
     // If the index is out of bounds
-    if (nextQuestionIndex >= formData.length || nextQuestionIndex < 0) {
-      Alert.alert("OUT OF BOUNDS INDEX");
-      // Do something here
-      // probably go to the curriculum or smth
+    if (nextQuestionIndex >= prompts.length || nextQuestionIndex < 0) {
+      Alert.alert("REACHED LAST ANSWER CHOICE");
+      // Do something here, probably go to the curriculum or smth
       return;
     }
 
     // Update states (which then updates display)
     setQuestionIndex(nextQuestionIndex);
-    setCurrQuestionData(formData[nextQuestionIndex]);
   }
 
   return (
-    <ImageBackground 
-      source={require('../assets/background.jpg')} // Replace with your background image path
+    <ImageBackground
+      source={require("../assets/background.jpg")} // Replace with your background image path
       style={styles.backgroundImage}
     >
-        <View style={styles.container}>
-          {/* Question Number and Question Text*/}
-          <Text style={styles.question}>{questionIndex + 1}. {currQuestionData.questionText}</Text>
+      <View style={styles.container}>
+        <Text style={styles.question}>
+          {questionIndex + 1}. {prompts[questionIndex]}
+        </Text>
 
-          {/* Answer Choices */}
-          {currQuestionData.options.map((item, index) => (
-            <TouchableOpacity key={index} onPress={incrementQuestion} style={styles.answerContainer}>
-                <Text style={styles.answerText}>{item}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+        {choices[questionIndex].map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={incrementQuestion}
+            style={styles.answerContainer}
+          >
+            <Text style={styles.answerText}>{item}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     </ImageBackground>
   );
 };
@@ -48,36 +93,36 @@ const PreferenceFormUI = () => {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
-  
+
   container: {
     flex: 1,
     padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   question: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   answerContainer: {
     width: 350,
     marginVertical: 10,
     borderRadius: 20,
     borderWidth: 2, // Add border width
-    borderColor: 'lightblue', // Add light blue border color
-    backgroundColor: 'white', // Add white background color
+    borderColor: "lightblue", // Add light blue border color
+    backgroundColor: "white", // Add white background color
     elevation: 2,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   answerText: {
     fontSize: 18,
-    color: '#00384b', // Add light blue text color
-    textAlign: 'center',
+    color: "#00384b", // Add light blue text color
+    textAlign: "center",
     padding: 15,
   },
 });

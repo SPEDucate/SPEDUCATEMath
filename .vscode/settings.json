@@ -1,21 +1,24 @@
 {
-    "files.exclude": {
-        "*.json": false,
-        "**/.DS_Store": false,
-        "**/.git": false,
-        "**/.hg": false,
-        "**/.svn": false,
-        "**/*.json": false,
-        "**/CVS": false,
-        "**/Thumbs.db": false
-    },
-    "explorerExclude.backup": {},
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "name": "userDatabse",
-            "database": "${workspaceFolder:SPEDUCATEMath-1}/userDatabase.db"
-        }
-    ]
+  "files.exclude": {
+    ".git": false,
+    "*.json": false,
+    "**/.DS_Store": false,
+    "**/.git": false,
+    "**/.hg": false,
+    "**/.svn": false,
+    "**/*.json": false,
+    "**/CVS": false,
+    "**/Thumbs.db": false
+  },
+  "explorerExclude.backup": {},
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "userDatabse",
+      "database": "${workspaceFolder:SPEDUCATEMath-1}/userDatabase.db"
+    }
+  ],
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2
 }
