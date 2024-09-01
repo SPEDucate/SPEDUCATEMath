@@ -8,11 +8,9 @@ export async function executeQuery(input_query) {
     const response = await axios.post(API_REF, {
       query: input_query,
     });
+    // let stringifiedData = JSON.stringify(response);
+    // console.log("RECEIVED DATA FROM DATABASE: " + stringifiedData.data);
     return response.data;
-    // let stringifiedData = JSON.stringify(response.data);
-    // console.log("RECEIVED DATA FROM DATABASE: " + stringifiedData);
-    // let res = JSON.parse(stringifiedData);
-    // return res;
   } catch (error) {
     // console.error("ERROR FETCHING DATABASE: " + err.message);
   }
