@@ -16,14 +16,10 @@ const PreferenceFormUI = () => {
   // fetch the data from database
   useEffect(() => {
     const getQuestionData = async () => {
-      let questionTexts = await executeQuery(
-        "SELECT * FROM PrefQuestions ORDER BY question_id"
-      );
-      // console.log("GOT TEXTS: " + JSON.stringify(questionTexts));
-      let choicesRaw = await executeQuery(
-        "SELECT * FROM PrefChoices ORDER BY question_id"
-      );
-      // console.log("CHOICES: " + JSON.stringify(choicesRaw));
+      const [questionTexts, choicesRaw] = await Promise.all([
+        executeQuery("SELECT * FROM PrefQuestions ORDER BY question_id"),
+        executeQuery("SELECT * FROM PrefChoices ORDER BY question_id"),
+      ]);
 
       cleanedTexts = [];
       for (let i = 0; i < questionTexts.length; i++) {
@@ -47,7 +43,7 @@ const PreferenceFormUI = () => {
       setChoices(cleanedChoices);
     };
 
-    getQuestionData().catch(console.error);
+    getQuestionData();
   }, []);
 
   const [questionIndex, setQuestionIndex] = useState(0);

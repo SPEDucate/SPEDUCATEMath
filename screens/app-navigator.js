@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import Login from '../screens/login';
-import Home from '../screens/home';
-import KMath from '../screens/courses/kMath';
-import OneMath from '../screens/courses/1Math';
-import TwoMath from '../screens/courses/2Math';
-import ThreeMath from '../screens/courses/3Math';
-import FourMath from '../screens/courses/4Math';
-import FiveMath from '../screens/courses/5Math';
+import * as React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import LoginScreen from "../screens/login";
+import Home from "../screens/home";
+import KMath from "../screens/courses/kMath";
+import OneMath from "../screens/courses/1Math";
+import TwoMath from "../screens/courses/2Math";
+import ThreeMath from "../screens/courses/3Math";
+import FourMath from "../screens/courses/4Math";
+import FiveMath from "../screens/courses/5Math";
 
 const Stack = createStackNavigator();
 
@@ -18,7 +18,7 @@ export default function AppNavigator() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
-          component={Login}
+          component={LoginScreen}
           options={{ headerShown: false }} // Hide header for Login screen
         />
         <Stack.Screen
