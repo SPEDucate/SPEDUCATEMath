@@ -19,42 +19,42 @@ export default function AppNavigator() {
         <Stack.Screen
           name="Login"
           component={LoginScreen}
-          options={{ headerShown: false }} // Hide header for Login screen
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{ headerShown: false }} // Hide header for Home screen
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Kindergarten math"
           component={KMath}
-          options={{ headerShown: false }} // Hide header for Kindergarten math screen
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="1st grade math"
           component={OneMath}
-          options={{ headerShown: false }} // Hide header for 1st grade math screen
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="2nd grade math"
           component={TwoMath}
-          options={{ headerShown: false }} // Hide header for 2nd grade math screen
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="3rd grade math"
           component={ThreeMath}
-          options={{ headerShown: false }} // Hide header for 3rd grade math screen
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="4th grade math"
           component={FourMath}
-          options={{ headerShown: false }} // Hide header for 4th grade math screen
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="5th grade math"
           component={FiveMath}
-          options={{ headerShown: false }} // Hide header for 5th grade math screen
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
