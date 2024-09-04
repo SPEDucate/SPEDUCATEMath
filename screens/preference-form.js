@@ -1,20 +1,48 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  TouchableOpacity,
-  ImageBackground,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Alert, TouchableOpacity } from "react-native";
+import { executeQuery } from "../scripts/database";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
-function PreferenceFormUI() {
-  const formData = require("../data/preference-form-data.json");
+const PreferenceFormUI = () => {
+  const [prompts, setPrompts] = useState([]);
+  const [choices, setChoices] = useState([["Loading Data..."]]);
   const navigation = useNavigation();
+
+  // fetch the data from database
+  useEffect(() => {
+    const getQuestionData = async () => {
+      const [questionTexts, choicesRaw] = await Promise.all([
+        executeQuery("SELECT * FROM PrefQuestions ORDER BY question_id"),
+        executeQuery("SELECT * FROM PrefChoices ORDER BY question_id"),
+      ]);
+
+      cleanedTexts = [];
+      for (let i = 0; i < questionTexts.length; i++) {
+        cleanedTexts.push(questionTexts[i].question_text);
+      }
+
+      cleanedChoices = [];
+      cleanedChoices.push([choicesRaw[0].choice_text]);
+      for (let i = 1; i < choicesRaw.length; i++) {
+        let currChoice = choicesRaw[i];
+        if (currChoice.question_id == choicesRaw[i - 1].question_id) {
+          cleanedChoices[cleanedChoices.length - 1].push(
+            currChoice.choice_text
+          );
+        } else {
+          cleanedChoices.push([currChoice.choice_text]);
+        }
+      }
+
+      setPrompts(cleanedTexts);
+      setChoices(cleanedChoices);
+    };
+
+    getQuestionData();
+  }, []);
+
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [currQuestionData, setCurrQuestionData] = useState(formData[0]);
   const [gradientColors, setGradientColors] = useState(["#66CCFF", "#3399FF"]); // Default gradient colors
 
   function incrementQuestion(selectedOption) {
@@ -39,15 +67,17 @@ function PreferenceFormUI() {
       }
     }
 
-    const nextQuestionIndex = questionIndex + 1;
+    var nextQuestionIndex = questionIndex + 1;
 
-    if (nextQuestionIndex >= formData.length) {
-      console.log(questionIndex);
+    // If the index is out of bounds
+    if (nextQuestionIndex >= prompts.length) {
+      Alert.alert("REACHED LAST ANSWER CHOICE");
       navigation.navigate("Home", { gradientColors });
-    } else {
-      setQuestionIndex(nextQuestionIndex);
-      setCurrQuestionData(formData[nextQuestionIndex]);
+      return;
     }
+
+    // Update states (which then updates display)
+    setQuestionIndex(nextQuestionIndex);
   }
 
   function goBack() {
@@ -55,7 +85,6 @@ function PreferenceFormUI() {
 
     if (prevQuestionIndex >= 0) {
       setQuestionIndex(prevQuestionIndex);
-      setCurrQuestionData(formData[prevQuestionIndex]);
     }
   }
 
@@ -67,10 +96,10 @@ function PreferenceFormUI() {
         </TouchableOpacity>
 
         <Text style={styles.question}>
-          {questionIndex + 1}. {currQuestionData.questionText}
+          {questionIndex + 1}. {prompts[questionIndex]}
         </Text>
 
-        {currQuestionData.options.map((item, index) => (
+        {choices[questionIndex].map((item, index) => (
           <TouchableOpacity
             key={index}
             onPress={() => incrementQuestion(item)}
@@ -82,7 +111,7 @@ function PreferenceFormUI() {
       </View>
     </LinearGradient>
   );
-}
+};
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -93,12 +122,17 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
   question: {
     fontSize: 24,
     fontWeight: "bold",
     color: "white",
+    fontWeight: "bold",
+    color: "white",
     marginBottom: 20,
+    textAlign: "center",
     textAlign: "center",
   },
   answerContainer: {

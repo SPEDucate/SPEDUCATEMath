@@ -1,85 +1,77 @@
+// screens/LoginNew.js
 import {
   View,
   Text,
   TextInput,
-  Button,
   Alert,
   StyleSheet,
   Image,
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { useSQLiteContext } from "expo-sqlite";
+import { executeQuery } from "../scripts/database";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import PreferenceFormUI from "../screens/preference-form";
 
-function Login() {
-  const db = useSQLiteContext();
+function LoginScreen() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
 
   const handleLogin = async () => {
     if (userName.length === 0 || password.length === 0) {
-      Alert.alert("Attention", "Please enter both username and password");
+      Alert.alert("Attention", "Please enter both a username and password");
       return;
     }
+
     try {
-      const user = await db.getFirstAsync(
-        "SELECT * FROM users WHERE username = ?",
-        [userName]
+      console.log(userName + " " + password);
+      const receivedData = await executeQuery(
+        `SELECT user_id FROM Users WHERE username = '${userName}' AND password = '${password}'`
       );
-      if (!user) {
-        Alert.alert("Error", "Username does not exist!");
-        return;
-      }
-      const validUser = await db.getFirstAsync(
-        "SELECT * FROM users WHERE username = ? AND password = ?",
-        [userName, password]
-      );
-      if (validUser) {
-        setUserName("");
-        setPassword("");
-        navigation.navigate("PreferenceForm");
+      if (receivedData.length != 0) {
+        Alert.alert("Success", "Login successful");
+        navigation.navigate("Home");
       } else {
-        Alert.alert("Error", "Incorrect password");
+        Alert.alert("Error", "Incorrect username or password");
       }
     } catch (error) {
-      console.log("Error during login:", error);
+      console.error("Error during login: ", error);
     }
   };
 
   const handleRegister = async () => {
     if (userName.length === 0 || password.length === 0) {
-      Alert.alert("Attention!", "Please enter both username and password.");
+      Alert.alert("Attention!", "Please enter both a username and password.");
       return;
     }
+
     try {
-      const existingUser = await db.getFirstAsync(
-        "SELECT * FROM users WHERE username = ?",
-        [userName]
+      const existingUser = await executeQuery(
+        `SELECT * FROM Users WHERE username = "${userName}"`
       );
-      if (existingUser) {
+      if (existingUser.length > 0) {
         Alert.alert("Error", "Username already exists.");
         return;
       }
 
-      await db.runAsync(
-        "INSERT INTO users (username, password) VALUES (?, ?)",
-        [userName, password]
+      await executeQuery(
+        `INSERT INTO Users (username, password) VALUES ("${userName}", "${password}")`
       );
+      setUserName("");
+      setPassword("");
+      navigation.navigate("PreferenceForm");
       Alert.alert("Success", "Registration successful!");
-
-      // Redirect to PreferenceFormUI after successful registration
-      navigation.navigate("PreferenceFormUI");
     } catch (error) {
-      console.log("Error during registration:", error);
+      console.error("Error during registration: ", error);
     }
   };
 
   return (
-    <LinearGradient colors={["#9FCAF5", "#3399FF"]} style={styles.container}>
+    <LinearGradient
+      colors={["#9FCAF5", "#3399FF"]} // Light blue to dark blue with slight gradient
+      style={styles.container}
+    >
       <View style={styles.container}>
         <Image
           source={require("../assets/SPEDUCATE-Transparent.png")}
@@ -163,4 +155,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default LoginScreen;
