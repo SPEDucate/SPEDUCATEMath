@@ -9,9 +9,9 @@ export async function executeQuery(input_query) {
       query: input_query,
     });
     // let stringifiedData = JSON.stringify(response);
-    // console.log("RECEIVED DATA FROM DATABASE: " + stringifiedData.data);
+    // console.log("RECEIVED DATA FROM DATABASE: " + stringifiedData);
     return response.data;
   } catch (error) {
-    // console.error("ERROR FETCHING DATABASE: " + err.message);
+    console.error("ERROR FETCHING DATABASE: " + error.message);
   }
 }

@@ -3,12 +3,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "../screens/login";
 import Home from "../screens/home";
-import KMath from "../screens/courses/kMath";
-import OneMath from "../screens/courses/1Math";
-import TwoMath from "../screens/courses/2Math";
-import ThreeMath from "../screens/courses/3Math";
-import FourMath from "../screens/courses/4Math";
-import FiveMath from "../screens/courses/5Math";
+import KinderWorld from "./kinderWorld";
+import OneWorld from "./oneWorld";
+import TwoWorld from "./twoWorld";
+import ThreeWorld from "./threeWorld";
+import FourWorld from "./fourWorld";
+import FiveWorld from "./fiveWorld";
+import PreferenceFormUI from "../screens/preference-form"; // Import the new form
 
 const Stack = createStackNavigator();
 
@@ -28,32 +29,37 @@ export default function AppNavigator() {
         />
         <Stack.Screen
           name="Kindergarten math"
-          component={KMath}
+          component={KinderWorld}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="1st grade math"
-          component={OneMath}
+          component={OneWorld}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="2nd grade math"
-          component={TwoMath}
+          component={TwoWorld}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="3rd grade math"
-          component={ThreeMath}
+          component={ThreeWorld}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="4th grade math"
-          component={FourMath}
+          component={FourWorld}
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name="5th grade math"
-          component={FiveMath}
+          component={FiveWorld}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PreferenceForm"
+          component={PreferenceFormUI}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

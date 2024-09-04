@@ -25,10 +25,10 @@ function LoginScreen() {
     }
 
     try {
-      const currUserID = await executeQuery(
-        `SELECT user_id FROM Users WHERE username = ${userName} AND password = ${password}`
+      const receivedData = await executeQuery(
+        `SELECT user_id FROM Users WHERE username = '${userName}' AND password = '${password}'`
       );
-      if (currUserID) {
+      if (receivedData.length != 0) {
         Alert.alert("Success", "Login successful");
         navigation.navigate("Home");
       } else {
@@ -59,7 +59,7 @@ function LoginScreen() {
       );
       setUserName("");
       setPassword("");
-      navigation.navigate("Home");
+      navigation.navigate("PreferenceForm");
       Alert.alert("Success", "Registration successful!");
     } catch (error) {
       console.error("Error during registration: ", error);
