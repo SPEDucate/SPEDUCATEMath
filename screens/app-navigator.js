@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Login from '../screens/login';
-import Home from '../screens/home';
+import Login from './login';
+import Home from './home';
 import KinderWorld from './kinderWorld';
 import OneWorld from './oneWorld';
 import TwoWorld from './twoWorld';
 import ThreeWorld from './threeWorld';
 import FourWorld from './fourWorld';
 import FiveWorld from './fiveWorld';
-import PreferenceFormUI from '../screens/preference-form';  // Import the new form
+import PreferenceFormUI from './preference-form';
+import PathChooser from './pathChooser';  
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,11 @@ export default function AppNavigator() {
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PathChooser"  // Add PathChooser to the stack
+          component={PathChooser}
           options={{ headerShown: false }}
         />
         <Stack.Screen
@@ -58,8 +64,13 @@ export default function AppNavigator() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="PreferenceForm" // Add the Preference Form screen
+          name="PreferenceForm"
           component={PreferenceFormUI}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PathChooser"
+          component={PathChooser}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
