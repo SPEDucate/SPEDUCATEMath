@@ -25,7 +25,6 @@ function LoginScreen() {
     }
 
     try {
-      console.log(userName + " " + password);
       const receivedData = await executeQuery(
         `SELECT user_id FROM Users WHERE username = '${userName}' AND password = '${password}'`
       );
