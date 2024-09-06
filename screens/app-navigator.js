@@ -10,6 +10,7 @@ import ThreeWorld from "./threeWorld";
 import FourWorld from "./fourWorld";
 import FiveWorld from "./fiveWorld";
 import PreferenceFormUI from "../screens/preference-form"; // Import the new form
+import QuizScreen from "../screens/quizscreen";
 
 const Stack = createStackNavigator();
 
@@ -62,6 +63,11 @@ export default function AppNavigator() {
           component={PreferenceFormUI}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name = "quizscreen"
+          component={QuizScreen}
+          option={{headerShown: false}}
+          />
       </Stack.Navigator>
     </NavigationContainer>
   );

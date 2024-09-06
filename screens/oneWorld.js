@@ -6,8 +6,10 @@ import {
   StyleSheet,
   ImageBackground,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function OneWorld() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -15,7 +17,7 @@ export default function OneWorld() {
         style={styles.map}
       >
         <TouchableOpacity style={[styles.button, styles.location1]}>
-          <Text style={styles.buttonText}>1. Boat Dock</Text>
+          <Text style={styles.buttonText} onClick = {navigation.navigate("quizscreen")}>1. Boat Dock</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location2]}>
           <Text style={styles.buttonText}>2. Bush Path</Text>
