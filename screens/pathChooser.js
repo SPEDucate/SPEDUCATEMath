@@ -13,13 +13,13 @@ export default function PathChooser() {
       >
         <TouchableOpacity 
           style={[styles.button, styles.location1]} 
-          onPress={() => navigation.navigate('Home')}
+          //onPress={() => navigation.navigate('Home')}
         >
           <Text style={styles.buttonText}>Choose My Path</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           style={[styles.button, styles.location2]} 
-          onPress={() => navigation.navigate('Home')}
+          //onPress={() => navigation.navigate('Home')}
         >
           <Text style={styles.buttonText}>Resume My Path</Text>
         </TouchableOpacity>
