@@ -1,10 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
-export default function PathChooser() {  
-  const navigation = useNavigation();
-  
+export default function PathChooser({navigation}) {
   return (
     <View style={styles.container}>
       <ImageBackground 
