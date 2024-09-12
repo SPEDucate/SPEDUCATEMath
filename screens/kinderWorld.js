@@ -1,12 +1,19 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+} from "react-native";
 
 export default function KinderWorld() {
   return (
     <View style={styles.container}>
-      
-      <ImageBackground 
-      source={require('../assets/kVillage.png')} style={styles.map}>
+      <ImageBackground
+        source={require("../assets/kVillage.png")}
+        style={styles.map}
+      >
         <TouchableOpacity style={[styles.button, styles.location1]}>
           <Text style={styles.buttonText}>1. Welcome Center</Text>
         </TouchableOpacity>
@@ -25,74 +32,72 @@ export default function KinderWorld() {
       </ImageBackground>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#f0f0f0",
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 48,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginVertical: 20,
-    color: 'white',
-    top: '40%',
-    borderColor: 'white',
-    borderRadius: 20, 
+    color: "white",
+    top: "40%",
+    borderColor: "white",
+    borderRadius: 20,
     borderWidth: 2,
     padding: 10,
   },
   map: {
     flex: 1,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
   button: {
     padding: 10,
     borderRadius: 20,
     marginVertical: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonText: {
     fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
-    
+    color: "#fff",
+    fontWeight: "bold",
   },
   location1: {
-    position: 'absolute',
-    top: '70%',
-    left: '50%',
-    backgroundColor: 'green'
+    position: "absolute",
+    top: "70%",
+    left: "50%",
+    backgroundColor: "green",
   },
   location2: {
-    position: 'absolute',
-    top: '63%',
-    left: '10%',
-    backgroundColor: 'grey'
+    position: "absolute",
+    top: "63%",
+    left: "10%",
+    backgroundColor: "grey",
   },
   location3: {
-    position: 'absolute',
-    top: '50%',
-    left: '30%',
-    backgroundColor: 'grey'
+    position: "absolute",
+    top: "50%",
+    left: "30%",
+    backgroundColor: "grey",
   },
   location4: {
-    position: 'absolute',
-    top: '25%',
-    left: '5%',
-    backgroundColor: 'grey'
+    position: "absolute",
+    top: "25%",
+    left: "5%",
+    backgroundColor: "grey",
   },
   location5: {
-    position: 'absolute',
-    top: '15%',
-    left: '40%',
-    backgroundColor: 'grey'
+    position: "absolute",
+    top: "15%",
+    left: "40%",
+    backgroundColor: "grey",
   },
 });
-
