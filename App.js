@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import SplashScreen from "./screens/splash-screen";
-import AppNavigator from "./screens/app-navigator";
+import AppNavigator from "./scripts/app-navigator";
 import PathChooser from "./screens/pathChooser";
 
 const App = () => {
