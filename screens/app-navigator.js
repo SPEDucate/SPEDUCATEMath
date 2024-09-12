@@ -10,6 +10,7 @@ import ThreeWorld from '../screens/threeWorld';
 import FourWorld from '../screens/fourWorld';
 import FiveWorld from '../screens/fiveWorld';
 import QuestionUI from '../screens/question'; // Import the QuestionUI component
+import KMath from './courses/kMath';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +20,7 @@ export default function AppNavigator() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
-          component={Login}
+          component={ KinderWorld}
           options={{ headerShown: false }} // Hide header for Login screen
         />
         <Stack.Screen

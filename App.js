@@ -13,6 +13,7 @@ import FourWorld from './screens/fourWorld';
 import FiveWorld from './screens/fiveWorld';
 import Login from './screens/login';
 import QuestionUI from './screens/question';
+import kMath from './screens/courses/kMath';
 
 // Initialize the database
 const initializeDatabase = async (db) => {
