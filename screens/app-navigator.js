@@ -10,7 +10,7 @@ import ThreeWorld from './threeWorld';
 import FourWorld from './fourWorld';
 import FiveWorld from './fiveWorld';
 import PreferenceFormUI from './preference-form';
-//import PathChooser from './pathChooser';  
+import PathChooser from './pathChooser';  
 
 const Stack = createStackNavigator();
 
@@ -65,7 +65,11 @@ export default function AppNavigator() {
           component={PreferenceFormUI}
           options={{ headerShown: false }}
         />
-        
+        <Stack.Screen
+          name="PathChooser"
+          component={PathChooser}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

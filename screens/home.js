@@ -1,7 +1,5 @@
-// screens/home.js
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient'; // Assuming you're using Expo
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, ImageBackground } from 'react-native';
 
 const courses = [
   { id: '1', name: 'Kindergarten math' },
@@ -17,7 +15,7 @@ export default function Home({ navigation }) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
-      style={[styles.courseContainer, { backgroundColor: selectedId === item.id ? '#e0f7fa' : '#fff' }]}
+      style={[styles.courseContainer, { backgroundColor: selectedId === item.id ? '#88bb96' : '#fff' }]}
       onPress={() => setSelectedId(item.id)}
     >
       <Text style={styles.courseName}>{item.name}</Text>
@@ -27,15 +25,15 @@ export default function Home({ navigation }) {
   const handleContinue = () => {
     if (selectedId) {
       const selectedCourse = courses.find(course => course.id === selectedId);
-      navigation.navigate(selectedCourse.name); // Navigate to the page with the same name as the course
+      navigation.navigate(selectedCourse.name);
     } else {
       Alert.alert('No Selection', 'Please select a course before continuing.');
     }
   };
 
   return (
-    <LinearGradient
-      colors={['#66CCFF', '#3399FF']} // Light blue to dark blue with slight gradient
+    <ImageBackground
+      source={require('../assets/homeBG.png')} // Replace with the actual path to your image file
       style={styles.container}
     >
       <Text style={styles.title}>SPEDucate Course Selection</Text>
@@ -48,7 +46,7 @@ export default function Home({ navigation }) {
       <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
         <Text style={styles.continueButtonText}>Continue</Text>
       </TouchableOpacity>
-    </LinearGradient>
+    </ImageBackground>
   );
 }
 
@@ -56,17 +54,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    paddingTop: 60, // Increased padding at the top
+    paddingTop: 60,
   },
   title: {
-    fontSize: 36, // Made the title bigger
+    fontSize: 36,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginVertical: 24, // Increased vertical margin
-    color: '#FFFFFF', // White color for title
+    color: '#FFFFFF',
+    position: 'absolute',
+    top: '10%',
+    left: 0,
+    right: 0,
   },
   list: {
     flexGrow: 1,
+    marginTop: '30%',
   },
   courseContainer: {
     flexDirection: 'row',
@@ -79,15 +81,15 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 2,
     justifyContent: 'flex-start',
-    marginBottom: 4, // Slight margin to make it look like a table row
+    marginBottom: 4,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd', // Light border color for separation
+    borderBottomColor: '#ddd',
   },
   courseName: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#003087',
-    flex: 1, // Fill the container's width
+    flex: 1,
   },
   continueButton: {
     paddingVertical: 15,
@@ -101,10 +103,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 2,
+    width: '60%',
   },
   continueButtonText: {
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 18,
+    textAlign: 'center',
   },
 });
