@@ -11,7 +11,7 @@ export default function ThreeWorld() {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/ThreeVillage.png")}
+        source={require("../../assets/ThreeVillage.png")}
         style={styles.map}
       >
         <TouchableOpacity style={[styles.button, styles.location1]}>

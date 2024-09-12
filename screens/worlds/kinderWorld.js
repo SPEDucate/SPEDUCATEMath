@@ -11,7 +11,7 @@ export default function KinderWorld() {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/kVillage.png")}
+        source={require("../../assets/kVillage.png")}
         style={styles.map}
       >
         <TouchableOpacity style={[styles.button, styles.location1]}>

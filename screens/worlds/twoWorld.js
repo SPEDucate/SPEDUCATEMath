@@ -11,7 +11,7 @@ export default function TwoWorld() {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/TwoVillage.png")}
+        source={require("../../assets/TwoVillage.png")}
         style={styles.map}
       >
         <TouchableOpacity style={[styles.button, styles.location1]}>

@@ -11,7 +11,7 @@ export default function FourWorld() {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/FourVillage.png")}
+        source={require("../../assets/FourVillage.png")}
         style={styles.map}
       >
         <TouchableOpacity style={[styles.button, styles.location1]}>

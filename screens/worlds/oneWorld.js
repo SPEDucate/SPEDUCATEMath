@@ -11,7 +11,7 @@ export default function OneWorld() {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/OneVillage.png")}
+        source={require("../../assets/OneVillage.png")}
         style={styles.map}
       >
         <TouchableOpacity style={[styles.button, styles.location1]}>

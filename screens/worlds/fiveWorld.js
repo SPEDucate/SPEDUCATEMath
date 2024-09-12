@@ -11,7 +11,7 @@ export default function FiveWorld() {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/FiveVillage.png")}
+        source={require("../../assets/FiveVillage.png")}
         style={styles.map}
       >
         <TouchableOpacity style={[styles.button, styles.location1]}>
