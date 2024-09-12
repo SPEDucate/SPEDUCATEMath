@@ -3,12 +3,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "../screens/login";
 import Home from "../screens/home";
-import KinderWorld from "./kinderWorld";
-import OneWorld from "./oneWorld";
-import TwoWorld from "./twoWorld";
-import ThreeWorld from "./threeWorld";
-import FourWorld from "./fourWorld";
-import FiveWorld from "./fiveWorld";
+import KinderWorld from "../screens/worlds/kinderWorld";
+import OneWorld from "../screens/worlds/oneWorld";
+import TwoWorld from "../screens/worlds/twoWorld";
+import ThreeWorld from "../screens/worlds/threeWorld";
+import FourWorld from "../screens/worlds/fourWorld";
+import FiveWorld from "../screens/worlds/fiveWorld";
 import PreferenceFormUI from "../screens/preference-form"; // Import the new form
 
 const Stack = createStackNavigator();
