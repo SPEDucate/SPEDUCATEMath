@@ -1,16 +1,16 @@
-import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import Login from './login';
-import Home from './home';
-import KinderWorld from './kinderWorld';
-import OneWorld from './oneWorld';
-import TwoWorld from './twoWorld';
-import ThreeWorld from './threeWorld';
-import FourWorld from './fourWorld';
-import FiveWorld from './fiveWorld';
-import PreferenceFormUI from './preference-form';
-import PathChooser from './pathChooser';  
+import * as React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import LoginScreen from "../screens/login";
+import Home from "../screens/home";
+import KinderWorld from "../screens/worlds/kinderWorld";
+import OneWorld from "../screens/worlds/oneWorld";
+import TwoWorld from "../screens/worlds/twoWorld";
+import ThreeWorld from "../screens/worlds/threeWorld";
+import FourWorld from "../screens/worlds/fourWorld";
+import FiveWorld from "../screens/worlds/fiveWorld";
+import PreferenceFormUI from "../screens/preference-form";
+import PathChooser from "../screens/pathChooser";
 
 const Stack = createStackNavigator();
 
@@ -28,7 +28,7 @@ export default function AppNavigator() {
           component={Home}
           options={{ headerShown: false }}
         />
-        
+
         <Stack.Screen
           name="Kindergarten math"
           component={KinderWorld}
@@ -59,7 +59,7 @@ export default function AppNavigator() {
           component={FiveWorld}
           options={{ headerShown: false }}
         />
-        
+
         <Stack.Screen
           name="PreferenceForm"
           component={PreferenceFormUI}
