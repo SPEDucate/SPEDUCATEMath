@@ -9,7 +9,8 @@ import TwoWorld from "../screens/worlds/twoWorld";
 import ThreeWorld from "../screens/worlds/threeWorld";
 import FourWorld from "../screens/worlds/fourWorld";
 import FiveWorld from "../screens/worlds/fiveWorld";
-import PreferenceFormUI from "../screens/preference-form"; // Import the new form
+import PreferenceFormUI from "../screens/preference-form";
+import PathChooser from "../screens/pathChooser";
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,7 @@ export default function AppNavigator() {
           component={Home}
           options={{ headerShown: false }}
         />
+
         <Stack.Screen
           name="Kindergarten math"
           component={KinderWorld}
@@ -57,9 +59,15 @@ export default function AppNavigator() {
           component={FiveWorld}
           options={{ headerShown: false }}
         />
+
         <Stack.Screen
           name="PreferenceForm"
           component={PreferenceFormUI}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PathChooser"
+          component={PathChooser}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
