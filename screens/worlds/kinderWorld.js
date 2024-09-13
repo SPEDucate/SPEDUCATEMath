@@ -7,27 +7,27 @@ import {
   ImageBackground,
 } from "react-native";
 
-export default function FourWorld() {
+export default function KinderWorld() {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/FourVillage.png")}
+        source={require("../../assets/kVillage.png")}
         style={styles.map}
       >
         <TouchableOpacity style={[styles.button, styles.location1]}>
-          <Text style={styles.buttonText}>1. Waterslide World</Text>
+          <Text style={styles.buttonText}>1. Welcome Center</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location2]}>
-          <Text style={styles.buttonText}>2. Carnival Crusade</Text>
+          <Text style={styles.buttonText}>2. Supplies Shack</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location3]}>
-          <Text style={styles.buttonText}>3. Playground Park</Text>
+          <Text style={styles.buttonText}>3. Light Lake</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location4]}>
-          <Text style={styles.buttonText}>4. Love Lake</Text>
+          <Text style={styles.buttonText}>4. Crunchy Cafe</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location5]}>
-          <Text style={styles.buttonText}>5. Circus Tent</Text>
+          <Text style={styles.buttonText}>5. Magic Mansion</Text>
         </TouchableOpacity>
       </ImageBackground>
     </View>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 36,
+    fontSize: 48,
     fontWeight: "bold",
     marginVertical: 20,
     color: "white",
@@ -72,32 +72,32 @@ const styles = StyleSheet.create({
   },
   location1: {
     position: "absolute",
-    top: "90%",
-    left: "20%",
+    top: "70%",
+    left: "50%",
     backgroundColor: "green",
   },
   location2: {
     position: "absolute",
-    top: "65%",
-    left: "30%",
+    top: "63%",
+    left: "10%",
     backgroundColor: "grey",
   },
   location3: {
     position: "absolute",
-    top: "40%",
-    left: "50%",
+    top: "50%",
+    left: "30%",
     backgroundColor: "grey",
   },
   location4: {
     position: "absolute",
-    top: "18%",
+    top: "25%",
     left: "5%",
     backgroundColor: "grey",
   },
   location5: {
     position: "absolute",
-    top: "5%",
-    left: "38%",
+    top: "15%",
+    left: "40%",
     backgroundColor: "grey",
   },
 });

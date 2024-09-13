@@ -1,8 +1,8 @@
 // App.js
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import SplashScreen from "./screens/splash-screen"; // Adjust path if needed
-import AppNavigator from "./screens/app-navigator"; // Adjust path if needed
+import SplashScreen from "./screens/splash-screen";
+import AppNavigator from "./scripts/app-navigator";
 
 const App = () => {
   const [isShowSplashScreen, setIsShowSplashScreen] = useState(true);

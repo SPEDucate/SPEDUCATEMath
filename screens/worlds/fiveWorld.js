@@ -7,27 +7,27 @@ import {
   ImageBackground,
 } from "react-native";
 
-export default function ThreeWorld() {
+export default function FiveWorld() {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/ThreeVillage.png")}
+        source={require("../../assets/FiveVillage.png")}
         style={styles.map}
       >
         <TouchableOpacity style={[styles.button, styles.location1]}>
-          <Text style={styles.buttonText}>1. Blossom Bed </Text>
+          <Text style={styles.buttonText}>1. Red Runner</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location2]}>
-          <Text style={styles.buttonText}>2. Sunset Sea</Text>
+          <Text style={styles.buttonText}>2. Calm Tide</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location3]}>
-          <Text style={styles.buttonText}>3. Horizon View</Text>
+          <Text style={styles.buttonText}>3. Muggy Marsh</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location4]}>
-          <Text style={styles.buttonText}>4. Starry Sky</Text>
+          <Text style={styles.buttonText}>4. Marvel Mountain</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location5]}>
-          <Text style={styles.buttonText}>5. Infinity & Beyond</Text>
+          <Text style={styles.buttonText}>5. Pristine Peak</Text>
         </TouchableOpacity>
       </ImageBackground>
     </View>
@@ -72,14 +72,14 @@ const styles = StyleSheet.create({
   },
   location1: {
     position: "absolute",
-    top: "80%",
+    top: "85%",
     left: "50%",
     backgroundColor: "green",
   },
   location2: {
     position: "absolute",
-    top: "65%",
-    left: "20%",
+    top: "55%",
+    left: "60%",
     backgroundColor: "grey",
   },
   location3: {
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   location4: {
     position: "absolute",
     top: "25%",
-    left: "55%",
+    left: "40%",
     backgroundColor: "grey",
   },
   location5: {
