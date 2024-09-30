@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import SplashScreen from "./screens/splash-screen";
 import AppNavigator from "./scripts/app-navigator";
+import "./scripts/global-vars";
 
 const App = () => {
   const [isShowSplashScreen, setIsShowSplashScreen] = useState(true);
