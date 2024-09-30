@@ -1,1 +1,1 @@
-global.curr_user_id = -1;
+global.CURR_USER_ID = -1;
