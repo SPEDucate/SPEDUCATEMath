@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import SplashScreen from "./screens/splash-screen";
-import AppNavigator from "./scripts/app-navigator";
-import PreferenceFormUI from "./screens/preference-form";
+import { AppNavigator } from "./scripts/app-navigator";
 
 const App = () => {
   const [isShowSplashScreen, setIsShowSplashScreen] = useState(true);
@@ -16,7 +15,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      {isShowSplashScreen ? <SplashScreen /> : <PreferenceFormUI/>}
+      {isShowSplashScreen ? <SplashScreen /> : <AppNavigator />}
     </View>
   );
 };

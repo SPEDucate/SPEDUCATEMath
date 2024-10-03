@@ -18,8 +18,6 @@ const PreferenceFormUI = () => {
     focus_strategy: "",
   });
 
-  const navigation = useNavigation();
-
   // fetch the data from the database
   useEffect(() => {
     const getQuestionData = async () => {
@@ -55,6 +53,7 @@ const PreferenceFormUI = () => {
 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [gradientColors, setGradientColors] = useState(["#66CCFF", "#3399FF"]); // Default gradient colors
+  // const navigation = useNavigation();
 
   function incrementQuestion(selectedOption) {
     // Store the user's selected option based on the current question index
@@ -110,6 +109,7 @@ const PreferenceFormUI = () => {
 
     // If the index is out of bounds, insert the responses into the database
     if (nextQuestionIndex >= prompts.length) {
+      console.log(userResponses);
       saveResponsesToDatabase(userResponses);
       Alert.alert("REACHED LAST ANSWER CHOICE");
       navigation.navigate("Home", { gradientColors });
@@ -154,7 +154,7 @@ const PreferenceFormUI = () => {
     try {
       const userId = 1; // Replace with the actual user ID
       await executeQuery(
-        `INSERT INTO PrefData (user_id, time_per_day, fav_color, sensory_sensitivities, learning_method, feedback_method, interface_type, reward_type, focus_strategy)
+        `REPLACE INTO PrefData (user_id, time_per_day, fav_color, sensory_sensitivities, learning_method, feedback_method, interface_type, reward_type, focus_strategy)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           userId,
