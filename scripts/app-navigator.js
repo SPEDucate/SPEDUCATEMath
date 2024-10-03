@@ -14,63 +14,25 @@ import PathChooser from "../screens/pathChooser";
 
 const Stack = createStackNavigator();
 
-export default function AppNavigator() {
+const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
+      <Stack.Navigator initialRouteName="Login" headerMode="none">
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Home" component={Home} />
 
-        <Stack.Screen
-          name="Kindergarten math"
-          component={KinderWorld}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="1st grade math"
-          component={OneWorld}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="2nd grade math"
-          component={TwoWorld}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="3rd grade math"
-          component={ThreeWorld}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="4th grade math"
-          component={FourWorld}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="5th grade math"
-          component={FiveWorld}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="Kindergarten math" component={KinderWorld} />
+        <Stack.Screen name="1st grade math" component={OneWorld} />
+        <Stack.Screen name="2nd grade math" component={TwoWorld} />
+        <Stack.Screen name="3rd grade math" component={ThreeWorld} />
+        <Stack.Screen name="4th grade math" component={FourWorld} />
+        <Stack.Screen name="5th grade math" component={FiveWorld} />
 
-        <Stack.Screen
-          name="PreferenceForm"
-          component={PreferenceFormUI}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="PathChooser"
-          component={PathChooser}
-          options={{ headerShown: false }}
-        />
+        <Stack.Screen name="PreferenceForm" component={PreferenceFormUI} />
+        <Stack.Screen name="PathChooser" component={PathChooser} />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default AppNavigator;
