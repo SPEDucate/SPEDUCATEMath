@@ -53,7 +53,7 @@ const PreferenceFormUI = () => {
 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [gradientColors, setGradientColors] = useState(["#66CCFF", "#3399FF"]); // Default gradient colors
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   function incrementQuestion(selectedOption) {
     // Store the user's selected option based on the current question index
@@ -111,7 +111,7 @@ const PreferenceFormUI = () => {
     if (nextQuestionIndex >= prompts.length) {
       console.log(userResponses);
       saveResponsesToDatabase(userResponses);
-      Alert.alert("REACHED LAST ANSWER CHOICE");
+      // Alert.alert("REACHED LAST ANSWER CHOICE");
       navigation.navigate("Home", { gradientColors });
       return;
     }
@@ -152,26 +152,24 @@ const PreferenceFormUI = () => {
   // Save the user responses to the PrefData table in the database
   const saveResponsesToDatabase = async (responses) => {
     try {
-      const userId = 1; // Replace with the actual user ID
       await executeQuery(
-        `REPLACE INTO PrefData (user_id, time_per_day, fav_color, sensory_sensitivities, learning_method, feedback_method, interface_type, reward_type, focus_strategy)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [
-          userId,
-          responses.time_per_day,
-          responses.fav_color,
-          responses.sensory_sensitivities,
-          responses.learning_method,
-          responses.feedback_method,
-          responses.interface_type,
-          responses.reward_type,
-          responses.focus_strategy,
-        ]
+        `REPLACE INTO PrefData (user_id, time_per_day, fav_color, sensory_sensitivities, learning_method, feedback_method, interface_type, reward_type, focus_strategy) 
+        VALUES (
+          ${CURR_USER_ID},
+          "${responses.time_per_day}",
+          "${responses.fav_color}",
+          "${responses.sensory_sensitivities}",
+          "${responses.learning_method}",
+          "${responses.feedback_method}",
+          "${responses.interface_type}",
+          "${responses.reward_type}",
+          "${responses.focus_strategy}"
+        )`
       );
-      Alert.alert("Responses saved successfully!");
     } catch (error) {
       console.error("Error saving responses to the database: ", error);
     }
+    // Alert.alert("Responses saved successfully!");
   };
 
   return (

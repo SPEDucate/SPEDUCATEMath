@@ -30,6 +30,10 @@ function LoginScreen() {
       );
       if (receivedData.length != 0) {
         Alert.alert("Success", "Login successful");
+        // set global var CURR_USER_ID
+        CURR_USER_ID = receivedData[0].user_id;
+        console.log("CURRENT USER_ID: " + CURR_USER_ID);
+
         navigation.navigate("Home");
       } else {
         Alert.alert("Error", "Incorrect username or password");
@@ -59,6 +63,14 @@ function LoginScreen() {
       );
       setUserName("");
       setPassword("");
+
+      // set global var user_id
+      const receivedData = await executeQuery(
+        `SELECT user_id FROM Users WHERE username = '${userName}' AND password = '${password}'`
+      );
+      CURR_USER_ID = receivedData[0].user_id;
+      console.log("CURRENT USER_ID: " + CURR_USER_ID);
+
       navigation.navigate("PreferenceForm");
       Alert.alert("Success", "Registration successful!");
     } catch (error) {
