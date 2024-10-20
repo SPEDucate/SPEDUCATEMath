@@ -64,7 +64,11 @@ const App = () => {
             <Stack.Screen name="4th grade math" component={FourWorld} />
             <Stack.Screen name="5th grade math" component={FiveWorld} />
 
-            <Stack.Screen name="PreferenceForm" component={PreferenceFormUI} />
+            <Stack.Screen
+              name="PreferenceForm"
+              component={PreferenceFormUI}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen name="PathChooser" component={PathChooser} />
           </Stack.Navigator>
         </NavigationContainer>
