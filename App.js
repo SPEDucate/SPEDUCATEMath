@@ -53,7 +53,11 @@ const App = () => {
             }}
           >
             <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
 
             <Stack.Screen name="Kindergarten math" component={KinderWorld} />
             <Stack.Screen name="K Home" component={K.MathK} />
