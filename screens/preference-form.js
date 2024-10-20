@@ -49,6 +49,7 @@ const PreferenceFormUI = () => {
   const navigation = useNavigation();
 
   function incrementQuestion(selectedOption) {
+    // Store the user's selected option based on the current question index
     switch (questionIndex) {
       case 0:
         setUserResponses({ ...userResponses, time_per_day: selectedOption });
@@ -78,92 +79,23 @@ const PreferenceFormUI = () => {
       default:
         break;
     }
-
+  
     const nextQuestionIndex = questionIndex + 1;
-
+  
+    // If the index is out of bounds, insert the responses into the database
     if (nextQuestionIndex >= prompts.length) {
       console.log(userResponses);
       saveResponsesToDatabase(userResponses);
-      navigation.navigate("Home", { gradientColors });
+  
+      // Navigate to the Home screen and pass the learning method along with gradient colors
+      navigation.navigate("Home", { gradientColors, learningMethod: userResponses.learning_method });
       return;
     }
-
+  
+    // Update states (which then updates display)
     setQuestionIndex(nextQuestionIndex);
   }
-
-  function updateGradient(selectedOption) {
-    switch (selectedOption) {
-      case "Blue":
-        setGradientColors(["#66CCFF", "#3399FF"]);
-        break;
-      case "Red":
-        setGradientColors(["#FF6F61", "#BF2A2A"]);
-        break;
-      case "Green":
-        setGradientColors(["#66FF66", "#2E8B57"]);
-        break;
-      case "Purple":
-        setGradientColors(["#D8BFD8", "#6A0D91"]);
-        break;
-      default:
-        setGradientColors(["#66CCFF", "#3399FF"]);
-        break;
-    }
-  }
-
-  function goBack() {
-    const prevQuestionIndex = questionIndex - 1;
-
-    if (prevQuestionIndex >= 0) {
-      setQuestionIndex(prevQuestionIndex);
-    }
-  }
-
-  const saveResponsesToDatabase = async (responses) => {
-    try {
-      await executeQuery(
-        `REPLACE INTO PrefData (user_id, time_per_day, fav_color, sensory_sensitivities, learning_method, feedback_method, interface_type, reward_type, focus_strategy) 
-        VALUES (
-          ${CURR_USER_ID},
-          "${responses.time_per_day}",
-          "${responses.fav_color}",
-          "${responses.sensory_sensitivities}",
-          "${responses.learning_method}",
-          "${responses.feedback_method}",
-          "${responses.interface_type}",
-          "${responses.reward_type}",
-          "${responses.focus_strategy}"
-        )`
-      );
-    } catch (error) {
-      console.error("Error saving responses to the database: ", error);
-    }
-  };
-
-  return (
-    <LinearGradient colors={gradientColors} style={styles.backgroundImage}>
-      <View style={styles.container}>
-        <TouchableOpacity onPress={goBack} style={styles.backButton}>
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
-
-        <Text style={styles.question}>
-          {questionIndex + 1}. {prompts[questionIndex]}
-        </Text>
-
-        {choices[questionIndex]?.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => incrementQuestion(item)}
-            style={styles.answerContainer}
-          >
-            <Text style={styles.answerText}>{item}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-    </LinearGradient>
-  );
-};
+  
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -214,5 +146,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
-
+}
 export default PreferenceFormUI;
