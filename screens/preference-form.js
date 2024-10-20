@@ -119,7 +119,7 @@ const PreferenceFormUI = () => {
     setQuestionIndex(nextQuestionIndex);
   }
 
-  function goBack() {
+  function decrementQuestion() {
     const prevQuestionIndex = questionIndex - 1;
 
     if (prevQuestionIndex >= 0) {
@@ -171,7 +171,7 @@ const PreferenceFormUI = () => {
   return (
     <LinearGradient colors={FAV_COLOR} style={styles.backgroundImage}>
       <View style={styles.container}>
-        <TouchableOpacity onPress={goBack} style={styles.backButton}>
+        <TouchableOpacity onPress={decrementQuestion} style={styles.backButton}>
           <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
 

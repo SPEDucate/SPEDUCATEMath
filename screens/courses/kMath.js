@@ -1,10 +1,10 @@
-// screens/kMath.js
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
 import { useNavigation } from "@react-navigation/native";
 import { QuizQuestion } from "./QuizQuestion";
 import { getChoicesData } from "../../scripts/db-helper";
+import { Lesson } from "./Lesson";
 
 export function MathK() {
   const navigation = useNavigation();
@@ -50,21 +50,13 @@ export function K1() {
     const action = async () => {
       setQuestionData(await getChoicesData([1, 2]));
     };
-
     action();
   }, []);
 
   return (
-    <LinearGradient
-      colors={["#66CCFF", "#3399FF"]} // Light blue to dark blue gradient
-      style={styles.container}
-    >
-      <Text>Sample Text (not part of quiz)</Text>
-
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        <QuizQuestion data={questionData} id="1"></QuizQuestion>
-      </ScrollView>
-    </LinearGradient>
+    <Lesson>
+      <QuizQuestion data={questionData} id="1"></QuizQuestion>
+    </Lesson>
   );
 }
 
