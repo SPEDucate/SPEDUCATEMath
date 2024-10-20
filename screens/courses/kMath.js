@@ -10,6 +10,7 @@ import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using 
 import { useNavigation } from "@react-navigation/native";
 import { QuizQuestion } from "./QuizQuestion";
 import { getChoicesData } from "../../scripts/db-helper";
+import { Lesson, LessonParagraph, LessonTitle } from "./Lesson";
 
 export function MathK() {
   const navigation = useNavigation();
@@ -40,7 +41,6 @@ export function MathK() {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              alert("Starting the Kindergarten Math course!");
               navigation.navigate("K1");
             }}
           >
@@ -59,22 +59,20 @@ export function K1() {
     const action = async () => {
       setQuestionData(await getChoicesData([1, 2]));
     };
-
     action();
   }, []);
 
   return (
-    <LinearGradient
-      colors={["#66CCFF", "#3399FF"]} // Light blue to dark blue gradient
-      style={styles.container}
-    >
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        {/* Container for Quiz Question */}
-        <View style={styles.questionContainer}>
-          <QuizQuestion data={questionData} id="1" />
-        </View>
-      </ScrollView>
-    </LinearGradient>
+    <Lesson>
+      <LessonTitle>Lesson 01: Counting</LessonTitle>
+      <LessonParagraph>
+        Today, we are going to practice counting from 1 to 10! Counting lets us
+        know how much of something we have. {"\n\n"} Let’s say the numbers out
+        loud in the correct order: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. {"\n\n"} Now,
+        let’s answer some questions to see how well we can count!
+      </LessonParagraph>
+      <QuizQuestion data={questionData} id="1"></QuizQuestion>
+    </Lesson>
   );
 }
 

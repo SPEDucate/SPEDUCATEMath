@@ -15,7 +15,7 @@ const PreferenceFormUI = () => {
     feedback_method: "",
     interface_type: "",
     reward_type: "",
-    focus_strategy: "",
+    focus_strategy: "fds",
   });
 
   // fetch the data from the database
@@ -52,7 +52,6 @@ const PreferenceFormUI = () => {
   }, []);
 
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [gradientColors, setGradientColors] = useState(["#66CCFF", "#3399FF"]); // Default gradient colors
   const navigation = useNavigation();
 
   function incrementQuestion(selectedOption) {
@@ -63,7 +62,7 @@ const PreferenceFormUI = () => {
         break;
       case 1:
         setUserResponses({ ...userResponses, fav_color: selectedOption });
-        updateGradient(selectedOption);
+        saveColor(selectedOption);
         break;
       case 2:
         setUserResponses({
@@ -112,7 +111,7 @@ const PreferenceFormUI = () => {
       console.log(userResponses);
       saveResponsesToDatabase(userResponses);
       // Alert.alert("REACHED LAST ANSWER CHOICE");
-      navigation.navigate("Home", { gradientColors });
+      navigation.navigate("Home");
       return;
     }
 
@@ -120,32 +119,29 @@ const PreferenceFormUI = () => {
     setQuestionIndex(nextQuestionIndex);
   }
 
-  function updateGradient(selectedOption) {
-    // Assuming the second question is the color preference
-    switch (selectedOption) {
-      case "Blue":
-        setGradientColors(["#66CCFF", "#3399FF"]);
-        break;
-      case "Red":
-        setGradientColors(["#FF6347", "#FF4500"]);
-        break;
-      case "Green":
-        setGradientColors(["#66FF66", "#32CD32"]);
-        break;
-      case "Purple":
-        setGradientColors(["#D8BFD8", "#6A0D91"]);
-        break;
-      default:
-        setGradientColors(["#66CCFF", "#3399FF"]);
-        break;
-    }
-  }
-
-  function goBack() {
+  function decrementQuestion() {
     const prevQuestionIndex = questionIndex - 1;
 
     if (prevQuestionIndex >= 0) {
       setQuestionIndex(prevQuestionIndex);
+    }
+  }
+
+  function saveColor(selectedOption) {
+    // Assuming the second question is the color preference
+    switch (selectedOption) {
+      case "Blue":
+        FAV_COLOR = ["#66CCFF", "#3399FF"];
+        break;
+      case "Red":
+        FAV_COLOR = ["#FF6347", "#FF4500"];
+        break;
+      case "Green":
+        FAV_COLOR = ["#66FF66", "#32CD32"];
+        break;
+      case "Purple":
+        FAV_COLOR = ["#D8BFD8", "#6A0D91"];
+        break;
     }
   }
 
@@ -173,9 +169,9 @@ const PreferenceFormUI = () => {
   };
 
   return (
-    <LinearGradient colors={gradientColors} style={styles.backgroundImage}>
+    <LinearGradient colors={FAV_COLOR} style={styles.backgroundImage}>
       <View style={styles.container}>
-        <TouchableOpacity onPress={goBack} style={styles.backButton}>
+        <TouchableOpacity onPress={decrementQuestion} style={styles.backButton}>
           <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
 
