@@ -1,4 +1,4 @@
-// screens/kMath.js
+// screens/QuizQuestion.js
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 
@@ -17,19 +17,34 @@ export const QuizQuestion = (props) => {
   let questionID = props.id;
   return (
     <View style={styles.container}>
-      <Text>{data[questionID][0]}</Text>
+      {/* Lesson Title */}
+      <Text style={styles.lessonTitle}>Lesson 01: Counting</Text>
+      
+      {/* Teaching Paragraph */}
+      <Text style={styles.teachingParagraph}>
+        Teaching Paragraph: Today, we are going to practice counting from 1 to 10. 
+        Counting helps us know how many things we have. Let’s say the numbers out 
+        loud in the correct order: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. Now, let’s 
+        answer some questions to see how well we can count!
+      </Text>
 
-      {data[questionID][1].map((item, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() => checkAnswer(item)}
-          style={styles.answerContainer}
-        >
-          <Text style={styles.answerText}>{item[0]}</Text>
-        </TouchableOpacity>
-      ))}
+      {/* Question Container */}
+      <View style={styles.questionContainer}>
+        {/* Question text styled in white */}
+        <Text style={styles.questionText}>{data[questionID][0]}</Text>
 
-      {/* explanation for answer */}
+        {data[questionID][1].map((item, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => checkAnswer(item)}
+            style={styles.answerContainer}
+          >
+            <Text style={styles.answerText}>{item[0]}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Explanation for answer */}
       <Text>{explanation}</Text>
     </View>
   );
@@ -37,29 +52,47 @@ export const QuizQuestion = (props) => {
   function checkAnswer(ansData) {
     var isCorrect = ansData[1];
     if (isCorrect) {
-      alert("CORRECT");
-      setExplanation("a correct explanation");
+      Alert.alert("CORRECT");
+      setExplanation("This is a correct answer explanation.");
     } else {
-      alert("INCORRECT");
+      Alert.alert("INCORRECT");
     }
   }
 };
 
-// this is all copy-pasted from PrefForm
+// Styles
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-  },
   container: {
     flex: 1,
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
   },
-  question: {
-    fontSize: 24,
+  lessonTitle: {
+    fontSize: 28,
     fontWeight: "bold",
     color: "white",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  teachingParagraph: {
+    fontSize: 16,
+    color: "white",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  questionContainer: {
+    backgroundColor: "transparent", // Keep it transparent
+    padding: 16,
+    borderRadius: 10, // Rounded corners
+    borderWidth: 3, // Thick border
+    borderColor: "#ffffff", // White border
+    marginBottom: 24, // Spacing below
+  },
+  questionText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white", // White text for the question
     marginBottom: 20,
     textAlign: "center",
   },
@@ -79,28 +112,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 15,
   },
-  backButton: {
-    position: "absolute",
-    top: 40,
-    left: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: "#003087",
-    borderRadius: 50,
-    elevation: 2,
-  },
-  finishButton: {
-    marginTop: 20,
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    backgroundColor: "#003087",
-    borderRadius: 50,
-    alignSelf: "center",
-    elevation: 2,
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 18,
-  },
 });
+
+
+
