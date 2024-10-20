@@ -17,6 +17,8 @@ import PathChooser from "./screens/pathChooser";
 import SplashScreen from "./screens/splash-screen";
 import "./scripts/global-vars";
 
+import * as K from "./screens/courses/kMath";
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -42,6 +44,8 @@ const App = () => {
             <Stack.Screen name="Home" component={Home} />
 
             <Stack.Screen name="Kindergarten math" component={KinderWorld} />
+            <Stack.Screen name="K Home" component={K.MathK} />
+            <Stack.Screen name="K1" component={K.K1} />
             <Stack.Screen name="1st grade math" component={OneWorld} />
             <Stack.Screen name="2nd grade math" component={TwoWorld} />
             <Stack.Screen name="3rd grade math" component={ThreeWorld} />
