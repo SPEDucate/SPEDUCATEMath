@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
+import React from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
-import { useNavigation } from "@react-navigation/native";
 
 export const Lesson = ({ children }) => {
   return (
@@ -17,11 +16,11 @@ export const Lesson = ({ children }) => {
 };
 
 export const LessonTitle = ({ children }) => {
-  return (
-    <View>
-      <Text>{children}</Text>
-    </View>
-  );
+  return <Text style={styles.lessonTitle}>{children}</Text>;
+};
+
+export const LessonParagraph = ({ children }) => {
+  return <Text style={styles.teachingParagraph}>{children}</Text>;
 };
 
 const styles = StyleSheet.create({
@@ -31,29 +30,21 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexGrow: 1,
+    padding: 20,
     justifyContent: "center",
-  },
-  title: {
-    fontSize: 36,
-    fontWeight: "bold",
-    color: "#FFFFFF",
-    marginBottom: 16,
-    textAlign: "center",
-  },
-  description: {
-    fontSize: 18,
-    color: "#FFFFFF",
-    marginBottom: 24,
-    textAlign: "center",
-  },
-  listItem: {
-    fontSize: 16,
-    color: "#FFFFFF",
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  buttonContainer: {
-    marginTop: 24,
     alignItems: "center",
+  },
+  lessonTitle: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "white",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  teachingParagraph: {
+    fontSize: 16,
+    color: "white",
+    marginBottom: 20,
+    textAlign: "center",
   },
 });
