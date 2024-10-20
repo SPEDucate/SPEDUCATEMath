@@ -59,6 +59,8 @@ export function K1() {
       colors={["#66CCFF", "#3399FF"]} // Light blue to dark blue gradient
       style={styles.container}
     >
+      <Text>Sample Text (not part of quiz)</Text>
+
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <QuizQuestion data={questionData} id="1"></QuizQuestion>
       </ScrollView>

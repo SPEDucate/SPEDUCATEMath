@@ -1,15 +1,10 @@
 // screens/kMath.js
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  LinearGradient,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 
 export const QuizQuestion = (props) => {
   const data = props.data;
+  const [explanation, setExplanation] = useState();
 
   if (props.data === undefined) {
     return (
@@ -27,14 +22,27 @@ export const QuizQuestion = (props) => {
       {data[questionID][1].map((item, index) => (
         <TouchableOpacity
           key={index}
-          // onPress={() => incrementQuestion(item)}
+          onPress={() => checkAnswer(item)}
           style={styles.answerContainer}
         >
           <Text style={styles.answerText}>{item[0]}</Text>
         </TouchableOpacity>
       ))}
+
+      {/* explanation for answer */}
+      <Text>{explanation}</Text>
     </View>
   );
+
+  function checkAnswer(ansData) {
+    var isCorrect = ansData[1];
+    if (isCorrect) {
+      alert("CORRECT");
+      setExplanation("a correct explanation");
+    } else {
+      alert("INCORRECT");
+    }
+  }
 };
 
 // this is all copy-pasted from PrefForm
