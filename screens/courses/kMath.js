@@ -1,10 +1,10 @@
-// screens/kMath.js
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
 import { useNavigation } from "@react-navigation/native";
 import { QuizQuestion } from "./QuizQuestion";
 import { getChoicesData } from "../../scripts/db-helper";
+import { useColor } from "../../scripts/ColorContext"; // Assuming you're using context to manage color
 
 export function MathK() {
   const navigation = useNavigation();
@@ -32,7 +32,6 @@ export function MathK() {
           <Button
             title="Start Learning"
             onPress={() => {
-              // Add logic to navigate to the first lesson or activity
               alert("Starting the Kindergarten Math course!");
               navigation.navigate("K1");
             }}
@@ -45,6 +44,7 @@ export function MathK() {
 
 export function K1() {
   const [questionData, setQuestionData] = useState();
+  const { fav_color } = useColor(); // Use context to get favorite color
 
   useEffect(() => {
     const action = async () => {
@@ -56,7 +56,7 @@ export function K1() {
 
   return (
     <LinearGradient
-      colors={["#66CCFF", "#3399FF"]} // Light blue to dark blue gradient
+      colors={fav_color ? getGradientColors(fav_color) : ["#66CCFF", "#3399FF"]} // Use the selected color here
       style={styles.container}
     >
       <Text>Sample Text (not part of quiz)</Text>
@@ -67,6 +67,22 @@ export function K1() {
     </LinearGradient>
   );
 }
+
+// Function to return gradient colors based on the selected color
+const getGradientColors = (color) => {
+  switch (color) {
+    case "Blue":
+      return ["#66CCFF", "#3399FF"];
+    case "Red":
+      return ["#FF6F61", "#BF2A2A"];
+    case "Green":
+      return ["#66FF66", "#2E8B57"];
+    case "Purple":
+      return ["#D8BFD8", "#6A0D91"];
+    default:
+      return ["#66CCFF", "#3399FF"];
+  }
+};
 
 const styles = StyleSheet.create({
   container: {

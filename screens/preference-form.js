@@ -18,7 +18,7 @@ const PreferenceFormUI = () => {
     focus_strategy: "",
   });
 
-  // fetch the data from the database
+  // Fetch the data from the database
   useEffect(() => {
     const getQuestionData = async () => {
       const [questionTexts, choicesRaw] = await Promise.all([
@@ -26,26 +26,19 @@ const PreferenceFormUI = () => {
         executeQuery("SELECT * FROM PrefChoices ORDER BY question_id"),
       ]);
 
-      let cleanedTexts = [];
-      for (let i = 0; i < questionTexts.length; i++) {
-        cleanedTexts.push(questionTexts[i].question_text);
-      }
-
-      let cleanedChoices = [];
-      cleanedChoices.push([choicesRaw[0].choice_text]);
-      for (let i = 1; i < choicesRaw.length; i++) {
-        let currChoice = choicesRaw[i];
-        if (currChoice.question_id === choicesRaw[i - 1].question_id) {
-          cleanedChoices[cleanedChoices.length - 1].push(
-            currChoice.choice_text
-          );
+      const cleanedTexts = questionTexts.map(q => q.question_text);
+      const cleanedChoices = choicesRaw.reduce((acc, currChoice) => {
+        const lastQuestionChoices = acc[acc.length - 1];
+        if (lastQuestionChoices && lastQuestionChoices.question_id === currChoice.question_id) {
+          lastQuestionChoices.choices.push(currChoice.choice_text);
         } else {
-          cleanedChoices.push([currChoice.choice_text]);
+          acc.push({ question_id: currChoice.question_id, choices: [currChoice.choice_text] });
         }
-      }
-
+        return acc;
+      }, []);
+      
       setPrompts(cleanedTexts);
-      setChoices(cleanedChoices);
+      setChoices(cleanedChoices.map(choice => choice.choices));
     };
 
     getQuestionData();
@@ -56,7 +49,6 @@ const PreferenceFormUI = () => {
   const navigation = useNavigation();
 
   function incrementQuestion(selectedOption) {
-    // Store the user's selected option based on the current question index
     switch (questionIndex) {
       case 0:
         setUserResponses({ ...userResponses, time_per_day: selectedOption });
@@ -66,71 +58,49 @@ const PreferenceFormUI = () => {
         updateGradient(selectedOption);
         break;
       case 2:
-        setUserResponses({
-          ...userResponses,
-          sensory_sensitivities: selectedOption,
-        });
+        setUserResponses({ ...userResponses, sensory_sensitivities: selectedOption });
         break;
       case 3:
-        setUserResponses({
-          ...userResponses,
-          learning_method: selectedOption,
-        });
+        setUserResponses({ ...userResponses, learning_method: selectedOption });
         break;
       case 4:
-        setUserResponses({
-          ...userResponses,
-          feedback_method: selectedOption,
-        });
+        setUserResponses({ ...userResponses, feedback_method: selectedOption });
         break;
       case 5:
-        setUserResponses({
-          ...userResponses,
-          interface_type: selectedOption,
-        });
+        setUserResponses({ ...userResponses, interface_type: selectedOption });
         break;
       case 6:
-        setUserResponses({
-          ...userResponses,
-          reward_type: selectedOption,
-        });
+        setUserResponses({ ...userResponses, reward_type: selectedOption });
         break;
       case 7:
-        setUserResponses({
-          ...userResponses,
-          focus_strategy: selectedOption,
-        });
+        setUserResponses({ ...userResponses, focus_strategy: selectedOption });
         break;
       default:
         break;
     }
 
-    var nextQuestionIndex = questionIndex + 1;
+    const nextQuestionIndex = questionIndex + 1;
 
-    // If the index is out of bounds, insert the responses into the database
     if (nextQuestionIndex >= prompts.length) {
       console.log(userResponses);
       saveResponsesToDatabase(userResponses);
-      // Alert.alert("REACHED LAST ANSWER CHOICE");
       navigation.navigate("Home", { gradientColors });
       return;
     }
 
-    // Update states (which then updates display)
     setQuestionIndex(nextQuestionIndex);
   }
 
   function updateGradient(selectedOption) {
-    // Assuming the second question is the color preference
     switch (selectedOption) {
       case "Blue":
         setGradientColors(["#66CCFF", "#3399FF"]);
         break;
       case "Red":
-        setGradientColors(["#FF6347", "#FF4500"]);
+        setGradientColors(["#FF6F61", "#BF2A2A"]);
         break;
       case "Green":
-        setGradientColors(["#66FF66", "#32CD32"]);
+        setGradientColors(["#66FF66", "#2E8B57"]);
         break;
       case "Purple":
         setGradientColors(["#D8BFD8", "#6A0D91"]);
@@ -149,7 +119,6 @@ const PreferenceFormUI = () => {
     }
   }
 
-  // Save the user responses to the PrefData table in the database
   const saveResponsesToDatabase = async (responses) => {
     try {
       await executeQuery(
@@ -169,7 +138,6 @@ const PreferenceFormUI = () => {
     } catch (error) {
       console.error("Error saving responses to the database: ", error);
     }
-    // Alert.alert("Responses saved successfully!");
   };
 
   return (
@@ -183,7 +151,7 @@ const PreferenceFormUI = () => {
           {questionIndex + 1}. {prompts[questionIndex]}
         </Text>
 
-        {choices[questionIndex].map((item, index) => (
+        {choices[questionIndex]?.map((item, index) => (
           <TouchableOpacity
             key={index}
             onPress={() => incrementQuestion(item)}
@@ -238,15 +206,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: "#003087",
     borderRadius: 50,
-    elevation: 2,
-  },
-  finishButton: {
-    marginTop: 20,
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    backgroundColor: "#003087",
-    borderRadius: 50,
-    alignSelf: "center",
     elevation: 2,
   },
   buttonText: {
