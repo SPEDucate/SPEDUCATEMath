@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#FFFFFF",
     position: "absolute",
-    top: "10%",
+    top: 88,
     left: 0,
     right: 0,
   },
