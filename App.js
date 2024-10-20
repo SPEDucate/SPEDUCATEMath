@@ -1,6 +1,6 @@
 // App.js
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Button } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -38,7 +38,19 @@ const App = () => {
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="Login"
-            screenOptions={{ headerShown: false }}
+            screenOptions={{
+              gestureEnabled: false,
+              headerShown: true,
+              headerTransparent: true,
+              headerTitle: "",
+              headerBackTitle: "Back",
+              headerBackTitleStyle: {
+                fontSize: 20,
+                color: "red",
+              },
+              headerBackImageSource: "./assets/favicon.png",
+              headerBackTitleVisible: false,
+            }}
           >
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Home" component={Home} />
