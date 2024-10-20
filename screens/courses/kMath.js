@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
 import { useNavigation } from "@react-navigation/native";
 import { QuizQuestion } from "./QuizQuestion";
 import { getChoicesData } from "../../scripts/db-helper";
 
-
 export function MathK() {
   const navigation = useNavigation();
-
 
   return (
     <LinearGradient
@@ -18,18 +22,19 @@ export function MathK() {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <Text style={styles.title}>Kindergarten Math</Text>
 
-
         {/* Welcome Text in White Container */}
-        
 
         {/* List Items in Another White Container */}
         <View style={styles.listContainer}>
           <Text style={styles.listItem}>1. Basic Counting</Text>
-          <Text style={styles.listItem}>2. Simple Addition and Subtraction</Text>
-          <Text style={styles.listItem}>3. Introduction to Shapes and Patterns</Text>
+          <Text style={styles.listItem}>
+            2. Simple Addition and Subtraction
+          </Text>
+          <Text style={styles.listItem}>
+            3. Introduction to Shapes and Patterns
+          </Text>
           <Text style={styles.listItem}>4. Fun Math Games and Activities</Text>
         </View>
-
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -47,20 +52,16 @@ export function MathK() {
   );
 }
 
-
 export function K1() {
   const [questionData, setQuestionData] = useState();
-
 
   useEffect(() => {
     const action = async () => {
       setQuestionData(await getChoicesData([1, 2]));
     };
 
-
     action();
   }, []);
-
 
   return (
     <LinearGradient
@@ -68,18 +69,14 @@ export function K1() {
       style={styles.container}
     >
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        
         {/* Container for Quiz Question */}
         <View style={styles.questionContainer}>
           <QuizQuestion data={questionData} id="1" />
         </View>
-
-
       </ScrollView>
     </LinearGradient>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -97,7 +94,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: "center",
   },
-
 
   // New container for description
   descriptionContainer: {
@@ -117,7 +113,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-
   // New container for the list of items
   listContainer: {
     backgroundColor: "#ffffff", // White background
@@ -135,7 +130,6 @@ const styles = StyleSheet.create({
     color: "#333", // Darker text color
     marginVertical: 8,
   },
-
 
   buttonContainer: {
     marginTop: 24,
@@ -159,7 +153,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-
   // New style for question container
   // questionContainer: {
   //   backgroundColor: "transparent", // Transparent background
@@ -169,19 +162,4 @@ const styles = StyleSheet.create({
   //   borderColor: "#ffffff", // White border
   //   marginBottom: 24, // Spacing below
   //},
-
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-

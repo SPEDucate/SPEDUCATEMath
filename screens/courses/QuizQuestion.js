@@ -19,13 +19,13 @@ export const QuizQuestion = (props) => {
     <View style={styles.container}>
       {/* Lesson Title */}
       <Text style={styles.lessonTitle}>Lesson 01: Counting</Text>
-      
+
       {/* Teaching Paragraph */}
       <Text style={styles.teachingParagraph}>
-        Teaching Paragraph: Today, we are going to practice counting from 1 to 10. 
-        Counting helps us know how many things we have. Let’s say the numbers out 
-        loud in the correct order: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. Now, let’s 
-        answer some questions to see how well we can count!
+        Today, we are going to practice counting from 1 to 10! Counting lets us
+        know how much of something we have. {"\n\n"} Let’s say the numbers out
+        loud in the correct order: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. {"\n\n"} Now,
+        let’s answer some questions to see how well we can count!
       </Text>
 
       {/* Question Container */}
@@ -42,10 +42,10 @@ export const QuizQuestion = (props) => {
             <Text style={styles.answerText}>{item[0]}</Text>
           </TouchableOpacity>
         ))}
-      </View>
 
-      {/* Explanation for answer */}
-      <Text>{explanation}</Text>
+        {/* Explanation for answer */}
+        <Text>{explanation}</Text>
+      </View>
     </View>
   );
 
@@ -113,6 +113,3 @@ const styles = StyleSheet.create({
     padding: 15,
   },
 });
-
-
-
