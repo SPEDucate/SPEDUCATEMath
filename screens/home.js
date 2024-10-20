@@ -8,6 +8,7 @@ import {
   Alert,
   ImageBackground,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const courses = [
   { id: "1", name: "Kindergarten math" },
@@ -18,8 +19,9 @@ const courses = [
   { id: "6", name: "5th grade math" },
 ];
 
-export default function Home({ navigation }) {
+export default function Home() {
   const [selectedId, setSelectedId] = useState(null);
+  const navigation = useNavigation();
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
