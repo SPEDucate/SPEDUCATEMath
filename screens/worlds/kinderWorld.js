@@ -6,8 +6,11 @@ import {
   StyleSheet,
   ImageBackground,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function KinderWorld() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -15,7 +18,12 @@ export default function KinderWorld() {
         style={styles.map}
       >
         <TouchableOpacity style={[styles.button, styles.location1]}>
-          <Text style={styles.buttonText}>1. Welcome Center</Text>
+          <Text
+            style={styles.buttonText}
+            onPress={() => navigation.navigate("K Home")}
+          >
+            1. Welcome Center
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location2]}>
           <Text style={styles.buttonText}>2. Supplies Shack</Text>
