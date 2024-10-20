@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   list: {
     flexGrow: 1,
-    marginTop: "30%",
+    marginTop: 145,
   },
   courseContainer: {
     flexDirection: "row",
