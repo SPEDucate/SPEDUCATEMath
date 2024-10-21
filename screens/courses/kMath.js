@@ -52,7 +52,7 @@ export function K1() {
   // Function to play sound for correct answers
   async function playCorrectSound() {
     const { sound } = await Audio.Sound.createAsync(
-      require("../assets/sounds/correct_answer.mp3")  // Path to the sound file
+      require("../../assets/correct_answer.mp3")  // Path to the sound file
     );
     setSound(sound);
     await sound.playAsync();
