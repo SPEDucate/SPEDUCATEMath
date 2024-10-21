@@ -5,7 +5,7 @@ import { Audio } from "expo-av";
 export const QuizQuestion = (props) => {
   const data = props.data;
   const [explanation, setExplanation] = useState();
-  const [sound, setSound] = useState(); // State for sound
+  const activeStyle = getActiveStyle();
 
   if (props.data === undefined) {
     return (
@@ -17,18 +17,18 @@ export const QuizQuestion = (props) => {
 
   let questionID = props.id;
   return (
-    <View style={styles.questionContainer}>
+    <View style={activeStyle.questionContainer}>
       {/* Question text styled in white */}
-      <Text style={styles.questionText}>{data[questionID][0]}</Text>
+      <Text style={activeStyle.questionText}>{data[questionID][0]}</Text>
 
       {/* Answer choices */}
       {data[questionID][1].map((item, index) => (
         <TouchableOpacity
           key={index}
           onPress={() => checkAnswer(item)}
-          style={styles.answerContainer}
+          style={activeStyle.answerContainer}
         >
-          <Text style={styles.answerText}>{item[0]}</Text>
+          <Text style={activeStyle.answerText}>{item[0]}</Text>
         </TouchableOpacity>
       ))}
 
@@ -68,9 +68,16 @@ export const QuizQuestion = (props) => {
   }
 };
 
+function getActiveStyle() {
+  if (INTERFACE_TYPE == "structured") return elegant;
+  return normal;
+}
+
 // Styles
-const styles = StyleSheet.create({
+const normal = StyleSheet.create({
   questionContainer: {
+    width: "100%",
+    display: "block",
     backgroundColor: "transparent", // Keep it transparent
     padding: 16,
     borderRadius: 10, // Rounded corners
@@ -86,7 +93,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   answerContainer: {
-    width: 350,
+    width: "100%",
     marginVertical: 10,
     borderRadius: 20,
     borderWidth: 2,
@@ -100,5 +107,41 @@ const styles = StyleSheet.create({
     color: "#00384b",
     textAlign: "center",
     padding: 15,
+  },
+});
+
+const elegant = StyleSheet.create({
+  questionContainer: {
+    backgroundColor: "transparent", // Keep it transparent
+    padding: 16,
+    //borderRadius: 10, // Rounded corners
+    borderWidth: 0, // Thick border
+    borderColor: "#ffffff", // White border
+    marginBottom: 24, // Spacing below
+  },
+  questionText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white", // White text for the question
+    marginBottom: 20,
+    textAlign: "center",
+    fontFamily: "Georgia",
+  },
+  answerContainer: {
+    width: 350,
+    marginVertical: 10,
+    //borderRadius: 20,
+    borderWidth: 2,
+    borderColor: "lightblue",
+    backgroundColor: "white",
+    elevation: 2,
+    alignSelf: "center",
+  },
+  answerText: {
+    fontSize: 18,
+    color: "#00384b",
+    textAlign: "center",
+    padding: 15,
+    fontFamily: "Georgia",
   },
 });

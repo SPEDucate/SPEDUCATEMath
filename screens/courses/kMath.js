@@ -12,7 +12,7 @@ import { QuizQuestion } from "./QuizQuestion";
 import { getChoicesData } from "../../scripts/db-helper";
 import { Lesson, LessonParagraph, LessonTitle } from "./Lesson";
 
-export function MathK() {
+export const MathK = () => {
   const navigation = useNavigation();
 
   return (
@@ -48,9 +48,9 @@ export function MathK() {
       </ScrollView>
     </LinearGradient>
   );
-}
+};
 
-export function K1() {
+export const K1 = () => {
   const [questionData, setQuestionData] = useState();
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export function K1() {
       <QuizQuestion data={questionData} id="5"></QuizQuestion>
     </Lesson>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -151,6 +151,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     textAlign: "center",
+  },
+  lessonParagraph: {
+    marginTop: 30, // Added marginTop for the teaching paragraph
   },
 
   // New style for question container

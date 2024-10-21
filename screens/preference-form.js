@@ -76,6 +76,7 @@ const PreferenceFormUI = () => {
         break;
       case 5:
         setUserResponses({ ...userResponses, interface_type: selectedOption });
+        saveInterface(selectedOption);
         break;
       case 6:
         setUserResponses({ ...userResponses, reward_type: selectedOption });
@@ -130,6 +131,24 @@ const PreferenceFormUI = () => {
         break;
       case "Purple":
         FAV_COLOR = ["#D8BFD8", "#6A0D91"];
+        break;
+    }
+  }
+
+  function saveInterface(selectedOption) {
+    // Assuming the second question is the color preference
+    switch (selectedOption) {
+      case "Dynamic and engaging":
+        INTERFACE_TYPE = "dynamic";
+        break;
+      case "Interactive and colorful":
+        INTERFACE_TYPE = "colorful";
+        break;
+      case "Simple and clutter-free":
+        INTERFACE_TYPE = "simple";
+        break;
+      case "Structured and organized":
+        INTERFACE_TYPE = "structured";
         break;
     }
   }
