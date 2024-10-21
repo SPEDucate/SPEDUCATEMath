@@ -1,16 +1,14 @@
-// kMath.js
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { QuizQuestion } from "./QuizQuestion";
+import { LinearGradient } from "expo-linear-gradient";  // Assuming you're using Expo
+import { useNavigation } from "@react-navigation/native";
+import { Audio } from "expo-av";  // For sound playback
+import { QuizQuestion } from "./QuizQuestion";  // Assuming you have a QuizQuestion component
 import { getChoicesData } from "../../scripts/db-helper";
-import { useColor } from "../../scripts/ColorContext"; // Assuming you're using context to manage color
+import { useColor } from "../../scripts/ColorContext";  // Assuming you're using context to manage color
 
 export function MathK() {
   const navigation = useNavigation();
-  const route = useRoute();
-  const { learningMethod } = route.params; // Get the learning method from navigation params
 
   return (
     <LinearGradient
@@ -31,9 +29,6 @@ export function MathK() {
         </Text>
         <Text style={styles.listItem}>4. Fun Math Games and Activities</Text>
 
-        {/* Conditionally render components based on learning method */}
-        {renderLearningMethodFeature(learningMethod)}
-
         <View style={styles.buttonContainer}>
           <Button
             title="Start Learning"
@@ -48,19 +43,68 @@ export function MathK() {
   );
 }
 
-// Function to render features based on learning method
-const renderLearningMethodFeature = (learningMethod) => {
-  switch (learningMethod) {
-    case "Visual aids":
-      return <Text style={styles.featureText}>Using visual aids to enhance learning!</Text>;
-    case "Hands-on activities":
-      return <Text style={styles.featureText}>Engaging in hands-on activities for practical learning!</Text>;
-    case "Repetition":
-      return <Text style={styles.featureText}>Focusing on repetition to solidify understanding!</Text>;
-    case "Auditory Instruction":
-      return <Text style={styles.featureText}>Utilizing auditory instruction to support learning!</Text>;
+export function K1() {
+  const [questionData, setQuestionData] = useState();
+  const { fav_color } = useColor();  // Use context to get favorite color
+  const [sound, setSound] = useState();  // State for sound
+  const navigation = useNavigation();
+
+  // Function to play sound for correct answers
+  async function playCorrectSound() {
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/sounds/correct_answer.mp3")  // Path to the sound file
+    );
+    setSound(sound);
+    await sound.playAsync();
+  }
+
+  // Clean up sound to avoid memory issues
+  useEffect(() => {
+    return sound
+      ? () => {
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setQuestionData(await getChoicesData([1, 2]));
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <LinearGradient
+      colors={fav_color ? getGradientColors(fav_color) : ["#66CCFF", "#3399FF"]} // Use the selected color here
+      style={styles.container}
+    >
+      <Text style={styles.sampleText}>Sample Text (not part of quiz)</Text>
+
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        <QuizQuestion
+          data={questionData}
+          onCorrectAnswer={playCorrectSound}  // Play sound when correct answer is selected
+        />
+      </ScrollView>
+    </LinearGradient>
+  );
+}
+
+// Function to return gradient colors based on the selected color
+const getGradientColors = (color) => {
+  switch (color) {
+    case "Blue":
+      return ["#66CCFF", "#3399FF"];
+    case "Red":
+      return ["#FF6F61", "#BF2A2A"];
+    case "Green":
+      return ["#66FF66", "#2E8B57"];
+    case "Purple":
+      return ["#D8BFD8", "#6A0D91"];
     default:
-      return <Text style={styles.featureText}>Choose a learning method to see specific features!</Text>;
+      return ["#66CCFF", "#3399FF"];
   }
 };
 
@@ -92,14 +136,14 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
   },
-  featureText: {
-    fontSize: 18,
-    color: "#FFFFFF",
-    textAlign: "center",
-    marginVertical: 10,
-  },
   buttonContainer: {
     marginTop: 24,
     alignItems: "center",
   },
+  sampleText: {
+    color: "#FFFFFF",
+    fontSize: 18,
+    marginVertical: 10,
+  },
 });
+
