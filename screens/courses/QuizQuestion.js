@@ -71,6 +71,8 @@ export const QuizQuestion = (props) => {
 // Styles
 const styles = StyleSheet.create({
   questionContainer: {
+    width: "100%",
+    display: "block",
     backgroundColor: "transparent", // Keep it transparent
     padding: 16,
     borderRadius: 10, // Rounded corners
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   answerContainer: {
-    width: 350,
+    width: "100%",
     marginVertical: 10,
     borderRadius: 20,
     borderWidth: 2,

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexGrow: 1,
-    padding: 20,
+    padding: 10,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
 const elegant = StyleSheet.create({
   container: {
     flex: 1,
