@@ -24,7 +24,7 @@ const PreferenceFormUI = () => {
   // Load sound function for auditory learners
   async function playCorrectSound() {
     const { sound } = await Audio.Sound.createAsync(
-      require("../assets/sounds/correct_answer.mp3")
+      require("../assets/correct_answer.mp3")
     );
     setSound(sound);
     await sound.playAsync();
