@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Alert, TouchableOpacity } from "react-native";
 import { executeQuery } from "../scripts/database";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Audio } from "expo-av";  // For sound playback
 
 const PreferenceFormUI = () => {
   const [prompts, setPrompts] = useState([]);
@@ -16,27 +15,8 @@ const PreferenceFormUI = () => {
     feedback_method: "",
     interface_type: "",
     reward_type: "",
-    focus_strategy: "",
+    focus_strategy: "fds",
   });
-
-  const [sound, setSound] = useState();  // State to manage sound
-
-  // Load sound function for auditory learners
-  async function playCorrectSound() {
-    const { sound } = await Audio.Sound.createAsync(
-      require("../assets/correct_answer.mp3")
-    );
-    setSound(sound);
-    await sound.playAsync();
-  }
-
-  useEffect(() => {
-    return sound
-      ? () => {
-          sound.unloadAsync(); // Cleanup sound to avoid memory issues
-        }
-      : undefined;
-  }, [sound]);
 
   // Fetch the data from the database
   useEffect(() => {
@@ -46,26 +26,31 @@ const PreferenceFormUI = () => {
         executeQuery("SELECT * FROM PrefChoices ORDER BY question_id"),
       ]);
 
-      const cleanedTexts = questionTexts.map(q => q.question_text);
+      const cleanedTexts = questionTexts.map((q) => q.question_text);
       const cleanedChoices = choicesRaw.reduce((acc, currChoice) => {
         const lastQuestionChoices = acc[acc.length - 1];
-        if (lastQuestionChoices && lastQuestionChoices.question_id === currChoice.question_id) {
+        if (
+          lastQuestionChoices &&
+          lastQuestionChoices.question_id === currChoice.question_id
+        ) {
           lastQuestionChoices.choices.push(currChoice.choice_text);
         } else {
-          acc.push({ question_id: currChoice.question_id, choices: [currChoice.choice_text] });
+          acc.push({
+            question_id: currChoice.question_id,
+            choices: [currChoice.choice_text],
+          });
         }
         return acc;
       }, []);
-      
+
       setPrompts(cleanedTexts);
-      setChoices(cleanedChoices.map(choice => choice.choices));
+      setChoices(cleanedChoices.map((choice) => choice.choices));
     };
 
     getQuestionData();
   }, []);
 
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [gradientColors, setGradientColors] = useState(["#66CCFF", "#3399FF"]); // Default gradient colors
   const navigation = useNavigation();
 
   function incrementQuestion(selectedOption) {
@@ -75,10 +60,13 @@ const PreferenceFormUI = () => {
         break;
       case 1:
         setUserResponses({ ...userResponses, fav_color: selectedOption });
-        updateGradient(selectedOption);
+        saveColor(selectedOption);
         break;
       case 2:
-        setUserResponses({ ...userResponses, sensory_sensitivities: selectedOption });
+        setUserResponses({
+          ...userResponses,
+          sensory_sensitivities: selectedOption,
+        });
         break;
       case 3:
         setUserResponses({ ...userResponses, learning_method: selectedOption });
@@ -104,39 +92,23 @@ const PreferenceFormUI = () => {
     if (nextQuestionIndex >= prompts.length) {
       console.log(userResponses);
       saveResponsesToDatabase(userResponses);
-      navigation.navigate("Home", { gradientColors });
+      // Alert.alert("REACHED LAST ANSWER CHOICE");
+      navigation.navigate("Home");
       return;
     }
 
     // Special handling for auditory learners
-    if (userResponses.learning_method === "Auditory Instruction" && selectedOption === "Correct Answer") {
+    if (
+      userResponses.learning_method === "Auditory Instruction" &&
+      selectedOption === "Correct Answer"
+    ) {
       playCorrectSound(); // Play sound when auditory learners get correct answers
     }
 
     setQuestionIndex(nextQuestionIndex);
   }
 
-  function updateGradient(selectedOption) {
-    switch (selectedOption) {
-      case "Blue":
-        setGradientColors(["#66CCFF", "#3399FF"]);
-        break;
-      case "Red":
-        setGradientColors(["#FF6F61", "#BF2A2A"]);
-        break;
-      case "Green":
-        setGradientColors(["#66FF66", "#2E8B57"]);
-        break;
-      case "Purple":
-        setGradientColors(["#D8BFD8", "#6A0D91"]);
-        break;
-      default:
-        setGradientColors(["#66CCFF", "#3399FF"]);
-        break;
-    }
-  }
-
-  function goBack() {
+  function decrementQuestion() {
     const prevQuestionIndex = questionIndex - 1;
 
     if (prevQuestionIndex >= 0) {
@@ -144,6 +116,25 @@ const PreferenceFormUI = () => {
     }
   }
 
+  function saveColor(selectedOption) {
+    // Assuming the second question is the color preference
+    switch (selectedOption) {
+      case "Blue":
+        FAV_COLOR = ["#66CCFF", "#3399FF"];
+        break;
+      case "Red":
+        FAV_COLOR = ["#FF6F61", "#BF2A2A"];
+        break;
+      case "Green":
+        FAV_COLOR = ["#66FF66", "#2E8B57"];
+        break;
+      case "Purple":
+        FAV_COLOR = ["#D8BFD8", "#6A0D91"];
+        break;
+    }
+  }
+
+  // Save the user responses to the PrefData table in the database
   const saveResponsesToDatabase = async (responses) => {
     try {
       await executeQuery(
@@ -166,9 +157,9 @@ const PreferenceFormUI = () => {
   };
 
   return (
-    <LinearGradient colors={gradientColors} style={styles.backgroundImage}>
+    <LinearGradient colors={FAV_COLOR} style={styles.backgroundImage}>
       <View style={styles.container}>
-        <TouchableOpacity onPress={goBack} style={styles.backButton}>
+        <TouchableOpacity onPress={decrementQuestion} style={styles.backButton}>
           <Text style={styles.buttonText}>Back</Text>
         </TouchableOpacity>
 

@@ -1,10 +1,11 @@
-// screens/kMath.js
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { Audio } from "expo-av";
 
 export const QuizQuestion = (props) => {
   const data = props.data;
   const [explanation, setExplanation] = useState();
+  const [sound, setSound] = useState(); // State for sound
 
   if (props.data === undefined) {
     return (
@@ -16,9 +17,11 @@ export const QuizQuestion = (props) => {
 
   let questionID = props.id;
   return (
-    <View style={styles.container}>
-      <Text>{data[questionID][0]}</Text>
+    <View style={styles.questionContainer}>
+      {/* Question text styled in white */}
+      <Text style={styles.questionText}>{data[questionID][0]}</Text>
 
+      {/* Answer choices */}
       {data[questionID][1].map((item, index) => (
         <TouchableOpacity
           key={index}
@@ -29,7 +32,7 @@ export const QuizQuestion = (props) => {
         </TouchableOpacity>
       ))}
 
-      {/* explanation for answer */}
+      {/* Explanation for answer */}
       <Text>{explanation}</Text>
     </View>
   );
@@ -37,29 +40,48 @@ export const QuizQuestion = (props) => {
   function checkAnswer(ansData) {
     var isCorrect = ansData[1];
     if (isCorrect) {
-      alert("CORRECT");
-      setExplanation("a correct explanation");
+      // Alert.alert("CORRECT");
+      setExplanation("Correct!");
+      playSoundCorrect();
     } else {
-      alert("INCORRECT");
+      // Alert.alert("INCORRECT");
+      setExplanation("That is incorrect, try again!");
+    }
+  }
+
+  // Function to play sound for correct answers
+  async function playSoundCorrect() {
+    const sound = new Audio.Sound();
+    try {
+      await sound.loadAsync(
+        require("../../assets/sounds/correct-electronic.mp3"),
+        {
+          shouldPlay: true,
+          volume: 0.01,
+        }
+      );
+      await sound.setPositionAsync(0);
+      await sound.playAsync();
+    } catch (error) {
+      console.error(error);
     }
   }
 };
 
-// this is all copy-pasted from PrefForm
+// Styles
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
+  questionContainer: {
+    backgroundColor: "transparent", // Keep it transparent
+    padding: 16,
+    borderRadius: 10, // Rounded corners
+    borderWidth: 3, // Thick border
+    borderColor: "#ffffff", // White border
+    marginBottom: 24, // Spacing below
   },
-  container: {
-    flex: 1,
-    padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  question: {
+  questionText: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "white",
+    color: "white", // White text for the question
     marginBottom: 20,
     textAlign: "center",
   },
@@ -78,29 +100,5 @@ const styles = StyleSheet.create({
     color: "#00384b",
     textAlign: "center",
     padding: 15,
-  },
-  backButton: {
-    position: "absolute",
-    top: 40,
-    left: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: "#003087",
-    borderRadius: 50,
-    elevation: 2,
-  },
-  finishButton: {
-    marginTop: 20,
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    backgroundColor: "#003087",
-    borderRadius: 50,
-    alignSelf: "center",
-    elevation: 2,
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 18,
   },
 });

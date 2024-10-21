@@ -29,7 +29,7 @@ function LoginScreen() {
         `SELECT user_id FROM Users WHERE username = '${userName}' AND password = '${password}'`
       );
       if (receivedData.length != 0) {
-        Alert.alert("Success", "Login successful");
+        Alert.alert("Success", "Login successful!");
         // set global var CURR_USER_ID
         CURR_USER_ID = receivedData[0].user_id;
         console.log("CURRENT USER_ID: " + CURR_USER_ID);

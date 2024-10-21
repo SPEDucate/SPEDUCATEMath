@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { ColorProvider } from './scripts/ColorContext';
 
 import LoginScreen from "./screens/login";
 import Home from "./screens/home";
@@ -54,7 +53,11 @@ const App = () => {
             }}
           >
             <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
 
             <Stack.Screen name="Kindergarten math" component={KinderWorld} />
             <Stack.Screen name="K Home" component={K.MathK} />
@@ -65,7 +68,11 @@ const App = () => {
             <Stack.Screen name="4th grade math" component={FourWorld} />
             <Stack.Screen name="5th grade math" component={FiveWorld} />
 
-            <Stack.Screen name="PreferenceForm" component={PreferenceFormUI} />
+            <Stack.Screen
+              name="PreferenceForm"
+              component={PreferenceFormUI}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen name="PathChooser" component={PathChooser} />
           </Stack.Navigator>
         </NavigationContainer>
