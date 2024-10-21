@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";  // Assuming you're using Expo
+import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
 import { useNavigation } from "@react-navigation/native";
-import { Audio } from "expo-av";  // For sound playback
-import { QuizQuestion } from "./QuizQuestion";  // Assuming you have a QuizQuestion component
+import { Audio } from "expo-av"; // For sound playback
+import { QuizQuestion } from "./QuizQuestion"; // Assuming you have a QuizQuestion component
 import { getChoicesData } from "../../scripts/db-helper";
-import { useColor } from "../../scripts/ColorContext";  // Assuming you're using context to manage color
+import { useColor } from "../../scripts/ColorContext"; // Assuming you're using context to manage color
 
 export function MathK() {
   const navigation = useNavigation();
@@ -45,14 +45,14 @@ export function MathK() {
 
 export function K1() {
   const [questionData, setQuestionData] = useState();
-  const { fav_color } = useColor();  // Use context to get favorite color
-  const [sound, setSound] = useState();  // State for sound
+  const { fav_color } = useColor(); // Use context to get favorite color
+  const [sound, setSound] = useState(); // State for sound
   const navigation = useNavigation();
 
   // Function to play sound for correct answers
   async function playCorrectSound() {
     const { sound } = await Audio.Sound.createAsync(
-      require("../assets/sounds/correct_answer.mp3")  // Path to the sound file
+      require("../../assets/correct_answer.mp3")
     );
     setSound(sound);
     await sound.playAsync();
@@ -85,7 +85,7 @@ export function K1() {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <QuizQuestion
           data={questionData}
-          onCorrectAnswer={playCorrectSound}  // Play sound when correct answer is selected
+          onCorrectAnswer={playCorrectSound} // Play sound when correct answer is selected
         />
       </ScrollView>
     </LinearGradient>
@@ -146,4 +146,3 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
 });
-
