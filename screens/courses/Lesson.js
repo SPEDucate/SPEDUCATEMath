@@ -75,11 +75,8 @@ const elegant = StyleSheet.create({
     marginBottom: 30, // Increased spacing
     textAlign: "center", // Align text to the right
     fontFamily: "Georgia", // Changed font style to Georgia
-    padding: 16, 
+    padding: 16,
     borderWidth: 3, // Thick border
     borderColor: "#ffffff",
   },
 });
-
-
-

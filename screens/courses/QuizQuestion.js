@@ -1,10 +1,11 @@
-// screens/QuizQuestion.js
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { Audio } from "expo-av";
 
 export const QuizQuestion = (props) => {
   const data = props.data;
   const [explanation, setExplanation] = useState();
+  const [sound, setSound] = useState(); // State for sound
 
   if (props.data === undefined) {
     return (
@@ -16,33 +17,20 @@ export const QuizQuestion = (props) => {
 
   let questionID = props.id;
   return (
-    <View style={styles.container}>
-      {/* Lesson Title */}
-      <Text style={styles.lessonTitle}>Lesson 01: Counting</Text>
-      
-      {/* Teaching Paragraph */}
-      <Text style={styles.teachingParagraph}>
-        Teaching Paragraph: Today, we are going to practice counting from 1 to 10. 
-        Counting helps us know how many things we have. Let’s say the numbers out 
-        loud in the correct order: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. Now, let’s 
-        answer some questions to see how well we can count!
-      </Text>
+    <View style={styles.questionContainer}>
+      {/* Question text styled in white */}
+      <Text style={styles.questionText}>{data[questionID][0]}</Text>
 
-      {/* Question Container */}
-      <View style={styles.questionContainer}>
-        {/* Question text styled in white */}
-        <Text style={styles.questionText}>{data[questionID][0]}</Text>
-
-        {data[questionID][1].map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => checkAnswer(item)}
-            style={styles.answerContainer}
-          >
-            <Text style={styles.answerText}>{item[0]}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      {/* Answer choices */}
+      {data[questionID][1].map((item, index) => (
+        <TouchableOpacity
+          key={index}
+          onPress={() => checkAnswer(item)}
+          style={styles.answerContainer}
+        >
+          <Text style={styles.answerText}>{item[0]}</Text>
+        </TouchableOpacity>
+      ))}
 
       {/* Explanation for answer */}
       <Text>{explanation}</Text>
@@ -52,35 +40,36 @@ export const QuizQuestion = (props) => {
   function checkAnswer(ansData) {
     var isCorrect = ansData[1];
     if (isCorrect) {
-      Alert.alert("CORRECT");
-      setExplanation("This is a correct answer explanation.");
+      // Alert.alert("CORRECT");
+      setExplanation("Correct!");
+      playSoundCorrect();
     } else {
-      Alert.alert("INCORRECT");
+      // Alert.alert("INCORRECT");
+      setExplanation("That is incorrect, try again!");
+    }
+  }
+
+  // Function to play sound for correct answers
+  async function playSoundCorrect() {
+    const sound = new Audio.Sound();
+    try {
+      await sound.loadAsync(
+        require("../../assets/sounds/correct-electronic.mp3"),
+        {
+          shouldPlay: true,
+          volume: 0.01,
+        }
+      );
+      await sound.setPositionAsync(0);
+      await sound.playAsync();
+    } catch (error) {
+      console.error(error);
     }
   }
 };
 
 // Styles
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  lessonTitle: {
-    fontSize: 28,
-    fontWeight: "bold",
-    color: "white",
-    marginBottom: 10,
-    textAlign: "center",
-  },
-  teachingParagraph: {
-    fontSize: 16,
-    color: "white",
-    marginBottom: 20,
-    textAlign: "center",
-  },
   questionContainer: {
     backgroundColor: "transparent", // Keep it transparent
     padding: 16,
@@ -114,10 +103,6 @@ const styles = StyleSheet.create({
   },
 });
 
-<<<<<<< Updated upstream
-
-
-=======
 const elegant = StyleSheet.create({
   questionContainer: {
     backgroundColor: "transparent", // Keep it transparent
@@ -153,4 +138,3 @@ const elegant = StyleSheet.create({
     fontFamily: "Georgia",
   },
 });
->>>>>>> Stashed changes

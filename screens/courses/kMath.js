@@ -1,41 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
 import { useNavigation } from "@react-navigation/native";
 import { QuizQuestion } from "./QuizQuestion";
 import { getChoicesData } from "../../scripts/db-helper";
-
+import { Lesson, LessonParagraph, LessonTitle } from "./Lesson";
 
 export function MathK() {
   const navigation = useNavigation();
 
-
   return (
     <LinearGradient
-      colors={["#66CCFF", "#3399FF"]} // Light blue to dark blue gradient
+      colors={FAV_COLOR} // Light blue to dark blue gradient
       style={styles.container}
     >
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <Text style={styles.title}>Kindergarten Math</Text>
 
-
-        {/* Welcome Text in White Container */}
-        
-
         {/* List Items in Another White Container */}
         <View style={styles.listContainer}>
           <Text style={styles.listItem}>1. Basic Counting</Text>
-          <Text style={styles.listItem}>2. Simple Addition and Subtraction</Text>
-          <Text style={styles.listItem}>3. Introduction to Shapes and Patterns</Text>
+          <Text style={styles.listItem}>
+            2. Simple Addition and Subtraction
+          </Text>
+          <Text style={styles.listItem}>
+            3. Introduction to Shapes and Patterns
+          </Text>
           <Text style={styles.listItem}>4. Fun Math Games and Activities</Text>
         </View>
-
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              alert("Starting the Kindergarten Math course!");
               navigation.navigate("K1");
             }}
           >
@@ -47,41 +50,20 @@ export function MathK() {
   );
 }
 
-
 export function K1() {
   const [questionData, setQuestionData] = useState();
 
-
   useEffect(() => {
-    const action = async () => {
-      setQuestionData(await getChoicesData([1, 2]));
+    const fetchData = async () => {
+      setQuestionData(await getChoicesData([1, 2, 3, 4, 5]));
     };
-
-
-    action();
+    fetchData();
   }, []);
 
-
   return (
-<<<<<<< Updated upstream
-    <LinearGradient
-      colors={["#66CCFF", "#3399FF"]} // Light blue to dark blue gradient
-      style={styles.container}
-    >
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        
-        {/* Container for Quiz Question */}
-        <View style={styles.questionContainer}>
-          <QuizQuestion data={questionData} id="1" />
-        </View>
-
-
-      </ScrollView>
-    </LinearGradient>
-=======
-    <Lesson style={styles.lesson}>
-      <LessonTitle style={styles.lesson}>Lesson 01: Counting</LessonTitle>
-      <LessonParagraph style={styles.lessonParagraph}>
+    <Lesson>
+      <LessonTitle>Lesson 01: Counting</LessonTitle>
+      <LessonParagraph>
         Today, we are going to practice counting from 1 to 10! Counting lets us
         know how much of something we have. {"\n\n"} Let’s say the numbers out
         loud in the correct order: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. {"\n\n"} Now,
@@ -93,10 +75,8 @@ export function K1() {
       <QuizQuestion data={questionData} id="4"></QuizQuestion>
       <QuizQuestion data={questionData} id="5"></QuizQuestion>
     </Lesson>
->>>>>>> Stashed changes
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -113,37 +93,26 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     marginBottom: 16,
     textAlign: "center",
-    marginTop: 30, // Added marginTop for spacing
   },
-<<<<<<< Updated upstream
 
-
-=======
->>>>>>> Stashed changes
   // New container for description
   descriptionContainer: {
     backgroundColor: "#ffffff", // White background
     padding: 16,
     borderRadius: 10, // Rounded corners
-    
     marginBottom: 24, // Space below
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 2, // Shadow for Android
-    marginTop: 23,
   },
   description: {
     fontSize: 18,
     color: "#333", // Darker text color
     textAlign: "center",
   },
-<<<<<<< Updated upstream
 
-
-=======
->>>>>>> Stashed changes
   // New container for the list of items
   listContainer: {
     backgroundColor: "#ffffff", // White background
@@ -161,11 +130,7 @@ const styles = StyleSheet.create({
     color: "#333", // Darker text color
     marginVertical: 8,
   },
-<<<<<<< Updated upstream
 
-
-=======
->>>>>>> Stashed changes
   buttonContainer: {
     marginTop: 24,
     alignItems: "center",
@@ -187,8 +152,9 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
   },
-<<<<<<< Updated upstream
-
+  lessonParagraph: {
+    marginTop: 30, // Added marginTop for the teaching paragraph
+  },
 
   // New style for question container
   // questionContainer: {
@@ -199,27 +165,4 @@ const styles = StyleSheet.create({
   //   borderColor: "#ffffff", // White border
   //   marginBottom: 24, // Spacing below
   //},
-
-=======
-  lessonParagraph: {
-    marginTop: 30, // Added marginTop for the teaching paragraph
-  },
->>>>>>> Stashed changes
 });
-
-
-
-<<<<<<< Updated upstream
-
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> Stashed changes
