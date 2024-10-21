@@ -63,6 +63,7 @@ export function K1() {
 
 
   return (
+<<<<<<< Updated upstream
     <LinearGradient
       colors={["#66CCFF", "#3399FF"]} // Light blue to dark blue gradient
       style={styles.container}
@@ -77,6 +78,22 @@ export function K1() {
 
       </ScrollView>
     </LinearGradient>
+=======
+    <Lesson style={styles.lesson}>
+      <LessonTitle style={styles.lesson}>Lesson 01: Counting</LessonTitle>
+      <LessonParagraph style={styles.lessonParagraph}>
+        Today, we are going to practice counting from 1 to 10! Counting lets us
+        know how much of something we have. {"\n\n"} Let’s say the numbers out
+        loud in the correct order: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. {"\n\n"} Now,
+        let’s answer some questions to see how well we can count!
+      </LessonParagraph>
+      <QuizQuestion data={questionData} id="1"></QuizQuestion>
+      <QuizQuestion data={questionData} id="2"></QuizQuestion>
+      <QuizQuestion data={questionData} id="3"></QuizQuestion>
+      <QuizQuestion data={questionData} id="4"></QuizQuestion>
+      <QuizQuestion data={questionData} id="5"></QuizQuestion>
+    </Lesson>
+>>>>>>> Stashed changes
   );
 }
 
@@ -96,28 +113,37 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     marginBottom: 16,
     textAlign: "center",
+    marginTop: 30, // Added marginTop for spacing
   },
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
   // New container for description
   descriptionContainer: {
     backgroundColor: "#ffffff", // White background
     padding: 16,
     borderRadius: 10, // Rounded corners
+    
     marginBottom: 24, // Space below
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 2, // Shadow for Android
+    marginTop: 23,
   },
   description: {
     fontSize: 18,
     color: "#333", // Darker text color
     textAlign: "center",
   },
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
   // New container for the list of items
   listContainer: {
     backgroundColor: "#ffffff", // White background
@@ -135,8 +161,11 @@ const styles = StyleSheet.create({
     color: "#333", // Darker text color
     marginVertical: 8,
   },
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
   buttonContainer: {
     marginTop: 24,
     alignItems: "center",
@@ -158,6 +187,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
   },
+<<<<<<< Updated upstream
 
 
   // New style for question container
@@ -170,10 +200,16 @@ const styles = StyleSheet.create({
   //   marginBottom: 24, // Spacing below
   //},
 
+=======
+  lessonParagraph: {
+    marginTop: 30, // Added marginTop for the teaching paragraph
+  },
+>>>>>>> Stashed changes
 });
 
 
 
+<<<<<<< Updated upstream
 
 
 
@@ -185,3 +221,5 @@ const styles = StyleSheet.create({
 
 
 
+=======
+>>>>>>> Stashed changes

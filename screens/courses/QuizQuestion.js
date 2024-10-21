@@ -114,5 +114,43 @@ const styles = StyleSheet.create({
   },
 });
 
+<<<<<<< Updated upstream
 
 
+=======
+const elegant = StyleSheet.create({
+  questionContainer: {
+    backgroundColor: "transparent", // Keep it transparent
+    padding: 16,
+    //borderRadius: 10, // Rounded corners
+    borderWidth: 0, // Thick border
+    borderColor: "#ffffff", // White border
+    marginBottom: 24, // Spacing below
+  },
+  questionText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white", // White text for the question
+    marginBottom: 20,
+    textAlign: "center",
+    fontFamily: "Georgia",
+  },
+  answerContainer: {
+    width: 350,
+    marginVertical: 10,
+    //borderRadius: 20,
+    borderWidth: 2,
+    borderColor: "lightblue",
+    backgroundColor: "white",
+    elevation: 2,
+    alignSelf: "center",
+  },
+  answerText: {
+    fontSize: 18,
+    color: "#00384b",
+    textAlign: "center",
+    padding: 15,
+    fontFamily: "Georgia",
+  },
+});
+>>>>>>> Stashed changes
