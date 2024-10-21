@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { Audio } from "expo-av";
 
 export const QuizQuestion = (props) => {
   const data = props.data;
   const [explanation, setExplanation] = useState();
+  const [sound, setSound] = useState(); // State for sound
 
   if (props.data === undefined) {
     return (
@@ -40,9 +42,28 @@ export const QuizQuestion = (props) => {
     if (isCorrect) {
       // Alert.alert("CORRECT");
       setExplanation("Correct!");
+      playSoundCorrect();
     } else {
       // Alert.alert("INCORRECT");
       setExplanation("That is incorrect, try again!");
+    }
+  }
+
+  // Function to play sound for correct answers
+  async function playSoundCorrect() {
+    const sound = new Audio.Sound();
+    try {
+      await sound.loadAsync(
+        require("../../assets/sounds/correct-electronic.mp3"),
+        {
+          shouldPlay: true,
+          volume: 0.01,
+        }
+      );
+      await sound.setPositionAsync(0);
+      await sound.playAsync();
+    } catch (error) {
+      console.error(error);
     }
   }
 };

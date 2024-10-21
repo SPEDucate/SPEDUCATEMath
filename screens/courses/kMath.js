@@ -23,8 +23,6 @@ export function MathK() {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <Text style={styles.title}>Kindergarten Math</Text>
 
-        {/* Welcome Text in White Container */}
-
         {/* List Items in Another White Container */}
         <View style={styles.listContainer}>
           <Text style={styles.listItem}>1. Basic Counting</Text>
@@ -56,10 +54,10 @@ export function K1() {
   const [questionData, setQuestionData] = useState();
 
   useEffect(() => {
-    const action = async () => {
+    const fetchData = async () => {
       setQuestionData(await getChoicesData([1, 2, 3, 4, 5]));
     };
-    action();
+    fetchData();
   }, []);
 
   return (
