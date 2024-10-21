@@ -5,7 +5,7 @@ import { Audio } from "expo-av";
 export const QuizQuestion = (props) => {
   const data = props.data;
   const [explanation, setExplanation] = useState();
-  const [sound, setSound] = useState(); // State for sound
+  const activeStyle = getActiveStyle();
 
   if (props.data === undefined) {
     return (
@@ -17,18 +17,18 @@ export const QuizQuestion = (props) => {
 
   let questionID = props.id;
   return (
-    <View style={styles.questionContainer}>
+    <View style={activeStyle.questionContainer}>
       {/* Question text styled in white */}
-      <Text style={styles.questionText}>{data[questionID][0]}</Text>
+      <Text style={activeStyle.questionText}>{data[questionID][0]}</Text>
 
       {/* Answer choices */}
       {data[questionID][1].map((item, index) => (
         <TouchableOpacity
           key={index}
           onPress={() => checkAnswer(item)}
-          style={styles.answerContainer}
+          style={activeStyle.answerContainer}
         >
-          <Text style={styles.answerText}>{item[0]}</Text>
+          <Text style={activeStyle.answerText}>{item[0]}</Text>
         </TouchableOpacity>
       ))}
 
@@ -68,8 +68,13 @@ export const QuizQuestion = (props) => {
   }
 };
 
+function getActiveStyle() {
+  if (INTERFACE_TYPE == "structured") return elegant;
+  return normal;
+}
+
 // Styles
-const styles = StyleSheet.create({
+const normal = StyleSheet.create({
   questionContainer: {
     width: "100%",
     display: "block",

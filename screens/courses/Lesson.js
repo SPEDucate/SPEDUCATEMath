@@ -3,12 +3,14 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
 
 export const Lesson = ({ children }) => {
+  const activeStyle = getActiveStyle();
+
   return (
     <LinearGradient
       colors={FAV_COLOR} // Light blue to dark blue gradient
-      style={styles.container}
+      style={activeStyle.container}
     >
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <ScrollView contentContainerStyle={activeStyle.contentContainer}>
         {children}
       </ScrollView>
     </LinearGradient>
@@ -16,14 +18,23 @@ export const Lesson = ({ children }) => {
 };
 
 export const LessonTitle = ({ children }) => {
-  return <Text style={styles.lessonTitle}>{children}</Text>;
+  const activeStyle = getActiveStyle();
+
+  return <Text style={activeStyle.lessonTitle}>{children}</Text>;
 };
 
 export const LessonParagraph = ({ children }) => {
-  return <Text style={styles.teachingParagraph}>{children}</Text>;
+  const activeStyle = getActiveStyle();
+
+  return <Text style={activeStyle.teachingParagraph}>{children}</Text>;
 };
 
-const styles = StyleSheet.create({
+function getActiveStyle() {
+  if (INTERFACE_TYPE == "structured") return elegant;
+  return normal;
+}
+
+const normal = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
