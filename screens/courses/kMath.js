@@ -17,7 +17,7 @@ export function MathK() {
 
   return (
     <LinearGradient
-      colors={["#66CCFF", "#3399FF"]} // Light blue to dark blue gradient
+      colors={FAV_COLOR} // Light blue to dark blue gradient
       style={styles.container}
     >
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -57,7 +57,7 @@ export function K1() {
 
   useEffect(() => {
     const action = async () => {
-      setQuestionData(await getChoicesData([1, 2]));
+      setQuestionData(await getChoicesData([1, 2, 3, 4, 5]));
     };
     action();
   }, []);
@@ -72,6 +72,10 @@ export function K1() {
         let’s answer some questions to see how well we can count!
       </LessonParagraph>
       <QuizQuestion data={questionData} id="1"></QuizQuestion>
+      <QuizQuestion data={questionData} id="2"></QuizQuestion>
+      <QuizQuestion data={questionData} id="3"></QuizQuestion>
+      <QuizQuestion data={questionData} id="4"></QuizQuestion>
+      <QuizQuestion data={questionData} id="5"></QuizQuestion>
     </Lesson>
   );
 }

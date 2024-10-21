@@ -1,4 +1,3 @@
-// screens/QuizQuestion.js
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 
