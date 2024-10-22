@@ -31,9 +31,9 @@ export const QuizQuestion = (props) => {
           style={[
             activeStyle.answerContainer,
             selectedAnswerIndex === index &&
-            (isCorrectAnswer
-              ? activeStyle.correctAnswer
-              : activeStyle.incorrectAnswer),
+              (isCorrectAnswer
+                ? activeStyle.correctAnswer
+                : activeStyle.incorrectAnswer),
           ]}
         >
           <Text style={activeStyle.answerText}>{item[0]}</Text>
@@ -54,10 +54,10 @@ export const QuizQuestion = (props) => {
       playSoundCorrect();
     } else {
       //setExplanation("That is incorrect, try again!");
+      playSoundIncorrect();
     }
   }
 
-  // Function to play sound for correct answers
   async function playSoundCorrect() {
     const sound = new Audio.Sound();
     try {
@@ -65,7 +65,7 @@ export const QuizQuestion = (props) => {
         require("../../assets/sounds/correct-electronic.mp3"),
         {
           shouldPlay: true,
-          volume: 0.01,
+          volume: 0.08,
         }
       );
       await sound.setPositionAsync(0);
@@ -75,6 +75,20 @@ export const QuizQuestion = (props) => {
     }
   }
 };
+
+async function playSoundIncorrect() {
+  const sound = new Audio.Sound();
+  try {
+    await sound.loadAsync(require("../../assets/sounds/clack-edit.mp4"), {
+      shouldPlay: true,
+      volume: 0.1,
+    });
+    await sound.setPositionAsync(0);
+    await sound.playAsync();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 function getActiveStyle() {
   if (INTERFACE_TYPE == "structured") return elegant;
