@@ -1,9 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
+import { useNavigation } from "@react-navigation/native"; // Import navigation hook
 
 export const Lesson = ({ children }) => {
   const activeStyle = getActiveStyle();
+  const navigation = useNavigation(); // Get navigation object
 
   return (
     <LinearGradient
@@ -12,6 +14,14 @@ export const Lesson = ({ children }) => {
     >
       <ScrollView contentContainerStyle={activeStyle.contentContainer}>
         {children}
+
+        {/* Complete Lesson Button */}
+        <TouchableOpacity
+          style={activeStyle.completeButton}
+          onPress={() => navigation.navigate("Kindergarten math")} // Navigate to kMath.js
+        >
+          <Text style={activeStyle.completeButtonText}>Complete Lesson</Text>
+        </TouchableOpacity>
       </ScrollView>
     </LinearGradient>
   );
@@ -60,6 +70,24 @@ const normal = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
+  completeButton: {
+    marginTop: 30,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    backgroundColor: "#4CAF50", // Green background
+    borderRadius: 10,
+    elevation: 2, // Shadow for Android
+    shadowColor: "#000", // Shadow for iOS
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    alignSelf: "center", // Center horizontally
+  },
+  completeButtonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 });
 
 const elegant = StyleSheet.create({
@@ -78,7 +106,7 @@ const elegant = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     marginBottom: 20, // Increased spacing
-    textAlign: "center", // Align text to the right
+    textAlign: "center",
     marginTop: 32, // Increased top margin
     fontFamily: "Georgia", // Changed font style to Georgia
   },
@@ -86,10 +114,28 @@ const elegant = StyleSheet.create({
     fontSize: 20, // Increased font size
     color: "white",
     marginBottom: 30, // Increased spacing
-    textAlign: "center", // Align text to the right
+    textAlign: "center",
     fontFamily: "Georgia", // Changed font style to Georgia
     padding: 16,
     borderWidth: 3, // Thick border
     borderColor: "#ffffff",
+  },
+  completeButton: {
+    marginTop: 30,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    backgroundColor: "#4CAF50", // Green background
+    borderRadius: 10,
+    elevation: 2, // Shadow for Android
+    shadowColor: "#000", // Shadow for iOS
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    alignSelf: "center", // Center horizontally
+  },
+  completeButtonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });

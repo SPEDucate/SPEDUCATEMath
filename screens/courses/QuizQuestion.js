@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Audio } from "expo-av";
 
 export const QuizQuestion = (props) => {
   const data = props.data;
   const [explanation, setExplanation] = useState();
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const [isCorrectAnswer, setIsCorrectAnswer] = useState(null);
   const activeStyle = getActiveStyle();
 
   if (props.data === undefined) {
@@ -25,8 +27,14 @@ export const QuizQuestion = (props) => {
       {data[questionID][1].map((item, index) => (
         <TouchableOpacity
           key={index}
-          onPress={() => checkAnswer(item)}
-          style={activeStyle.answerContainer}
+          onPress={() => checkAnswer(item, index)}
+          style={[
+            activeStyle.answerContainer,
+            selectedAnswerIndex === index &&
+            (isCorrectAnswer
+              ? activeStyle.correctAnswer
+              : activeStyle.incorrectAnswer),
+          ]}
         >
           <Text style={activeStyle.answerText}>{item[0]}</Text>
         </TouchableOpacity>
@@ -37,15 +45,15 @@ export const QuizQuestion = (props) => {
     </View>
   );
 
-  function checkAnswer(ansData) {
+  function checkAnswer(ansData, index) {
     var isCorrect = ansData[1];
+    setSelectedAnswerIndex(index);
+    setIsCorrectAnswer(isCorrect);
     if (isCorrect) {
-      // Alert.alert("CORRECT");
-      setExplanation("Correct!");
+      //setExplanation("Correct!");
       playSoundCorrect();
     } else {
-      // Alert.alert("INCORRECT");
-      setExplanation("That is incorrect, try again!");
+      //setExplanation("That is incorrect, try again!");
     }
   }
 
@@ -102,6 +110,12 @@ const normal = StyleSheet.create({
     elevation: 2,
     alignSelf: "center",
   },
+  correctAnswer: {
+    backgroundColor: "#d4edda", // Light green for correct answer
+  },
+  incorrectAnswer: {
+    backgroundColor: "#f8d7da", // Light red for incorrect answer
+  },
   answerText: {
     fontSize: 18,
     color: "#00384b",
@@ -114,9 +128,6 @@ const elegant = StyleSheet.create({
   questionContainer: {
     backgroundColor: "transparent", // Keep it transparent
     padding: 16,
-    //borderRadius: 10, // Rounded corners
-    borderWidth: 0, // Thick border
-    borderColor: "#ffffff", // White border
     marginBottom: 24, // Spacing below
   },
   questionText: {
@@ -130,12 +141,17 @@ const elegant = StyleSheet.create({
   answerContainer: {
     width: 350,
     marginVertical: 10,
-    //borderRadius: 20,
     borderWidth: 2,
     borderColor: "lightblue",
     backgroundColor: "white",
     elevation: 2,
     alignSelf: "center",
+  },
+  correctAnswer: {
+    backgroundColor: "#d4edda",
+  },
+  incorrectAnswer: {
+    backgroundColor: "#f8d7da",
   },
   answerText: {
     fontSize: 18,
