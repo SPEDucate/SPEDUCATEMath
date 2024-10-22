@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook
 
@@ -72,6 +78,7 @@ const normal = StyleSheet.create({
   },
   completeButton: {
     marginTop: 30,
+    marginBottom: 50,
     paddingVertical: 15,
     paddingHorizontal: 40,
     backgroundColor: "#4CAF50", // Green background
@@ -122,6 +129,7 @@ const elegant = StyleSheet.create({
   },
   completeButton: {
     marginTop: 30,
+    marginBottom: 50,
     paddingVertical: 15,
     paddingHorizontal: 40,
     backgroundColor: "#4CAF50", // Green background

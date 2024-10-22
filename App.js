@@ -15,7 +15,6 @@ import FiveWorld from "./screens/worlds/fiveWorld";
 import PreferenceFormUI from "./screens/preference-form";
 import PathChooser from "./screens/pathChooser";
 import SplashScreen from "./screens/splash-screen";
-import MathK from "./screens/courses/kMath"
 import "./scripts/global-vars";
 
 import * as K from "./screens/courses/kMath";
