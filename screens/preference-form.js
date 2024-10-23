@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { executeQuery } from "../scripts/database";
 
 const PreferenceFormUI = ({ navigation }) => {
   const [prompts, setPrompts] = useState([]);
@@ -182,9 +183,16 @@ const PreferenceFormUI = ({ navigation }) => {
   return (
     <LinearGradient colors={FAV_COLOR} style={styles.backgroundImage}>
       <View style={styles.container}>
-        <TouchableOpacity onPress={decrementQuestion} style={styles.backButton}>
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
+        {questionIndex != 0 ? (
+          <TouchableOpacity
+            onPress={decrementQuestion}
+            style={styles.backButton}
+          >
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
+        ) : (
+          <Text></Text>
+        )}
 
         <Text style={styles.question}>
           {questionIndex + 1}. {prompts[questionIndex]}

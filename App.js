@@ -1,8 +1,9 @@
-// App.js
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons"; // Import Ionicons for the settings icon
 
 import LoginScreen from "./screens/login";
 import Home from "./screens/home";
@@ -38,7 +39,7 @@ const App = () => {
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="Login"
-            screenOptions={{
+            screenOptions={({ route, navigation }) => ({
               gestureEnabled: false,
               headerShown: true,
               headerTransparent: true,
@@ -50,18 +51,48 @@ const App = () => {
               },
               headerBackImageSource: "./assets/favicon.png",
               headerBackTitleVisible: false,
-            }}
+              headerShown: true, // Show the header for Home screen
+              headerRight: () => (
+                <TouchableOpacity
+                  onPress={() => {
+                    Alert.alert(
+                      "Change UI Preferences",
+                      "Do you want to change your UI preferences?",
+                      [
+                        {
+                          text: "Cancel",
+                          style: "cancel",
+                        },
+                        {
+                          text: "Yes",
+                          onPress: () => navigation.navigate("PreferenceForm"),
+                        },
+                      ],
+                      { cancelable: true }
+                    );
+                  }}
+                  style={{ marginRight: 20 }}
+                >
+                  <Ionicons name="settings-outline" size={24} color="#fff" />
+                </TouchableOpacity>
+              ),
+            })}
           >
-            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen
               name="Home"
               component={Home}
-              options={{ headerShown: false }}
+              options={{ headerLeft: () => null }}
             />
 
             <Stack.Screen name="Kindergarten math" component={KinderWorld} />
             <Stack.Screen name="K Home" component={K.MathK} />
             <Stack.Screen name="K1" component={K.K1} />
+
             <Stack.Screen name="1st grade math" component={OneWorld} />
             <Stack.Screen name="2nd grade math" component={TwoWorld} />
             <Stack.Screen name="3rd grade math" component={ThreeWorld} />
