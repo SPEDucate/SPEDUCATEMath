@@ -6,7 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import LoginScreen from "./screens/login";
 import Home from "./screens/home";
-import KinderWorld from "./screens/worlds/kinderWorld";
+import { KinderWorld } from "./screens/worlds/kinderWorld";
 import OneWorld from "./screens/worlds/oneWorld";
 import TwoWorld from "./screens/worlds/twoWorld";
 import ThreeWorld from "./screens/worlds/threeWorld";
