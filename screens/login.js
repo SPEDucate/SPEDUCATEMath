@@ -82,7 +82,7 @@ export function LoginScreen({ navigation }) {
       style={{ flex: 1 }}
     >
       <LinearGradient colors={["#9FCAF5", "#3399FF"]} style={styles.container}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1, marginTop: 40 }}>
           <View style={styles.innerContainer}>
             <Image
               source={require("../assets/SPEDUCATE-Transparent.png")}
