@@ -47,7 +47,7 @@ export const QuizQuestion = ({ data, id }) => {
       {confettiActive && (
         <ConfettiCannon
           count={200}
-          origin={{ x: -10, y: 0 }}
+          origin={{ x: -100, y: -50 }}
           fallSpeed={2000}
           explosionSpeed={500}
           fadeOut={true}
@@ -93,7 +93,7 @@ export const QuizQuestion = ({ data, id }) => {
 
     setTimeout(() => {
       setConfettiActive(false);
-    }, 6000); // Show splash screen for 3 seconds
+    }, 8000);
   }
 
   function getActiveStyle() {

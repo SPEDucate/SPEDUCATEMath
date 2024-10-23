@@ -5,11 +5,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
+  Alert,
 } from "react-native";
 
 export const KinderWorld = ({ navigation }) => {
-  const [K1Complete, setK1Complete] = useState(false);
-
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -18,23 +17,30 @@ export const KinderWorld = ({ navigation }) => {
       >
         <TouchableOpacity
           style={[styles.button, styles.location1, styles.levelUnlocked]}
+          onPress={() => navigation.navigate("K Home")}
         >
-          <Text
-            style={styles.buttonText}
-            onPress={() => navigation.navigate("K Home")}
-          >
-            1. Welcome Center
-          </Text>
+          <Text style={styles.buttonText}>1. Welcome Center</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={[
             styles.button,
             styles.location2,
             K1_DONE ? styles.levelUnlocked : styles.levelLocked,
           ]}
+          onPress={() => {
+            if (K1_DONE) navigation.navigate("K2");
+            else {
+              Alert.alert(
+                "Level Locked",
+                "You haven't unlocked this yet! Complete the previous level first."
+              );
+            }
+          }}
         >
           <Text style={styles.buttonText}>2. Supplies Shack</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={[styles.button, styles.location3]}>
           <Text style={styles.buttonText}>3. Light Lake</Text>
         </TouchableOpacity>

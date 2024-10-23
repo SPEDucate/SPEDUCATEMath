@@ -92,19 +92,11 @@ const PreferenceFormUI = ({ navigation }) => {
     const nextQuestionIndex = questionIndex + 1;
 
     if (nextQuestionIndex >= prompts.length) {
-      console.log(userResponses);
       saveResponsesToDatabase(userResponses);
       // Alert.alert("REACHED LAST ANSWER CHOICE");
       navigation.navigate("Home");
+      setQuestionIndex(0);
       return;
-    }
-
-    // Special handling for auditory learners
-    if (
-      userResponses.learning_method === "Auditory Instruction" &&
-      selectedOption === "Correct Answer"
-    ) {
-      playCorrectSound(); // Play sound when auditory learners get correct answers
     }
 
     setQuestionIndex(nextQuestionIndex);

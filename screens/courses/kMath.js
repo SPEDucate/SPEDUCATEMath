@@ -90,6 +90,44 @@ export const K1 = ({ navigation }) => {
   );
 };
 
+export const K2 = ({ navigation }) => {
+  const [questionData, setQuestionData] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setQuestionData(await getChoicesData([6, 7, 8, 9, 10]));
+    };
+    fetchData();
+  }, []);
+
+  return (
+    <Lesson completionVar={K2_DONE}>
+      <LessonTitle>Lesson 2: Basic Addition (Within 5)</LessonTitle>
+      <LessonParagraph>
+        Let’s learn how to add today! {"\n\n"}
+        Adding means putting two groups of things together. If you have 1 apple
+        and I give you 2 more, you put them together to get 3 apples. {"\n\n"}
+        You can use your fingers to help count the total when adding!
+      </LessonParagraph>
+      <QuizQuestion data={questionData} id="6"></QuizQuestion>
+      <QuizQuestion data={questionData} id="7"></QuizQuestion>
+      <QuizQuestion data={questionData} id="8"></QuizQuestion>
+      <QuizQuestion data={questionData} id="9"></QuizQuestion>
+      <QuizQuestion data={questionData} id="10"></QuizQuestion>
+
+      <LessonCompleteButton
+        action={() => {
+          K2_DONE = true;
+          navigation.goBack();
+          navigation.goBack();
+          navigation.goBack();
+          navigation.navigate("Kindergarten math");
+        }}
+      ></LessonCompleteButton>
+    </Lesson>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

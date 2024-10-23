@@ -92,6 +92,7 @@ const App = () => {
             <Stack.Screen name="Kindergarten math" component={KinderWorld} />
             <Stack.Screen name="K Home" component={K.MathK} />
             <Stack.Screen name="K1" component={K.K1} />
+            <Stack.Screen name="K2" component={K.K2} />
 
             <Stack.Screen name="1st grade math" component={OneWorld} />
             <Stack.Screen name="2nd grade math" component={TwoWorld} />

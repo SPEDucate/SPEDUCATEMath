@@ -10,3 +10,4 @@ global.REWARD_TYPE = "default";
 global.FOCUS_STRATEGY = "default";
 
 global.K1_DONE = false;
+global.K2_DONE = false;
