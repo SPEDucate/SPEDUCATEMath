@@ -1,9 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook
 
-export const Lesson = ({ children }) => {
+export const Lesson = ({ children, completionVar }) => {
   const activeStyle = getActiveStyle();
   const navigation = useNavigation(); // Get navigation object
 
@@ -14,14 +20,6 @@ export const Lesson = ({ children }) => {
     >
       <ScrollView contentContainerStyle={activeStyle.contentContainer}>
         {children}
-
-        {/* Complete Lesson Button */}
-        <TouchableOpacity
-          style={activeStyle.completeButton}
-          onPress={() => navigation.navigate("Kindergarten math")} // Navigate to kMath.js
-        >
-          <Text style={activeStyle.completeButtonText}>Complete Lesson</Text>
-        </TouchableOpacity>
       </ScrollView>
     </LinearGradient>
   );
@@ -37,6 +35,16 @@ export const LessonParagraph = ({ children }) => {
   const activeStyle = getActiveStyle();
 
   return <Text style={activeStyle.teachingParagraph}>{children}</Text>;
+};
+
+export const LessonCompleteButton = ({ action }) => {
+  const activeStyle = getActiveStyle();
+
+  return (
+    <TouchableOpacity style={activeStyle.completeButton} onPress={action}>
+      <Text style={activeStyle.completeButtonText}>Complete Lesson</Text>
+    </TouchableOpacity>
+  );
 };
 
 function getActiveStyle() {
@@ -72,6 +80,7 @@ const normal = StyleSheet.create({
   },
   completeButton: {
     marginTop: 30,
+    marginBottom: 50,
     paddingVertical: 15,
     paddingHorizontal: 40,
     backgroundColor: "#90EE90", // Green background
@@ -146,6 +155,7 @@ const elegant = StyleSheet.create({
   },
   completeButton: {
     marginTop: 30,
+    marginBottom: 50,
     paddingVertical: 15,
     paddingHorizontal: 40,
     backgroundColor: "#4CAF50", // Green background

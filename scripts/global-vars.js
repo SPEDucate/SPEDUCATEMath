@@ -8,3 +8,5 @@ global.FEEDBACK_METHOD = "default";
 global.INTERFACE_TYPE = "default";
 global.REWARD_TYPE = "default";
 global.FOCUS_STRATEGY = "default";
+
+global.K1_DONE = false;

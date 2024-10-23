@@ -10,7 +10,12 @@ import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using 
 import { useNavigation } from "@react-navigation/native";
 import { QuizQuestion } from "./QuizQuestion";
 import { getChoicesData } from "../../scripts/db-helper";
-import { Lesson, LessonParagraph, LessonTitle } from "./Lesson";
+import {
+  Lesson,
+  LessonParagraph,
+  LessonTitle,
+  LessonCompleteButton,
+} from "./Lesson";
 
 export const MathK = () => {
   const navigation = useNavigation();
@@ -52,6 +57,7 @@ export const MathK = () => {
 
 export const K1 = () => {
   const [questionData, setQuestionData] = useState();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,7 +67,7 @@ export const K1 = () => {
   }, []);
 
   return (
-    <Lesson>
+    <Lesson completionVar={K1_DONE}>
       <LessonTitle>Lesson 01: Counting</LessonTitle>
       <LessonParagraph>
         Today, we are going to practice counting from 1 to 10! Counting lets us
@@ -74,6 +80,13 @@ export const K1 = () => {
       <QuizQuestion data={questionData} id="3"></QuizQuestion>
       <QuizQuestion data={questionData} id="4"></QuizQuestion>
       <QuizQuestion data={questionData} id="5"></QuizQuestion>
+
+      <LessonCompleteButton
+        action={() => {
+          K1_DONE = true;
+          navigation.navigate("Kindergarten math"); // Navigate to World K
+        }}
+      ></LessonCompleteButton>
     </Lesson>
   );
 };
