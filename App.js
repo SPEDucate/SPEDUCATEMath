@@ -70,24 +70,23 @@ const App = () => {
               },
               headerBackImageSource: "./assets/favicon.png",
               headerBackTitleVisible: false,
+              headerShown: true, // Show the header for Home screen
+              headerRight: ({ navigation }) => (
+                <TouchableOpacity
+                  onPress={() => handleSettingsPress(navigation)}
+                  style={{ marginRight: 20 }}
+                >
+                  <Ionicons name="settings-outline" size={24} color="#fff" />
+                </TouchableOpacity>
+              ),
             }}
           >
-            <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen
-              name="Home"
-              component={Home}
-              options={({ navigation }) => ({
-                headerShown: true, // Show the header for Home screen
-                headerRight: () => (
-                  <TouchableOpacity
-                    onPress={() => handleSettingsPress(navigation)}
-                    style={{ marginRight: 20 }}
-                  >
-                    <Ionicons name="settings-outline" size={24} color="#fff" />
-                  </TouchableOpacity>
-                ),
-              })}
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}
             />
+            <Stack.Screen name="Home" component={Home} />
 
             <Stack.Screen name="Kindergarten math" component={KinderWorld} />
             <Stack.Screen name="K Home" component={K.MathK} />
