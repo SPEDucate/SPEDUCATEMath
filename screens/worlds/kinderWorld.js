@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,15 +6,9 @@ import {
   StyleSheet,
   ImageBackground,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-export default function KinderWorld() {
-  const navigation = useNavigation();
-
-  // reload completion variables to update map
-  useEffect(() => {
-    let temp = K1_DONE;
-  }, [K1_DONE]);
+export const KinderWorld = ({ navigation }) => {
+  const [K1Complete, setK1Complete] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -53,7 +47,7 @@ export default function KinderWorld() {
       </ImageBackground>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -126,6 +120,6 @@ const styles = StyleSheet.create({
     backgroundColor: "grey",
   },
   levelUnlocked: {
-    backgroundColor: "red",
+    backgroundColor: "green",
   },
 });

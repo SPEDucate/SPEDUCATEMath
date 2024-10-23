@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native"; // Import navigation h
 
 export const Lesson = ({ children, completionVar }) => {
   const activeStyle = getActiveStyle();
-  const navigation = useNavigation(); // Get navigation object
+  const navigation = useNavigation();
 
   return (
     <LinearGradient

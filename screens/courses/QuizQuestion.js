@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Audio } from "expo-av";
+import ConfettiCannon from "react-native-confetti-cannon"; // Import Confetti Cannon
 
-export const QuizQuestion = (props) => {
-  const data = props.data;
-  const [explanation, setExplanation] = useState();
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
-  const [isCorrectAnswer, setIsCorrectAnswer] = useState(null);
-  const activeStyle = getActiveStyle();
-
-  if (props.data === undefined) {
+export const QuizQuestion = ({ data, id }) => {
+  if (data == undefined) {
     return (
       <View>
         <Text>Loading Data...</Text>
@@ -17,7 +12,13 @@ export const QuizQuestion = (props) => {
     );
   }
 
-  let questionID = props.id;
+  const [explanation, setExplanation] = useState();
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const [isCorrectAnswer, setIsCorrectAnswer] = useState(null);
+  const [confettiActive, setConfettiActive] = useState(false);
+  const activeStyle = getActiveStyle();
+
+  var questionID = id;
   return (
     <View style={activeStyle.questionContainer}>
       {/* Question text styled in white */}
@@ -42,6 +43,17 @@ export const QuizQuestion = (props) => {
 
       {/* Explanation for answer */}
       <Text>{explanation}</Text>
+
+      {confettiActive && (
+        <ConfettiCannon
+          count={200}
+          origin={{ x: -10, y: 0 }}
+          fallSpeed={2000}
+          explosionSpeed={500}
+          fadeOut={true}
+          autoStart={true}
+        />
+      )}
     </View>
   );
 
@@ -52,6 +64,7 @@ export const QuizQuestion = (props) => {
     if (isCorrect) {
       // setExplanation("Correct!");
       if (SENSORY_SENSITIVITIES != "sound") playSoundCorrect();
+      releaseConfetti();
     } else {
       // setExplanation("That is incorrect, try again!");
       if (SENSORY_SENSITIVITIES != "sound") playSoundIncorrect();
@@ -74,6 +87,19 @@ export const QuizQuestion = (props) => {
       console.error(error);
     }
   }
+
+  function releaseConfetti() {
+    setConfettiActive(true);
+
+    setTimeout(() => {
+      setConfettiActive(false);
+    }, 6000); // Show splash screen for 3 seconds
+  }
+
+  function getActiveStyle() {
+    if (INTERFACE_TYPE == "structured") return elegant;
+    return normal;
+  }
 };
 
 async function playSoundIncorrect() {
@@ -88,11 +114,6 @@ async function playSoundIncorrect() {
   } catch (error) {
     console.error(error);
   }
-}
-
-function getActiveStyle() {
-  if (INTERFACE_TYPE == "structured") return elegant;
-  return normal;
 }
 
 // Styles
