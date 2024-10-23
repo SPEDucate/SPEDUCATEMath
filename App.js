@@ -31,25 +31,6 @@ const App = () => {
     }, 3000); // Show splash screen for 3 seconds
   }, []);
 
-  // Function to handle Settings button press
-  const handleSettingsPress = (navigation) => {
-    Alert.alert(
-      "Change UI Preferences",
-      "Do you want to change your UI preferences?",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "Yes",
-          onPress: () => navigation.navigate("PreferenceForm"),
-        },
-      ],
-      { cancelable: true }
-    );
-  };
-
   return (
     <View style={styles.container}>
       {isShowSplashScreen ? (
@@ -58,7 +39,7 @@ const App = () => {
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="Login"
-            screenOptions={{
+            screenOptions={({ route, navigation }) => ({
               gestureEnabled: false,
               headerShown: true,
               headerTransparent: true,
@@ -71,26 +52,47 @@ const App = () => {
               headerBackImageSource: "./assets/favicon.png",
               headerBackTitleVisible: false,
               headerShown: true, // Show the header for Home screen
-              headerRight: ({ navigation }) => (
+              headerRight: () => (
                 <TouchableOpacity
-                  onPress={() => handleSettingsPress(navigation)}
+                  onPress={() => {
+                    Alert.alert(
+                      "Change UI Preferences",
+                      "Do you want to change your UI preferences?",
+                      [
+                        {
+                          text: "Cancel",
+                          style: "cancel",
+                        },
+                        {
+                          text: "Yes",
+                          onPress: () => navigation.navigate("PreferenceForm"),
+                        },
+                      ],
+                      { cancelable: true }
+                    );
+                  }}
                   style={{ marginRight: 20 }}
                 >
                   <Ionicons name="settings-outline" size={24} color="#fff" />
                 </TouchableOpacity>
               ),
-            }}
+            })}
           >
             <Stack.Screen
               name="Login"
               component={LoginScreen}
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerLeft: () => null }}
+            />
 
             <Stack.Screen name="Kindergarten math" component={KinderWorld} />
             <Stack.Screen name="K Home" component={K.MathK} />
             <Stack.Screen name="K1" component={K.K1} />
+
             <Stack.Screen name="1st grade math" component={OneWorld} />
             <Stack.Screen name="2nd grade math" component={TwoWorld} />
             <Stack.Screen name="3rd grade math" component={ThreeWorld} />
