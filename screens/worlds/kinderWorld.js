@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -11,13 +11,20 @@ import { useNavigation } from "@react-navigation/native";
 export default function KinderWorld() {
   const navigation = useNavigation();
 
+  // reload completion variables to update map
+  useEffect(() => {
+    let temp = K1_DONE;
+  }, [K1_DONE]);
+
   return (
     <View style={styles.container}>
       <ImageBackground
         source={require("../../assets/kVillage.png")}
         style={styles.map}
       >
-        <TouchableOpacity style={[styles.button, styles.location1]}>
+        <TouchableOpacity
+          style={[styles.button, styles.location1, styles.levelUnlocked]}
+        >
           <Text
             style={styles.buttonText}
             onPress={() => navigation.navigate("K Home")}
@@ -25,7 +32,13 @@ export default function KinderWorld() {
             1. Welcome Center
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.location2]}>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            styles.location2,
+            K1_DONE ? styles.levelUnlocked : styles.levelLocked,
+          ]}
+        >
           <Text style={styles.buttonText}>2. Supplies Shack</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.location3]}>
@@ -107,5 +120,12 @@ const styles = StyleSheet.create({
     top: "15%",
     left: "40%",
     backgroundColor: "grey",
+  },
+
+  levelLocked: {
+    backgroundColor: "grey",
+  },
+  levelUnlocked: {
+    backgroundColor: "red",
   },
 });

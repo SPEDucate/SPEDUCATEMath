@@ -10,9 +10,14 @@ import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using 
 import { useNavigation } from "@react-navigation/native";
 import { QuizQuestion } from "./QuizQuestion";
 import { getChoicesData } from "../../scripts/db-helper";
-import { Lesson, LessonParagraph, LessonTitle } from "./Lesson";
+import {
+  Lesson,
+  LessonParagraph,
+  LessonTitle,
+  LessonCompleteButton,
+} from "./Lesson";
 
-export function MathK() {
+export const MathK = () => {
   const navigation = useNavigation();
 
   return (
@@ -22,8 +27,6 @@ export function MathK() {
     >
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <Text style={styles.title}>Kindergarten Math</Text>
-
-        {/* Welcome Text in White Container */}
 
         {/* List Items in Another White Container */}
         <View style={styles.listContainer}>
@@ -50,20 +53,21 @@ export function MathK() {
       </ScrollView>
     </LinearGradient>
   );
-}
+};
 
-export function K1() {
+export const K1 = () => {
   const [questionData, setQuestionData] = useState();
+  const navigation = useNavigation();
 
   useEffect(() => {
-    const action = async () => {
+    const fetchData = async () => {
       setQuestionData(await getChoicesData([1, 2, 3, 4, 5]));
     };
-    action();
+    fetchData();
   }, []);
 
   return (
-    <Lesson>
+    <Lesson completionVar={K1_DONE}>
       <LessonTitle>Lesson 01: Counting</LessonTitle>
       <LessonParagraph>
         Today, we are going to practice counting from 1 to 10! Counting lets us
@@ -71,15 +75,21 @@ export function K1() {
         loud in the correct order: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. {"\n\n"} Now,
         let’s answer some questions to see how well we can count!
       </LessonParagraph>
+      <QuizQuestion data={questionData} id="1"></QuizQuestion>
+      <QuizQuestion data={questionData} id="2"></QuizQuestion>
+      <QuizQuestion data={questionData} id="3"></QuizQuestion>
+      <QuizQuestion data={questionData} id="4"></QuizQuestion>
+      <QuizQuestion data={questionData} id="5"></QuizQuestion>
 
-      <QuizQuestion data={questionData} id="1" />
-      <QuizQuestion data={questionData} id="2" />
-      <QuizQuestion data={questionData} id="3" />
-      <QuizQuestion data={questionData} id="4" />
-      <QuizQuestion data={questionData} id="5" />
+      <LessonCompleteButton
+        action={() => {
+          K1_DONE = true;
+          navigation.navigate("Kindergarten math"); // Navigate to World K
+        }}
+      ></LessonCompleteButton>
     </Lesson>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -154,5 +164,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     textAlign: "center",
+  },
+  lessonParagraph: {
+    marginTop: 30, // Added marginTop for the teaching paragraph
   },
 });

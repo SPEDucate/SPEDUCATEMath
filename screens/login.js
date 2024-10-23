@@ -1,4 +1,3 @@
-// screens/LoginNew.js
 import {
   View,
   Text,
@@ -7,6 +6,9 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import { executeQuery } from "../scripts/database";
@@ -30,7 +32,6 @@ function LoginScreen() {
       );
       if (receivedData.length != 0) {
         Alert.alert("Success", "Login successful!");
-        // set global var CURR_USER_ID
         CURR_USER_ID = receivedData[0].user_id;
         console.log("CURRENT USER_ID: " + CURR_USER_ID);
 
@@ -64,7 +65,6 @@ function LoginScreen() {
       setUserName("");
       setPassword("");
 
-      // set global var user_id
       const receivedData = await executeQuery(
         `SELECT user_id FROM Users WHERE username = '${userName}' AND password = '${password}'`
       );
@@ -79,40 +79,47 @@ function LoginScreen() {
   };
 
   return (
-    <LinearGradient
-      colors={["#9FCAF5", "#3399FF"]} // Light blue to dark blue with slight gradient
-      style={styles.container}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjusts based on platform
+      style={{ flex: 1 }}
     >
-      <View style={styles.container}>
-        <Image
-          source={require("../assets/SPEDUCATE-Transparent.png")}
-          style={styles.logo}
-        />
-        <Text style={styles.title}>Welcome</Text>
-        <Text style={styles.subtitle}>Log in or Register to your account</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Username"
-          placeholderTextColor="black"
-          value={userName}
-          onChangeText={(value) => setUserName(value)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="black"
-          secureTextEntry
-          value={password}
-          onChangeText={(value) => setPassword(value)}
-        />
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
-      </View>
-    </LinearGradient>
+      <LinearGradient
+        colors={["#9FCAF5", "#3399FF"]}
+        style={styles.container}
+      >
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View style={styles.innerContainer}>
+            <Image
+              source={require("../assets/SPEDUCATE-Transparent.png")}
+              style={styles.logo}
+            />
+            <Text style={styles.title}>Welcome</Text>
+            <Text style={styles.subtitle}>Log in or Register to your account</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Username"
+              placeholderTextColor="black"
+              value={userName}
+              onChangeText={(value) => setUserName(value)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              placeholderTextColor="black"
+              secureTextEntry
+              value={password}
+              onChangeText={(value) => setPassword(value)}
+            />
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={handleRegister}>
+              <Text style={styles.buttonText}>Register</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </LinearGradient>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -120,8 +127,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
     padding: 16,
+  },
+  innerContainer: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontSize: 32,

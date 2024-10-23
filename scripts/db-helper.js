@@ -12,7 +12,7 @@ export const getChoicesData = async (QUESTIONS_TO_GET) => {
       `SELECT question_id, question_text FROM CourseQuestions WHERE question_id IN (${questions_sql_string});`
     ),
     executeQuery(
-      `SELECT question_id, choice_text, correct FROM CourseChoices WHERE question_id IN (${questions_sql_string});`
+      `SELECT question_id, choice_text, correct FROM CourseChoices WHERE question_id IN (${questions_sql_string}) ORDER BY choice_id ASC;`
     ),
   ]);
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Audio } from "expo-av";
 import ConfettiCannon from "react-native-confetti-cannon"; // Import Confetti Cannon
 
 export const QuizQuestion = ({ data, id }) => {
@@ -12,22 +13,31 @@ export const QuizQuestion = ({ data, id }) => {
   }
 
   const [explanation, setExplanation] = useState();
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const [isCorrectAnswer, setIsCorrectAnswer] = useState(null);
   const [confettiActive, setConfettiActive] = useState(false);
+  const activeStyle = getActiveStyle();
 
   var questionID = id;
   return (
-    <View style={styles.questionContainer}>
+    <View style={activeStyle.questionContainer}>
       {/* Question text styled in white */}
-      <Text style={styles.questionText}>{data[questionID][0]}</Text>
+      <Text style={activeStyle.questionText}>{data[questionID][0]}</Text>
 
       {/* Answer choices */}
       {data[questionID][1].map((item, index) => (
         <TouchableOpacity
           key={index}
-          onPress={() => checkAnswer(item)}
-          style={styles.answerContainer}
+          onPress={() => checkAnswer(item, index)}
+          style={[
+            activeStyle.answerContainer,
+            selectedAnswerIndex === index &&
+              (isCorrectAnswer
+                ? activeStyle.correctAnswer
+                : activeStyle.incorrectAnswer),
+          ]}
         >
-          <Text style={styles.answerText}>{item[0]}</Text>
+          <Text style={activeStyle.answerText}>{item[0]}</Text>
         </TouchableOpacity>
       ))}
 
@@ -47,15 +57,34 @@ export const QuizQuestion = ({ data, id }) => {
     </View>
   );
 
-  function checkAnswer(ansData) {
+  function checkAnswer(ansData, index) {
     var isCorrect = ansData[1];
+    setSelectedAnswerIndex(index);
+    setIsCorrectAnswer(isCorrect);
     if (isCorrect) {
-      // Alert.alert("CORRECT");
-      setExplanation("Correct!");
+      // setExplanation("Correct!");
+      if (SENSORY_SENSITIVITIES != "sound") playSoundCorrect();
       releaseConfetti();
     } else {
-      // Alert.alert("INCORRECT");
-      setExplanation("That is incorrect, try again!");
+      // setExplanation("That is incorrect, try again!");
+      if (SENSORY_SENSITIVITIES != "sound") playSoundIncorrect();
+    }
+  }
+
+  async function playSoundCorrect() {
+    const sound = new Audio.Sound();
+    try {
+      await sound.loadAsync(
+        require("../../assets/sounds/correct-electronic.mp3"),
+        {
+          shouldPlay: true,
+          volume: 0.08,
+        }
+      );
+      await sound.setPositionAsync(0);
+      await sound.playAsync();
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -66,11 +95,32 @@ export const QuizQuestion = ({ data, id }) => {
       setConfettiActive(false);
     }, 6000); // Show splash screen for 3 seconds
   }
+
+  function getActiveStyle() {
+    if (INTERFACE_TYPE == "structured") return elegant;
+    return normal;
+  }
 };
 
+async function playSoundIncorrect() {
+  const sound = new Audio.Sound();
+  try {
+    await sound.loadAsync(require("../../assets/sounds/clack-edit.mp4"), {
+      shouldPlay: true,
+      volume: 0.1,
+    });
+    await sound.setPositionAsync(0);
+    await sound.playAsync();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // Styles
-const styles = StyleSheet.create({
+const normal = StyleSheet.create({
   questionContainer: {
+    width: "100%",
+    display: "block",
     backgroundColor: "transparent", // Keep it transparent
     padding: 16,
     borderRadius: 10, // Rounded corners
@@ -86,7 +136,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   answerContainer: {
-    width: 350,
+    width: "100%",
     marginVertical: 10,
     borderRadius: 20,
     borderWidth: 2,
@@ -95,10 +145,54 @@ const styles = StyleSheet.create({
     elevation: 2,
     alignSelf: "center",
   },
+  correctAnswer: {
+    backgroundColor: "#d4edda", // Light green for correct answer
+  },
+  incorrectAnswer: {
+    backgroundColor: "#f8d7da", // Light red for incorrect answer
+  },
   answerText: {
     fontSize: 18,
     color: "#00384b",
     textAlign: "center",
     padding: 15,
+  },
+});
+
+const elegant = StyleSheet.create({
+  questionContainer: {
+    backgroundColor: "transparent", // Keep it transparent
+    padding: 16,
+    marginBottom: 24, // Spacing below
+  },
+  questionText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "white", // White text for the question
+    marginBottom: 20,
+    textAlign: "center",
+    fontFamily: "Georgia",
+  },
+  answerContainer: {
+    width: 350,
+    marginVertical: 10,
+    borderWidth: 2,
+    borderColor: "lightblue",
+    backgroundColor: "white",
+    elevation: 2,
+    alignSelf: "center",
+  },
+  correctAnswer: {
+    backgroundColor: "#d4edda",
+  },
+  incorrectAnswer: {
+    backgroundColor: "#f8d7da",
+  },
+  answerText: {
+    fontSize: 18,
+    color: "#00384b",
+    textAlign: "center",
+    padding: 15,
+    fontFamily: "Georgia",
   },
 });
