@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { executeQuery } from "../scripts/database";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -67,6 +67,7 @@ const PreferenceFormUI = () => {
           ...userResponses,
           sensory_sensitivities: selectedOption,
         });
+        saveSensorySensitivities(selectedOption);
         break;
       case 3:
         setUserResponses({ ...userResponses, learning_method: selectedOption });
@@ -133,6 +134,10 @@ const PreferenceFormUI = () => {
         FAV_COLOR = ["#D8BFD8", "#6A0D91"];
         break;
     }
+  }
+
+  function saveSensorySensitivities(selectedOption) {
+    SENSORY_SENSITIVITIES = selectedOption.toLowerCase();
   }
 
   function saveInterface(selectedOption) {

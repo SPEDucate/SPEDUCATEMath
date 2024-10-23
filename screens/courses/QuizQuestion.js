@@ -50,11 +50,11 @@ export const QuizQuestion = (props) => {
     setSelectedAnswerIndex(index);
     setIsCorrectAnswer(isCorrect);
     if (isCorrect) {
-      //setExplanation("Correct!");
-      playSoundCorrect();
+      // setExplanation("Correct!");
+      if (SENSORY_SENSITIVITIES != "sound") playSoundCorrect();
     } else {
-      //setExplanation("That is incorrect, try again!");
-      playSoundIncorrect();
+      // setExplanation("That is incorrect, try again!");
+      if (SENSORY_SENSITIVITIES != "sound") playSoundIncorrect();
     }
   }
 
