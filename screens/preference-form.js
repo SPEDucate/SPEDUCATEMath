@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { executeQuery } from "../scripts/database";
-import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
-const PreferenceFormUI = () => {
+const PreferenceFormUI = ({ navigation }) => {
   const [prompts, setPrompts] = useState([]);
   const [choices, setChoices] = useState([["Loading Data..."]]);
   const [userResponses, setUserResponses] = useState({
@@ -53,7 +51,6 @@ const PreferenceFormUI = () => {
   }, []);
 
   const [questionIndex, setQuestionIndex] = useState(0);
-  const navigation = useNavigation();
 
   function incrementQuestion(selectedOption) {
     switch (questionIndex) {

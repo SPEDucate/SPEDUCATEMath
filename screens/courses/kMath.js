@@ -7,7 +7,6 @@ import {
   ScrollView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
-import { useNavigation } from "@react-navigation/native";
 import { QuizQuestion } from "./QuizQuestion";
 import { getChoicesData } from "../../scripts/db-helper";
 import {
@@ -17,9 +16,7 @@ import {
   LessonCompleteButton,
 } from "./Lesson";
 
-export const MathK = () => {
-  const navigation = useNavigation();
-
+export const MathK = ({ navigation }) => {
   return (
     <LinearGradient
       colors={FAV_COLOR} // Light blue to dark blue gradient
@@ -55,9 +52,8 @@ export const MathK = () => {
   );
 };
 
-export const K1 = () => {
+export const K1 = ({ navigation }) => {
   const [questionData, setQuestionData] = useState();
-  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,7 +80,10 @@ export const K1 = () => {
       <LessonCompleteButton
         action={() => {
           K1_DONE = true;
-          navigation.navigate("Kindergarten math"); // Navigate to World K
+          navigation.goBack();
+          navigation.goBack();
+          navigation.goBack();
+          navigation.navigate("Kindergarten math");
         }}
       ></LessonCompleteButton>
     </Lesson>

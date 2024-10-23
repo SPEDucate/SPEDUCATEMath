@@ -12,13 +12,11 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { executeQuery } from "../scripts/database";
-import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
-function LoginScreen() {
+export function LoginScreen({ navigation }) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const navigation = useNavigation();
 
   const handleLogin = async () => {
     if (userName.length === 0 || password.length === 0) {
@@ -83,10 +81,7 @@ function LoginScreen() {
       behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjusts based on platform
       style={{ flex: 1 }}
     >
-      <LinearGradient
-        colors={["#9FCAF5", "#3399FF"]}
-        style={styles.container}
-      >
+      <LinearGradient colors={["#9FCAF5", "#3399FF"]} style={styles.container}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={styles.innerContainer}>
             <Image
@@ -94,7 +89,9 @@ function LoginScreen() {
               style={styles.logo}
             />
             <Text style={styles.title}>Welcome</Text>
-            <Text style={styles.subtitle}>Log in or Register to your account</Text>
+            <Text style={styles.subtitle}>
+              Log in or Register to your account
+            </Text>
             <TextInput
               style={styles.input}
               placeholder="Username"
