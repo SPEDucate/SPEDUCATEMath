@@ -185,9 +185,16 @@ const PreferenceFormUI = () => {
   return (
     <LinearGradient colors={FAV_COLOR} style={styles.backgroundImage}>
       <View style={styles.container}>
-        <TouchableOpacity onPress={decrementQuestion} style={styles.backButton}>
-          <Text style={styles.buttonText}>Back</Text>
-        </TouchableOpacity>
+        {questionIndex != 0 ? (
+          <TouchableOpacity
+            onPress={decrementQuestion}
+            style={styles.backButton}
+          >
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
+        ) : (
+          <Text></Text>
+        )}
 
         <Text style={styles.question}>
           {questionIndex + 1}. {prompts[questionIndex]}
