@@ -74,7 +74,31 @@ const normal = StyleSheet.create({
     marginTop: 30,
     paddingVertical: 15,
     paddingHorizontal: 40,
-    backgroundColor: "#4CAF50", // Green background
+    backgroundColor: "#90EE90", // Green background
+    borderRadius: 10,
+    elevation: 2, // Shadow for Android
+    shadowColor: "#000", // Shadow for iOS
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    alignSelf: "center", // Center horizontally
+  },
+  halfcompleteButton: {
+    marginTop: 30,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    backgroundColor: "#FFFFE0", // Yellow background
+    borderRadius: 10,
+    elevation: 2, // Shadow for Android
+    shadowColor: "#000", // Shadow for iOS
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    alignSelf: "center", // Center horizontally
+  },
+  lockedButton: {
+    marginTop: 30,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    backgroundColor: "#D3D3D3", // Grey background
     borderRadius: 10,
     elevation: 2, // Shadow for Android
     shadowColor: "#000", // Shadow for iOS
