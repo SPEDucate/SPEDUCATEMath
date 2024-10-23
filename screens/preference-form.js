@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { executeQuery } from "../scripts/database";
 
 const PreferenceFormUI = ({ navigation }) => {
   const [prompts, setPrompts] = useState([]);
