@@ -1,8 +1,9 @@
-// App.js
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons"; // Import Ionicons for the settings icon
 
 import LoginScreen from "./screens/login";
 import Home from "./screens/home";
@@ -30,6 +31,25 @@ const App = () => {
     }, 3000); // Show splash screen for 3 seconds
   }, []);
 
+  // Function to handle Settings button press
+  const handleSettingsPress = (navigation) => {
+    Alert.alert(
+      "Change UI Preferences",
+      "Do you want to change your UI preferences?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => navigation.navigate("PreferenceForm"),
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
   return (
     <View style={styles.container}>
       {isShowSplashScreen ? (
@@ -56,7 +76,17 @@ const App = () => {
             <Stack.Screen
               name="Home"
               component={Home}
-              options={{ headerShown: false }}
+              options={({ navigation }) => ({
+                headerShown: true, // Show the header for Home screen
+                headerRight: () => (
+                  <TouchableOpacity
+                    onPress={() => handleSettingsPress(navigation)}
+                    style={{ marginRight: 20 }}
+                  >
+                    <Ionicons name="settings-outline" size={24} color="#fff" />
+                  </TouchableOpacity>
+                ),
+              })}
             />
 
             <Stack.Screen name="Kindergarten math" component={KinderWorld} />
