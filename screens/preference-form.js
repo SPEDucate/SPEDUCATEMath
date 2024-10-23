@@ -23,7 +23,9 @@ const PreferenceFormUI = () => {
     const getQuestionData = async () => {
       const [questionTexts, choicesRaw] = await Promise.all([
         executeQuery("SELECT * FROM PrefQuestions ORDER BY question_id"),
-        executeQuery("SELECT * FROM PrefChoices ORDER BY question_id"),
+        executeQuery(
+          "SELECT * FROM PrefChoices ORDER BY question_id ASC, choice_id ASC"
+        ),
       ]);
 
       const cleanedTexts = questionTexts.map((q) => q.question_text);
