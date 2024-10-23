@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { Text, StyleSheet, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Assuming you're using Expo
 
 export const Lesson = ({ children }) => {

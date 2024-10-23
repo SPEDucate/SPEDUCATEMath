@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import ConfettiCannon from "react-native-confetti-cannon"; // Import Confetti Cannon
 
-export const QuizQuestion = (props) => {
-  const data = props.data;
-  const [explanation, setExplanation] = useState();
-
-  if (props.data === undefined) {
+export const QuizQuestion = ({ data, id }) => {
+  if (data == undefined) {
     return (
       <View>
         <Text>Loading Data...</Text>
@@ -13,7 +11,10 @@ export const QuizQuestion = (props) => {
     );
   }
 
-  let questionID = props.id;
+  const [explanation, setExplanation] = useState();
+  const [confettiActive, setConfettiActive] = useState(false);
+
+  var questionID = id;
   return (
     <View style={styles.questionContainer}>
       {/* Question text styled in white */}
@@ -32,6 +33,17 @@ export const QuizQuestion = (props) => {
 
       {/* Explanation for answer */}
       <Text>{explanation}</Text>
+
+      {confettiActive && (
+        <ConfettiCannon
+          count={200}
+          origin={{ x: -10, y: 0 }}
+          fallSpeed={2000}
+          explosionSpeed={500}
+          fadeOut={true}
+          autoStart={true}
+        />
+      )}
     </View>
   );
 
@@ -40,10 +52,19 @@ export const QuizQuestion = (props) => {
     if (isCorrect) {
       // Alert.alert("CORRECT");
       setExplanation("Correct!");
+      releaseConfetti();
     } else {
       // Alert.alert("INCORRECT");
       setExplanation("That is incorrect, try again!");
     }
+  }
+
+  function releaseConfetti() {
+    setConfettiActive(true);
+
+    setTimeout(() => {
+      setConfettiActive(false);
+    }, 6000); // Show splash screen for 3 seconds
   }
 };
 

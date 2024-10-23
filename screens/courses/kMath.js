@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import { QuizQuestion } from "./QuizQuestion";
 import { getChoicesData } from "../../scripts/db-helper";
 import { Lesson, LessonParagraph, LessonTitle } from "./Lesson";
-import ConfettiCannon from 'react-native-confetti-cannon';  // Import Confetti Cannon
 
 export function MathK() {
   const navigation = useNavigation();
@@ -55,8 +54,6 @@ export function MathK() {
 
 export function K1() {
   const [questionData, setQuestionData] = useState();
-  const [showConfetti, setShowConfetti] = useState(false);  // Track when to show confetti
-  const confettiRef = useRef(null);  // Ref for the Confetti Cannon
 
   useEffect(() => {
     const action = async () => {
@@ -64,15 +61,6 @@ export function K1() {
     };
     action();
   }, []);
-
-  const handleCorrectAnswer = () => {
-    setShowConfetti(true);  // Show confetti when the correct answer is selected
-
-    // Hide confetti after 2 seconds
-    setTimeout(() => {
-      setShowConfetti(false);
-    }, 2000);
-  };
 
   return (
     <Lesson>
@@ -84,42 +72,11 @@ export function K1() {
         let’s answer some questions to see how well we can count!
       </LessonParagraph>
 
-      <QuizQuestion 
-        data={questionData} 
-        id="1"
-        onCorrectAnswer={handleCorrectAnswer}  // Trigger confetti on correct answer
-      />
-      <QuizQuestion 
-        data={questionData} 
-        id="2"
-        onCorrectAnswer={handleCorrectAnswer}  // Trigger confetti on correct answer
-      />
-      <QuizQuestion 
-        data={questionData} 
-        id="3"
-        onCorrectAnswer={handleCorrectAnswer}  // Trigger confetti on correct answer
-      />
-      <QuizQuestion 
-        data={questionData} 
-        id="4"
-        onCorrectAnswer={handleCorrectAnswer}  // Trigger confetti on correct answer
-      />
-      <QuizQuestion 
-        data={questionData} 
-        id="5"
-        onCorrectAnswer={handleCorrectAnswer}  // Trigger confetti on correct answer
-      />
-
-      {/* Confetti Cannon */}
-      {showConfetti && (
-        <ConfettiCannon
-          count={200}
-          origin={{ x: 0, y: 0 }}  // Start from the top left of the screen
-          fadeOut={true}
-          autoStart={true}
-          ref={confettiRef}
-        />
-      )}
+      <QuizQuestion data={questionData} id="1" />
+      <QuizQuestion data={questionData} id="2" />
+      <QuizQuestion data={questionData} id="3" />
+      <QuizQuestion data={questionData} id="4" />
+      <QuizQuestion data={questionData} id="5" />
     </Lesson>
   );
 }
